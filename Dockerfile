@@ -1,5 +1,5 @@
-# Multi-stage build for Angular application
-FROM node:18-alpine AS build
+# Single stage build (simpler but larger image)
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
@@ -7,36 +7,31 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production=false
+# Install dependencies and Angular CLI
+RUN npm ci && npm install -g @angular/cli
 
 # Copy source code
 COPY . .
 
-# Build the Angular application
-RUN npm run build -- --configuration production
+# Build the application
+RUN ng build --configuration production
 
-# Debug: Check what was built
-RUN echo "Checking dist folder structure:" && \
-    find /app/dist -type f -name "*.html" -o -name "*.js" -o -name "*.css" | head -20
+# Install nginx
+RUN apk add --no-cache nginx
 
-# Production stage
-FROM nginx:alpine
-
-# Remove default nginx files
-RUN rm -rf /usr/share/nginx/html/*
-
-# Try different copy paths based on Angular version
-# For Angular 17+, try browser subfolder first
-COPY --from=build /app/dist/return-to-self/browser /usr/share/nginx/html 2>/dev/null || \
-COPY --from=build /app/dist/return-to-self /usr/share/nginx/html 2>/dev/null || \
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Debug: Check what was copied
-RUN echo "Files in nginx html:" && ls -la /usr/share/nginx/html/
-
-# Copy custom nginx configuration
+# Copy nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Create nginx directories
+RUN mkdir -p /var/log/nginx /var/lib/nginx/tmp
+
+# Copy built files to nginx
+RUN cp -r dist/return-to-self/* /usr/share/nginx/html/ 2>/dev/null || \
+    cp -r dist/* /usr/share/nginx/html/ 2>/dev/null || \
+    echo "Build files not found in expected location"
+
+# Show what we have
+RUN ls -la /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80

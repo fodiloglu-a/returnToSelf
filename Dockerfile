@@ -1,32 +1,62 @@
-# Stage 1: Build the Angular application
-FROM node:18 as build
+# Multi-stage build for Angular application
+FROM node:18-alpine AS build
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci --only=production=false
 
-# Copy the rest of the application
+# Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Build the Angular application
+RUN npm run build -- --configuration production
 
-# Stage 2: Serve the application using Nginx
+# Debug: Show build output
+RUN echo "=== Checking build output ===" && \
+    find /app -name "index.html" -type f && \
+    ls -la /app/dist/ && \
+    ls -la /app/dist/*/ 2>/dev/null || true
+
+# Production stage
 FROM nginx:alpine
 
-# Copy the build output to replace the default nginx contents
-COPY --from=build /app/dist/return-to-self /usr/share/nginx/html
+# Remove default nginx content
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy custom nginx configuration (if needed)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy all possible build outputs and set proper permissions
+COPY --from=build /app/dist /tmp/dist
+RUN if [ -d "/tmp/dist/return-to-self/browser" ]; then \
+        cp -r /tmp/dist/return-to-self/browser/* /usr/share/nginx/html/; \
+    elif [ -d "/tmp/dist/return-to-self" ]; then \
+        cp -r /tmp/dist/return-to-self/* /usr/share/nginx/html/; \
+    else \
+        cp -r /tmp/dist/* /usr/share/nginx/html/; \
+    fi && \
+    rm -rf /tmp/dist
+
+# Set proper permissions
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
+
+# Verify files and permissions
+RUN echo "=== Final check ===" && \
+    ls -la /usr/share/nginx/html/ && \
+    echo "=== Index.html exists? ===" && \
+    test -f /usr/share/nginx/html/index.html && echo "YES" || echo "NO"
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Test nginx config
+RUN nginx -t
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx server
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]

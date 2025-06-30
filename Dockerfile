@@ -1,40 +1,32 @@
-# Single stage build (simpler but larger image)
-FROM node:18-alpine
+# Stage 1: Build the Angular application
+FROM node:18 as build
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies and Angular CLI
-RUN npm ci && npm install -g @angular/cli
+# Install dependencies
+RUN npm install
 
-# Copy source code
+# Copy the rest of the application
 COPY . .
 
 # Build the application
-RUN ng build --configuration production
+RUN npm run build
 
-# Install nginx
-RUN apk add --no-cache nginx
+# Stage 2: Serve the application using Nginx
+FROM nginx:alpine
 
-# Copy nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the build output to replace the default nginx contents
+COPY --from=build /app/dist/return-to-self /usr/share/nginx/html
 
-# Create nginx directories
-RUN mkdir -p /var/log/nginx /var/lib/nginx/tmp
-
-# Copy built files to nginx
-RUN cp -r dist/return-to-self/* /usr/share/nginx/html/ 2>/dev/null || \
-    cp -r dist/* /usr/share/nginx/html/ 2>/dev/null || \
-    echo "Build files not found in expected location"
-
-# Show what we have
-RUN ls -la /usr/share/nginx/html/
+# Copy custom nginx configuration (if needed)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
 
-# Start nginx
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

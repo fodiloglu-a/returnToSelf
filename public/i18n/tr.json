@@ -1,0 +1,466 @@
+{
+  "NAV": {
+    "LOGO": {
+      "TITLE": "Return To Self",
+      "SLOGAN": "İç Huzura Geri Dönüş Yolculuğu"
+    },
+    "MENU": {
+      "HOME": "Ana Sayfa",
+      "EVENTS": "Etkinlikler",
+      "BLOG": "Blog",
+      "PROFILE": "Profil"
+    },
+    "AUTH": {
+      "LOGIN": "Giriş",
+      "REGISTER": "Kayıt Ol",
+      "LOGOUT": "Çıkış"
+    }
+  },
+  "HOME": {
+    "TITLE": "Ana Sayfa",
+    "WELCOME_MESSAGE": "Hoş Geldiniz!",
+    "DESCRIPTION": "Bu dinamik dil değiştirme sistemi ile Türkçe ve Ukraynaca arasında kolayca geçiş yapabilirsiniz."
+  },
+  "BUTTONS": {
+    "SAVE": "Kaydet",
+    "CANCEL": "İptal",
+    "DELETE": "Sil"
+  },
+  "BLOG_DETAIL": {
+    "LOADING": "Blog yükleniyor...",
+    "NAVIGATION": {
+      "ALL_POSTS": "Tüm Yazılar"
+    },
+    "ACTIONS": {
+      "EDIT": "Düzenle",
+      "DELETE": "Sil",
+      "LIKE": "Beğen",
+      "LIKED": "Beğenildi",
+      "UNLIKE": "Beğeniyi kaldır",
+      "COMMENT": "Yorum Yap",
+      "SAVE": "Kaydet",
+      "BOOKMARK": "Favorilere ekle",
+      "SHARE": "Paylaş",
+      "COPY_LINK": "Link Kopyala"
+    },
+    "META": {
+      "READING_TIME": "dk okuma",
+      "UPDATED": "Güncellendi"
+    },
+    "AUTHOR": {
+      "ANONYMOUS": "Anonim Yazar"
+    },
+    "AUTH": {
+      "LOGIN_TO_LIKE": "Beğenmek için giriş yapın",
+      "LOGIN_TO_BOOKMARK": "Favorilere eklemek için giriş yapın"
+    },
+    "TAGS": {
+      "TITLE": "Etiketler"
+    },
+    "COMMENTS": {
+      "TITLE": "Yorumlar",
+      "ADD_COMMENT": "Yorum Ekle",
+      "ADD_COMMENT_LOGIN_REQUIRED": "Yorum Ekle - Giriş Gerekli",
+      "PLACEHOLDER": "Düşüncelerinizi paylaşın...",
+      "LOGIN_WARNING": "Yorumunuzu göndermek için giriş yapmanız gerekiyor.",
+      "CANCEL": "İptal",
+      "SUBMIT": "Yorumu Gönder",
+      "SUBMITTING": "Gönderiliyor...",
+      "LOGIN_AND_SUBMIT": "Giriş Yap ve Gönder",
+      "LOADING": "Yorumlar yükleniyor...",
+      "ANONYMOUS_USER": "Anonim Kullanıcı",
+      "DELETE_COMMENT": "Yorumu sil",
+      "NO_COMMENTS_TITLE": "Henüz yorum yok",
+      "NO_COMMENTS_DESCRIPTION": "Bu yazı hakkında ilk yorumu yapan siz olun!",
+      "FIRST_COMMENT": "İlk Yorumu Yap",
+      "LOGIN_AND_COMMENT": "Giriş Yap ve Yorum Yap"
+    },
+    "RELATED": {
+      "TITLE": "İlgili Yazılar"
+    },
+    "ERROR": {
+      "NOT_FOUND_TITLE": "Blog Yazısı Bulunamadı",
+      "NOT_FOUND_DESCRIPTION": "Aradığınız blog yazısı mevcut değil veya kaldırılmış olabilir.",
+      "GO_BACK": "Ana Sayfaya Dön"
+    }
+  },
+  "BLOG_LIST": {
+    "NAVIGATION": {
+      "HOME": "Ana Sayfa",
+      "PROFILE": "Profil",
+      "NEW_BLOG": "Yeni Blog"
+    },
+    "HEADER": {
+      "TITLE": "Blog Yazıları",
+      "SUBTITLE": "Topluluğumuzun en kaliteli içeriklerini keşfedin"
+    },
+    "STATS": {
+      "BLOG": "Blog",
+      "AUTHOR": "Yazar"
+    },
+    "SEARCH": {
+      "PLACEHOLDER": "Başlık, yazar veya etiket ara..."
+    },
+    "SORT": {
+      "LATEST": "En Yeni",
+      "OLDEST": "En Eski",
+      "POPULAR": "En Popüler",
+      "MOST_COMMENTED": "En Çok Yorumlanan",
+      "ALPHABETIC": "Alfabetik"
+    },
+    "VIEW": {
+      "LIST_VIEW": "Liste Görünümü",
+      "GRID_VIEW": "Kart Görünümü"
+    },
+    "FILTERS": {
+      "CATEGORIES": "Kategoriler",
+      "CLEAR_ALL": "Filtreleri Temizle"
+    },
+    "LOADING": {
+      "TITLE": "Bloglar Yükleniyor",
+      "SUBTITLE": "En güncel içerikler getiriliyor..."
+    },
+    "EMPTY": {
+      "NO_RESULTS_TITLE": "Arama Sonucu Bulunamadı",
+      "NO_RESULTS_FOR_SEARCH": "için sonuç bulunamadı.",
+      "NO_RESULTS_FOR_CATEGORIES": "Seçilen kategoriler için sonuç bulunamadı.",
+      "FIRST_BLOG_TITLE": "İlk Blog Yazınızı Paylaşın!",
+      "FIRST_BLOG_DESCRIPTION": "Topluluk henüz hiç blog yazısı paylaşmamış. İlk yazan siz olun ve diğerlerine ilham verin!",
+      "NO_BLOGS_TITLE": "Henüz Blog Yazısı Yok",
+      "NO_BLOGS_DESCRIPTION": "Topluluk büyüyor ve yakında harika içeriklerle burada buluşacağız!"
+    },
+    "BLOG": {
+      "ANONYMOUS": "Anonim",
+      "READING_TIME": "dk"
+    },
+    "ACTIONS": {
+      "REFRESH": "Yenile",
+      "EDIT": "Düzenle",
+      "DELETE": "Sil",
+      "READ_MORE": "Devamını Oku",
+      "LOADING": "Yükleniyor...",
+      "LOAD_MORE": "Daha Fazla Göster",
+      "WRITE_FIRST_BLOG": "İlk Blogumu Yaz"
+    },
+    "CTA": {
+      "TITLE": "Blog Topluluğumuza Katılın!",
+      "DESCRIPTION": "Hesap oluşturun ve blog yazılarına yorum yapın, kendi yazılarınızı paylaşın.",
+      "REGISTER": "Hemen Kayıt Ol",
+      "LOGIN": "Giriş Yap"
+    }
+  },
+  "EVENT_DETAIL": {
+    "LOADING": "Etkinlik yükleniyor...",
+    "ERROR": {
+      "TITLE": "Bir Hata Oluştu"
+    },
+    "NAVIGATION": {
+      "BACK_TO_EVENTS": "Etkinliklere Dön"
+    },
+    "ACTIONS": {
+      "GO_BACK": "Geri Dön",
+      "SHARE": "Paylaş",
+      "SAVE": "Kaydet",
+      "SAVED": "Kaydedildi",
+      "REGISTER": "Katılım Sağla",
+      "REDIRECTING": "Yönlendiriliyor...",
+      "SHOW_LESS": "Daha Az Göster",
+      "READ_MORE": "Devamını Oku"
+    },
+    "ROLES": {
+      "INSTRUCTOR": "Eğitmen"
+    },
+    "STATUS": {
+      "SPOTS_LEFT": "yer kaldı",
+      "FULL_PERCENT": "dolu",
+      "FULL": "DOLU",
+      "LAST_SPOTS": "SON YERLER",
+      "AVAILABLE": "MÜSAIT"
+    },
+    "TIME": {
+      "DAYS_LEFT": "gün kaldı"
+    },
+    "FEATURES": {
+      "DIGITAL_DETOX": "Dijital Detoks",
+      "CERTIFIED": "Sertifikalı",
+      "OBSERVER_MODE": "Gözlemci Modu Destekli",
+      "DIGITAL_DETOX_INCLUDED": "Dijital Detoks Dahil",
+      "INDIVIDUAL_SESSION": "Bireysel Oturum Dahil",
+      "CERTIFIED_METHODS": "Sertifikalı Metodlar"
+    },
+    "SECTIONS": {
+      "BASIC_INFO": "Temel Bilgiler",
+      "THERAPEUTIC_METHODS": "Terapötik Yöntemler",
+      "TARGET_PROBLEMS": "Hangi Durumlar İçin",
+      "EXPECTED_OUTCOMES": "Beklenen Sonuçlar",
+      "ACCOMMODATION": "Konaklama Seçenekleri",
+      "SPECIAL_FEATURES": "Özel Özellikler",
+      "ABOUT_EVENT": "Etkinlik Hakkında",
+      "PREREQUISITES": "Ön Koşullar",
+      "TAGS": "Etiketler",
+      "RELATED_EVENTS": "İlgili Etkinlikler"
+    },
+    "PRICING": {
+      "FREE": "Ücretsiz"
+    }
+  },
+  "EVENT_LIST": {
+    "NAVIGATION": {
+      "HOME": "Ana Sayfa",
+      "REFRESH": "Yenile"
+    },
+    "HEADER": {
+      "TITLE": "Etkinlikler",
+      "SUBTITLE": "Kişisel gelişim ve wellness etkinliklerimizi keşfedin"
+    },
+    "STATS": {
+      "TOTAL_EVENTS": "Toplam Etkinlik",
+      "AVAILABLE_SPOTS": "Müsait Yer",
+      "FREE_EVENTS": "Ücretsiz"
+    },
+    "LOADING": {
+      "TITLE": "Etkinlikler Yükleniyor",
+      "SUBTITLE": "Lütfen bekleyin, etkinlikler getiriliyor..."
+    },
+    "ERROR": {
+      "TITLE": "Bir Hata Oluştu",
+      "RETRY": "Yeniden Dene"
+    },
+    "SECTIONS": {
+      "UPCOMING_EVENTS": "Yaklaşan Etkinlikler",
+      "PAST_EVENTS": "Geçmiş Etkinlikler",
+      "EVENTS_COUNT": "etkinlik"
+    },
+    "STATUS": {
+      "FULL": "DOLU",
+      "LAST_SPOTS": "SON YERLER",
+      "AVAILABLE": "MÜSAIT",
+      "COMPLETED": "Tamamlandı",
+      "SPOTS_LEFT": "yer kaldı",
+      "FULL_PERCENT": "dolu",
+      "PARTICIPANTS": "katılımcı"
+    },
+    "FEATURES": {
+      "DIGITAL_DETOX": "Dijital Detoks",
+      "CERTIFIED": "Sertifikalı"
+    },
+    "TIME": {
+      "DAYS_LEFT": "gün kaldı"
+    },
+    "ACTIONS": {
+      "VIEW_DETAILS": "Detayları Gör",
+      "REFRESH": "Yenile"
+    },
+    "EMPTY": {
+      "TITLE": "Henüz Etkinlik Bulunmuyor",
+      "DESCRIPTION": "Şu anda listelenmiş etkinlik bulunmamaktadır. Yeni etkinlikler için takipte kalın!"
+    },
+    "PRICING": {
+      "FREE": "Ücretsiz"
+    }
+  },
+  "AUTH": {
+    "BRAND": {
+      "APP_NAME": "Blog App"
+    },
+    "LOGIN": {
+      "TITLE": "Giriş Yap",
+      "SUBTITLE": "Hesabınıza giriş yapın",
+      "NO_ACCOUNT": "Hesabınız yok mu?",
+      "REGISTER_LINK": "Kayıt olun",
+      "REMEMBER_ME": "Beni hatırla",
+      "FORGOT_PASSWORD": "Şifremi unuttum",
+      "SUBMIT": "Giriş Yap",
+      "SUBMITTING": "Giriş yapılıyor..."
+    },
+    "REGISTER": {
+      "TERMS_ACCEPT_SUFFIX": "'nı kabul ediyorum",
+      "TITLE": "Kayıt Ol",
+      "SUBTITLE": "Yeni bir hesap oluşturun",
+      "HAVE_ACCOUNT": "Zaten hesabınız var mı?",
+      "LOGIN_LINK": "Giriş yapın",
+      "TERMS_ACCEPT": "Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul ediyorum",
+      "TERMS_LINK": "Kullanım Şartları",
+      "PRIVACY_LINK": "Gizlilik Politikası",
+      "SUBMIT": "Kayıt Ol",
+      "SUBMITTING": "Kayıt oluşturuluyor...",
+      "PASSWORD_STRENGTH": "Şifre gücü:",
+      "PASSWORD_HINTS": {
+        "LENGTH": "En az 6 karakter olmalıdır",
+        "USERNAME_FORMAT": "3-20 karakter, sadece harf, rakam ve alt çizgi"
+      }
+    },
+    "FIELDS": {
+      "USERNAME": "Kullanıcı Adı",
+      "USERNAME_PLACEHOLDER": "Kullanıcı adınızı girin",
+      "EMAIL": "E-mail",
+      "EMAIL_PLACEHOLDER": "E-mail adresinizi girin",
+      "PASSWORD": "Şifre",
+      "PASSWORD_PLACEHOLDER": "Şifrenizi girin",
+      "PASSWORD_CONFIRM": "Şifre Tekrarı",
+      "PASSWORD_CONFIRM_PLACEHOLDER": "Şifrenizi tekrar girin",
+      "FIRST_NAME": "Ad",
+      "FIRST_NAME_PLACEHOLDER": "Adınız",
+      "LAST_NAME": "Soyad",
+      "LAST_NAME_PLACEHOLDER": "Soyadınız",
+      "PASSWORD_TOGGLE": "Şifreyi"
+    },
+    "ACTIONS": {
+      "SHOW": "göster",
+      "HIDE": "gizle"
+    },
+    "SOCIAL": {
+      "LOGIN_TEXT": "Sosyal medya ile giriş yapın",
+      "REGISTER_TEXT": "Sosyal medya ile kayıt olun",
+      "GOOGLE": "Google",
+      "GITHUB": "GitHub",
+      "GOOGLE_LOGIN": "Google ile Kayıt Ol",
+      "GITHUB_LOGIN": "GitHub ile Kayıt Ol"
+    },
+    "COMMON": {
+      "AND": "'nı ve",
+      "OR": "veya",
+      "REQUIRED": "zorunlu"
+    },
+    "NAVIGATION": {
+      "BACK_TO_HOME": "Ana Sayfaya Dön"
+    }
+  },
+  "PROFILE": {
+    "NAVIGATION": {
+      "HOME": "Ana Sayfa",
+      "BLOGS": "Bloglar",
+      "LOGOUT": "Çıkış"
+    },
+    "HEADER": {
+      "JOINED_ON": "tarihinde katıldı"
+    },
+    "STATS": {
+      "BLOG": "Blog",
+      "COMMENT": "Yorum",
+      "LIKES": "Beğeni",
+      "DAYS": "Gün"
+    },
+    "QUICK_ACTIONS": {
+      "MY_BLOGS": {
+        "TITLE": "Yazılarım",
+        "DESCRIPTION": "Blog yazılarınızı yönetin"
+      },
+      "ALL_BLOGS": {
+        "TITLE": "Tüm Bloglar",
+        "DESCRIPTION": "Diğer yazıları keşfedin"
+      }
+    },
+    "SETTINGS": {
+      "TITLE": "Profil Ayarları",
+      "SUBTITLE": "Kişisel bilgilerinizi yönetin",
+      "PERSONAL_INFO": {
+        "TITLE": "Kişisel Bilgiler",
+        "USERNAME_HINT": "Kullanıcı adı değiştirilemez",
+        "EMAIL_HINT": "E-mail adresi değiştirilemez",
+        "BIO_PLACEHOLDER": "Kendinizden bahsedin..."
+      },
+      "PASSWORD": {
+        "TITLE": "Şifre Değiştir",
+        "CURRENT": "Mevcut Şifre",
+        "CURRENT_PLACEHOLDER": "Mevcut şifrenizi girin",
+        "NEW": "Yeni Şifre",
+        "NEW_PLACEHOLDER": "Yeni şifrenizi girin",
+        "CONFIRM": "Yeni Şifre Tekrarı",
+        "CONFIRM_PLACEHOLDER": "Yeni şifrenizi tekrar girin",
+        "HINT": "En az 6 karakter olmalıdır",
+        "SECURE_TITLE": "Şifreniz Güvende",
+        "SECURE_DESCRIPTION": "Hesap güvenliğiniz için şifrenizi düzenli olarak değiştirmenizi öneririz."
+      },
+      "DANGER_ZONE": {
+        "TITLE": "Tehlikeli Bölge",
+        "DELETE_ACCOUNT": {
+          "TITLE": "Hesabı Sil",
+          "DESCRIPTION": "Hesabınızı kalıcı olarak silin. Bu işlem geri alınamaz ve tüm verileriniz silinir."
+        }
+      }
+    },
+    "ACTIONS": {
+      "EDIT": "Düzenle",
+      "CHANGE": "Değiştir",
+      "CANCEL": "İptal",
+      "SAVE": "Kaydet",
+      "SAVING": "Kaydediliyor...",
+      "CHANGE_PASSWORD": "Şifreyi Değiştir",
+      "CHANGING": "Değiştiriliyor...",
+      "DELETE_ACCOUNT": "Hesabı Sil",
+      "DELETING": "Siliniyor..."
+    },
+    "FIELDS": {
+      "BIO": "Biyografi"
+    }
+  },
+  "BLOG_CARDS": {
+    "ACTIONS": {
+      "READ_MORE": "Devamını Oku"
+    }
+  },
+  "EVENT_CARDS": {
+    "FEATURES": {
+      "DIGITAL_DETOX": "Dijital Detoks",
+      "CERTIFIED": "Sertifikalı"
+    },
+    "STATUS": {
+      "SPOTS_LEFT": "yer kaldı",
+      "FULL": "dolu"
+    },
+    "ACTIONS": {
+      "MORE_INFO": "Daha Fazla Bilgi",
+      "RELATED_BLOG": "İlgili Blog"
+    }
+  },
+  "FOOTER": {
+    "BRAND": {
+      "TITLE": "Kadınlara Özel Platform",
+      "DESCRIPTION": "Güçlü kadınlar için güçlü içerikler. Kendinizi keşfedin, gelişin ve güçlenin. Psikolojik destek, kişisel gelişim ve kadın dayanışması bir arada."
+    },
+    "QUICK_LINKS": {
+      "TITLE": "Hızlı Bağlantılar",
+      "HOME": "Ana Sayfa",
+      "EVENTS": "Etkinlikler",
+      "BLOG": "Blog",
+      "ABOUT": "Hakkımızda",
+      "CONTACT": "İletişim"
+    },
+    "NEWSLETTER": {
+      "TITLE": "Bülten",
+      "DESCRIPTION": "Yeni etkinlik ve içeriklerden haberdar olun",
+      "EMAIL_PLACEHOLDER": "E-posta adresiniz",
+      "SUBSCRIBE": "Abone Ol"
+    },
+    "CONTACT": {
+      "TITLE": "İletişim",
+      "ADDRESS": "İstanbul, Türkiye"
+    },
+    "SOCIAL": {
+      "INSTAGRAM": "Instagram",
+      "FACEBOOK": "Facebook",
+      "TWITTER": "Twitter",
+      "LINKEDIN": "LinkedIn"
+    },
+    "COPYRIGHT": "© 2025 Kadınlara Özel Platform. Tüm hakları saklıdır.",
+    "LEGAL": {
+      "PRIVACY": "Gizlilik Politikası",
+      "TERMS": "Kullanım Şartları",
+      "COOKIES": "Çerez Politikası"
+    }
+  },
+  "HERO": {
+    "TITLE": "Return İnovasyon",
+    "SLOGAN": "Geleceği birlikte şekillendiriyoruz",
+    "BUTTONS": {
+      "EVENTS": "Etkinlikler",
+      "BLOGS": "Bloglar"
+    }
+  },
+  "PLATFORM_INFO": {
+    "TITLE": "Kadınlara Özel Platform",
+    "SLOGAN": "Güçlü kadınlar için güçlü içerikler - Kendinizi keşfedin, gelişin ve güçlenin"
+  }
+}
+

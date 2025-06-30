@@ -1,0 +1,465 @@
+{
+  "NAV": {
+    "LOGO": {
+      "TITLE": "Return To Self",
+      "SLOGAN": "Подорож назад до внутрішнього спокою"
+    },
+    "MENU": {
+      "HOME": "Головна",
+      "EVENTS": "Події",
+      "BLOG": "Блог",
+      "PROFILE": "Профіль"
+    },
+    "AUTH": {
+      "LOGIN": "Вхід",
+      "REGISTER": "Реєстрація",
+      "LOGOUT": "Вихід"
+    }
+  },
+  "HOME": {
+    "TITLE": "Головна сторінка",
+    "WELCOME_MESSAGE": "Ласкаво просимо!",
+    "DESCRIPTION": "За допомогою цієї системи динамічної зміни мови ви можете легко перемикатися між турецькою та українською мовами."
+  },
+  "BUTTONS": {
+    "SAVE": "Зберегти",
+    "CANCEL": "Скасувати",
+    "DELETE": "Видалити"
+  },
+  "BLOG_DETAIL": {
+    "LOADING": "Завантаження блогу...",
+    "NAVIGATION": {
+      "ALL_POSTS": "Всі Статті"
+    },
+    "ACTIONS": {
+      "EDIT": "Редагувати",
+      "DELETE": "Видалити",
+      "LIKE": "Подобається",
+      "LIKED": "Сподобалось",
+      "UNLIKE": "Прибрати вподобання",
+      "COMMENT": "Коментувати",
+      "SAVE": "Зберегти",
+      "BOOKMARK": "Додати до закладок",
+      "SHARE": "Поділитися",
+      "COPY_LINK": "Копіювати посилання"
+    },
+    "META": {
+      "READING_TIME": "хв читання",
+      "UPDATED": "Оновлено"
+    },
+    "AUTHOR": {
+      "ANONYMOUS": "Анонімний Автор"
+    },
+    "AUTH": {
+      "LOGIN_TO_LIKE": "Увійдіть, щоб вподобати",
+      "LOGIN_TO_BOOKMARK": "Увійдіть, щоб додати до закладок"
+    },
+    "TAGS": {
+      "TITLE": "Теги"
+    },
+    "COMMENTS": {
+      "TITLE": "Коментарі",
+      "ADD_COMMENT": "Додати Коментар",
+      "ADD_COMMENT_LOGIN_REQUIRED": "Додати Коментар - Потрібен Вхід",
+      "PLACEHOLDER": "Поділіться своїми думками...",
+      "LOGIN_WARNING": "Щоб надіслати коментар, вам потрібно увійти в систему.",
+      "CANCEL": "Скасувати",
+      "SUBMIT": "Відправити Коментар",
+      "SUBMITTING": "Відправляємо...",
+      "LOGIN_AND_SUBMIT": "Увійти та Відправити",
+      "LOADING": "Завантаження коментарів...",
+      "ANONYMOUS_USER": "Анонімний Користувач",
+      "DELETE_COMMENT": "Видалити коментар",
+      "NO_COMMENTS_TITLE": "Поки що немає коментарів",
+      "NO_COMMENTS_DESCRIPTION": "Станьте першим, хто прокоментує цю статтю!",
+      "FIRST_COMMENT": "Написати Перший Коментар",
+      "LOGIN_AND_COMMENT": "Увійти та Коментувати"
+    },
+    "RELATED": {
+      "TITLE": "Схожі Статті"
+    },
+    "ERROR": {
+      "NOT_FOUND_TITLE": "Стаття Блогу Не Знайдена",
+      "NOT_FOUND_DESCRIPTION": "Стаття, яку ви шукаєте, не існує або була видалена.",
+      "GO_BACK": "Повернутися на Головну"
+    }
+  },
+  "BLOG_LIST": {
+    "NAVIGATION": {
+      "HOME": "Головна",
+      "PROFILE": "Профіль",
+      "NEW_BLOG": "Новий Блог"
+    },
+    "HEADER": {
+      "TITLE": "Статті Блогу",
+      "SUBTITLE": "Відкрийте найякісніший контент нашої спільноти"
+    },
+    "STATS": {
+      "BLOG": "Блог",
+      "AUTHOR": "Автор"
+    },
+    "SEARCH": {
+      "PLACEHOLDER": "Шукати за заголовком, автором або тегом..."
+    },
+    "SORT": {
+      "LATEST": "Найновіші",
+      "OLDEST": "Найстаріші",
+      "POPULAR": "Найпопулярніші",
+      "MOST_COMMENTED": "Найкоментованіші",
+      "ALPHABETIC": "За алфавітом"
+    },
+    "VIEW": {
+      "LIST_VIEW": "Вигляд списку",
+      "GRID_VIEW": "Вигляд карток"
+    },
+    "FILTERS": {
+      "CATEGORIES": "Категорії",
+      "CLEAR_ALL": "Очистити фільтри"
+    },
+    "LOADING": {
+      "TITLE": "Завантаження блогів",
+      "SUBTITLE": "Отримуємо найсвіжіший контент..."
+    },
+    "EMPTY": {
+      "NO_RESULTS_TITLE": "Результати пошуку не знайдено",
+      "NO_RESULTS_FOR_SEARCH": "результатів не знайдено.",
+      "NO_RESULTS_FOR_CATEGORIES": "Для вибраних категорій результатів не знайдено.",
+      "FIRST_BLOG_TITLE": "Поділіться своєю першою статтею!",
+      "FIRST_BLOG_DESCRIPTION": "Спільнота ще не поділилася жодною статтею. Станьте першим і надихніть інших!",
+      "NO_BLOGS_TITLE": "Поки що немає статей",
+      "NO_BLOGS_DESCRIPTION": "Спільнота росте, і незабаром ми зустрінемося тут з чудовим контентом!"
+    },
+    "BLOG": {
+      "ANONYMOUS": "Анонім",
+      "READING_TIME": "хв"
+    },
+    "ACTIONS": {
+      "REFRESH": "Оновити",
+      "EDIT": "Редагувати",
+      "DELETE": "Видалити",
+      "READ_MORE": "Читати далі",
+      "LOADING": "Завантаження...",
+      "LOAD_MORE": "Показати більше",
+      "WRITE_FIRST_BLOG": "Написати перший блог"
+    },
+    "CTA": {
+      "TITLE": "Приєднуйтесь до нашої блог-спільноти!",
+      "DESCRIPTION": "Створіть акаунт, коментуйте статті та діліться власними дописами.",
+      "REGISTER": "Зареєструватися зараз",
+      "LOGIN": "Увійти"
+    }
+  },
+  "EVENT_DETAIL": {
+    "LOADING": "Завантаження події...",
+    "ERROR": {
+      "TITLE": "Сталася помилка"
+    },
+    "NAVIGATION": {
+      "BACK_TO_EVENTS": "Повернутися до подій"
+    },
+    "ACTIONS": {
+      "GO_BACK": "Назад",
+      "SHARE": "Поділитися",
+      "SAVE": "Зберегти",
+      "SAVED": "Збережено",
+      "REGISTER": "Зареєструватися",
+      "REDIRECTING": "Перенаправлення...",
+      "SHOW_LESS": "Показати менше",
+      "READ_MORE": "Читати далі"
+    },
+    "ROLES": {
+      "INSTRUCTOR": "Інструктор"
+    },
+    "STATUS": {
+      "SPOTS_LEFT": "місць залишилось",
+      "FULL_PERCENT": "заповнено",
+      "FULL": "ЗАПОВНЕНО",
+      "LAST_SPOTS": "ОСТАННІ МІСЦЯ",
+      "AVAILABLE": "ДОСТУПНО"
+    },
+    "TIME": {
+      "DAYS_LEFT": "днів залишилось"
+    },
+    "FEATURES": {
+      "DIGITAL_DETOX": "Цифровий детокс",
+      "CERTIFIED": "Сертифіковано",
+      "OBSERVER_MODE": "Підтримка режиму спостерігача",
+      "DIGITAL_DETOX_INCLUDED": "Цифровий детокс включено",
+      "INDIVIDUAL_SESSION": "Індивідуальна сесія включена",
+      "CERTIFIED_METHODS": "Сертифіковані методи"
+    },
+    "SECTIONS": {
+      "BASIC_INFO": "Основна інформація",
+      "THERAPEUTIC_METHODS": "Терапевтичні методи",
+      "TARGET_PROBLEMS": "Для яких ситуацій",
+      "EXPECTED_OUTCOMES": "Очікувані результати",
+      "ACCOMMODATION": "Варіанти проживання",
+      "SPECIAL_FEATURES": "Особливі можливості",
+      "ABOUT_EVENT": "Про подію",
+      "PREREQUISITES": "Передумови",
+      "TAGS": "Теги",
+      "RELATED_EVENTS": "Схожі події"
+    },
+    "PRICING": {
+      "FREE": "Безкоштовно"
+    }
+  },
+  "EVENT_LIST": {
+    "NAVIGATION": {
+      "HOME": "Головна",
+      "REFRESH": "Оновити"
+    },
+    "HEADER": {
+      "TITLE": "Події",
+      "SUBTITLE": "Відкрийте наші заходи з особистого розвитку та велнесу"
+    },
+    "STATS": {
+      "TOTAL_EVENTS": "Загалом подій",
+      "AVAILABLE_SPOTS": "Доступні місця",
+      "FREE_EVENTS": "Безкоштовні"
+    },
+    "LOADING": {
+      "TITLE": "Завантаження подій",
+      "SUBTITLE": "Будь ласка, зачекайте, події завантажуються..."
+    },
+    "ERROR": {
+      "TITLE": "Сталася помилка",
+      "RETRY": "Спробувати знову"
+    },
+    "SECTIONS": {
+      "UPCOMING_EVENTS": "Найближчі події",
+      "PAST_EVENTS": "Минулі події",
+      "EVENTS_COUNT": "подій"
+    },
+    "STATUS": {
+      "FULL": "ЗАПОВНЕНО",
+      "LAST_SPOTS": "ОСТАННІ МІСЦЯ",
+      "AVAILABLE": "ДОСТУПНО",
+      "COMPLETED": "Завершено",
+      "SPOTS_LEFT": "місць залишилось",
+      "FULL_PERCENT": "заповнено",
+      "PARTICIPANTS": "учасників"
+    },
+    "FEATURES": {
+      "DIGITAL_DETOX": "Цифровий детокс",
+      "CERTIFIED": "Сертифіковано"
+    },
+    "TIME": {
+      "DAYS_LEFT": "днів залишилось"
+    },
+    "ACTIONS": {
+      "VIEW_DETAILS": "Переглянути деталі",
+      "REFRESH": "Оновити"
+    },
+    "EMPTY": {
+      "TITLE": "Поки що немає подій",
+      "DESCRIPTION": "Наразі немає заходів у списку. Слідкуйте за новими подіями!"
+    },
+    "PRICING": {
+      "FREE": "Безкоштовно"
+    }
+  },
+  "AUTH": {
+    "BRAND": {
+      "APP_NAME": "Blog App"
+    },
+    "LOGIN": {
+      "TITLE": "Увійти",
+      "SUBTITLE": "Увійдіть до свого акаунту",
+      "NO_ACCOUNT": "Немає акаунту?",
+      "REGISTER_LINK": "Зареєструйтесь",
+      "REMEMBER_ME": "Запам'ятати мене",
+      "FORGOT_PASSWORD": "Забув пароль",
+      "SUBMIT": "Увійти",
+      "SUBMITTING": "Вхід..."
+    },
+    "REGISTER": {
+      "TERMS_ACCEPT_SUFFIX": "приймаю",
+      "TITLE": "Реєстрація",
+      "SUBTITLE": "Створити новий акаунт",
+      "HAVE_ACCOUNT": "Вже маєте акаунт?",
+      "LOGIN_LINK": "Увійдіть",
+      "TERMS_ACCEPT": "Я приймаю Умови використання та Політику конфіденційності",
+      "TERMS_LINK": "Умови використання",
+      "PRIVACY_LINK": "Політика конфіденційності",
+      "SUBMIT": "Зареєструватися",
+      "SUBMITTING": "Створення акаунту...",
+      "PASSWORD_STRENGTH": "Надійність пароля:",
+      "PASSWORD_HINTS": {
+        "LENGTH": "Мінімум 6 символів",
+        "USERNAME_FORMAT": "3-20 символів, тільки літери, цифри та підкреслення"
+      }
+    },
+    "FIELDS": {
+      "USERNAME": "Ім'я користувача",
+      "USERNAME_PLACEHOLDER": "Введіть ім'я користувача",
+      "EMAIL": "E-mail",
+      "EMAIL_PLACEHOLDER": "Введіть адресу електронної пошти",
+      "PASSWORD": "Пароль",
+      "PASSWORD_PLACEHOLDER": "Введіть пароль",
+      "PASSWORD_CONFIRM": "Підтвердження пароля",
+      "PASSWORD_CONFIRM_PLACEHOLDER": "Повторіть пароль",
+      "FIRST_NAME": "Ім'я",
+      "FIRST_NAME_PLACEHOLDER": "Ваше ім'я",
+      "LAST_NAME": "Прізвище",
+      "LAST_NAME_PLACEHOLDER": "Ваше прізвище",
+      "PASSWORD_TOGGLE": "пароль"
+    },
+    "ACTIONS": {
+      "SHOW": "показати",
+      "HIDE": "приховати"
+    },
+    "SOCIAL": {
+      "LOGIN_TEXT": "Увійти через соціальні мережі",
+      "REGISTER_TEXT": "Зареєструватися через соціальні мережі",
+      "GOOGLE": "Google",
+      "GITHUB": "GitHub",
+      "GOOGLE_LOGIN": "Реєстрація через Google",
+      "GITHUB_LOGIN": "Реєстрація через GitHub"
+    },
+    "COMMON": {
+      "AND": "та",
+      "OR": "або",
+      "REQUIRED": "обов'язково"
+    },
+    "NAVIGATION": {
+      "BACK_TO_HOME": "Повернутися на головну"
+    }
+  },
+  "PROFILE": {
+    "NAVIGATION": {
+      "HOME": "Головна",
+      "BLOGS": "Блоги",
+      "LOGOUT": "Вийти"
+    },
+    "HEADER": {
+      "JOINED_ON": "приєднався"
+    },
+    "STATS": {
+      "BLOG": "Блог",
+      "COMMENT": "Коментар",
+      "LIKES": "Вподобання",
+      "DAYS": "Днів"
+    },
+    "QUICK_ACTIONS": {
+      "MY_BLOGS": {
+        "TITLE": "Мої статті",
+        "DESCRIPTION": "Керуйте своїми блогами"
+      },
+      "ALL_BLOGS": {
+        "TITLE": "Всі блоги",
+        "DESCRIPTION": "Відкрийте інші статті"
+      }
+    },
+    "SETTINGS": {
+      "TITLE": "Налаштування профілю",
+      "SUBTITLE": "Керуйте особистою інформацією",
+      "PERSONAL_INFO": {
+        "TITLE": "Особиста інформація",
+        "USERNAME_HINT": "Ім'я користувача не можна змінити",
+        "EMAIL_HINT": "Адресу електронної пошти не можна змінити",
+        "BIO_PLACEHOLDER": "Розкажіть про себе..."
+      },
+      "PASSWORD": {
+        "TITLE": "Змінити пароль",
+        "CURRENT": "Поточний пароль",
+        "CURRENT_PLACEHOLDER": "Введіть поточний пароль",
+        "NEW": "Новий пароль",
+        "NEW_PLACEHOLDER": "Введіть новий пароль",
+        "CONFIRM": "Підтвердження нового пароля",
+        "CONFIRM_PLACEHOLDER": "Повторіть новий пароль",
+        "HINT": "Мінімум 6 символів",
+        "SECURE_TITLE": "Ваш пароль захищений",
+        "SECURE_DESCRIPTION": "Для безпеки акаунту рекомендуємо регулярно змінювати пароль."
+      },
+      "DANGER_ZONE": {
+        "TITLE": "Небезпечна зона",
+        "DELETE_ACCOUNT": {
+          "TITLE": "Видалити акаунт",
+          "DESCRIPTION": "Назавжди видалити ваш акаунт. Ця дія незворотна і всі ваші дані будуть видалені."
+        }
+      }
+    },
+    "ACTIONS": {
+      "EDIT": "Редагувати",
+      "CHANGE": "Змінити",
+      "CANCEL": "Скасувати",
+      "SAVE": "Зберегти",
+      "SAVING": "Збереження...",
+      "CHANGE_PASSWORD": "Змінити пароль",
+      "CHANGING": "Зміна...",
+      "DELETE_ACCOUNT": "Видалити акаунт",
+      "DELETING": "Видалення..."
+    },
+    "FIELDS": {
+      "BIO": "Біографія"
+    }
+  },
+  "BLOG_CARDS": {
+    "ACTIONS": {
+      "READ_MORE": "Читати далі"
+    }
+  },
+  "EVENT_CARDS": {
+    "FEATURES": {
+      "DIGITAL_DETOX": "Цифровий детокс",
+      "CERTIFIED": "Сертифіковано"
+    },
+    "STATUS": {
+      "SPOTS_LEFT": "місць залишилось",
+      "FULL": "заповнено"
+    },
+    "ACTIONS": {
+      "MORE_INFO": "Детальніше",
+      "RELATED_BLOG": "Схожий блог"
+    }
+  },
+  "FOOTER": {
+    "BRAND": {
+      "TITLE": "Платформа для жінок",
+      "DESCRIPTION": "Потужний контент для сильних жінок. Відкрийте себе, розвивайтесь та зміцнюйтесь. Психологічна підтримка, особистий розвиток та жіноча солідарність разом."
+    },
+    "QUICK_LINKS": {
+      "TITLE": "Швидкі посилання",
+      "HOME": "Головна",
+      "EVENTS": "Події",
+      "BLOG": "Блог",
+      "ABOUT": "Про нас",
+      "CONTACT": "Контакти"
+    },
+    "NEWSLETTER": {
+      "TITLE": "Розсилка",
+      "DESCRIPTION": "Будьте в курсі нових подій та контенту",
+      "EMAIL_PLACEHOLDER": "Ваша електронна пошта",
+      "SUBSCRIBE": "Підписатися"
+    },
+    "CONTACT": {
+      "TITLE": "Контакти",
+      "ADDRESS": "Стамбул, Туреччина"
+    },
+    "SOCIAL": {
+      "INSTAGRAM": "Instagram",
+      "FACEBOOK": "Facebook",
+      "TWITTER": "Twitter",
+      "LINKEDIN": "LinkedIn"
+    },
+    "COPYRIGHT": "© 2025 Платформа для жінок. Всі права захищені.",
+    "LEGAL": {
+      "PRIVACY": "Політика конфіденційності",
+      "TERMS": "Умови використання",
+      "COOKIES": "Політика cookies"
+    }
+  },
+  "HERO": {
+    "TITLE": "Повернення Інновації",
+    "SLOGAN": "Разом формуємо майбутнє",
+    "BUTTONS": {
+      "EVENTS": "Події",
+      "BLOGS": "Блоги"
+    }
+  },
+  "PLATFORM_INFO": {
+    "TITLE": "Платформа для жінок",
+    "SLOGAN": "Потужний контент для сильних жінок - Відкрийте себе, розвивайтесь та зміцнюйтесь"
+  }
+    }

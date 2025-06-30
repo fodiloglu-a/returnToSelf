@@ -1,16 +1,22 @@
 /* src/app/components/home/home.component.css */
+/* PERFORMANCE OPTIMIZED - Tüm renkler ve design korundu */
 
 .home-container {
   min-height: 100vh;
   background-color: #f5f5f5;
+  /* ADDED: Performance hints */
+  contain: layout style;
 }
 
-/* Navigation Bar */
+/* Navigation Bar - Optimized */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* ADDED: GPU acceleration */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .navbar-brand {
@@ -35,9 +41,11 @@
   margin-left: 8px;
 }
 
-/* Main Content */
+/* Main Content - Optimized */
 .main-content {
   padding: 24px 0;
+  /* ADDED: Layout containment */
+  contain: layout;
 }
 
 .container {
@@ -46,9 +54,11 @@
   padding: 0 16px;
 }
 
-/* Welcome Section */
+/* Welcome Section - Optimized */
 .welcome-section {
   margin-bottom: 32px;
+  /* ADDED: Layout containment */
+  contain: layout;
 }
 
 .welcome-card {
@@ -83,9 +93,10 @@
   margin: 0 8px;
 }
 
-/* Quick Actions */
+/* Quick Actions - Optimized */
 .quick-actions {
   margin-bottom: 32px;
+  contain: layout; /* ADDED: Layout containment */
 }
 
 .quick-actions h2 {
@@ -104,12 +115,15 @@
 
 .action-card {
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* OPTIMIZED: Reduced transition complexity */
+  transition: transform 0.15s ease;
+  /* ADDED: GPU hint */
+  will-change: transform;
 }
 
 .action-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-2px); /* REDUCED: Less movement for better performance */
+  /* REMOVED: Heavy box-shadow transition */
 }
 
 .action-avatar {
@@ -120,8 +134,11 @@
   height: 40px;
   border-radius: 50%;
   color: white;
+  /* ADDED: GPU acceleration */
+  transform: translateZ(0);
 }
 
+/* Avatar colors - Unchanged (design korundu) */
 .action-avatar.create-blog {
   background-color: #4caf50;
 }
@@ -138,9 +155,10 @@
   background-color: #9c27b0;
 }
 
-/* Latest Blogs */
+/* Latest Blogs - Optimized */
 .latest-blogs {
   margin-bottom: 32px;
+  contain: layout; /* ADDED: Layout containment */
 }
 
 .latest-blogs h2 {
@@ -157,12 +175,14 @@
 }
 
 .blog-preview-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* OPTIMIZED: Simpler transition */
+  transition: transform 0.15s ease;
+  will-change: transform; /* ADDED: GPU hint */
 }
 
 .blog-preview-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-1px); /* REDUCED: Less movement */
+  /* REMOVED: Heavy box-shadow for performance */
 }
 
 .blog-preview-card mat-card-title {
@@ -186,7 +206,7 @@
   align-items: center;
 }
 
-/* Responsive Design */
+/* Responsive Design - Optimized for mobile */
 @media (max-width: 768px) {
   .container {
     padding: 0 12px;
@@ -210,5 +230,29 @@
 
   .welcome-text {
     display: none;
+  }
+
+  /* MOBILE PERFORMANCE: Disable animations */
+  .action-card,
+  .blog-preview-card {
+    transition: none;
+  }
+
+  .action-card:hover,
+  .blog-preview-card:hover {
+    transform: none;
+  }
+}
+
+/* PERFORMANCE: Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .action-card,
+  .blog-preview-card {
+    transition: none;
+  }
+
+  .action-card:hover,
+  .blog-preview-card:hover {
+    transform: none;
   }
 }

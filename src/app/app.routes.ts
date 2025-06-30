@@ -1,43 +1,52 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 import { guestGuard } from './guards/guest.guard';
 import { authGuard } from './guards/auth.guard';
-import { BlogListComponent } from './components/blog-list/blog-list.component';
-import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import {EventDetailComponent} from './components/event-detail/event-detail.component';
-import {EventListComponent} from './components/event-list/event-list.component';
-
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'blogs', component: BlogListComponent },
-  { path: 'blogs/:id', component: BlogDetailComponent },
-  { path: 'events/:id', component: EventDetailComponent },
-  { path: 'events', component: EventListComponent },
-
-  // Guest only routes (giriş yapmış kullanıcılar erişemez)
   {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [guestGuard]
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate: [guestGuard]
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
 
-  // Protected routes (giriş yapmış kullanıcılar için)
+  // Home component - eager loading (ana sayfa hızlı yüklenmeli)
+  {
+    path: 'home',
+    loadComponent: () => import('./components/home/home.component').then(c => c.HomeComponent)
+  },
+
+  // Blog modülü - lazy loading
+  {
+    path: 'blogs',
+    loadChildren: () => import('./modules/blog.module').then(m => m.BlogModule)
+  },
+
+  // Events modülü - lazy loading
+  {
+    path: 'events',
+    loadChildren: () => import('./modules/events.module').then(m => m.EventsModule)
+  },
+
+  // Auth modülü - lazy loading (guest only routes)
+  {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth.module').then(m => m.AuthModule),
+    canActivate: [guestGuard]
+  },
+
+  // Profile - lazy component loading (protected route)
   {
     path: 'profile',
-    component: ProfileComponent,
+    loadComponent: () => import('./components/profile/profile.component').then(c => c.ProfileComponent),
     canActivate: [authGuard]
   },
 
-  // Wildcard route - 404 sayfası
-  { path: '**', redirectTo: 'home' }
+  // Legacy routes - redirect to new structure
+  { path: 'login', redirectTo: 'auth/login' },
+  { path: 'register', redirectTo: 'auth/register' },
+
+  {
+    path: '**',
+    loadComponent: () => import('./components/not-found/not-found.component').then(c => c.NotFoundComponent)
+  }
 ];

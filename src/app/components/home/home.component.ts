@@ -1,25 +1,32 @@
 // src/app/components/home/home.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../../shared/material.module';
+// REMOVED: MaterialModule - Ağır import kaldırıldı
 import { AuthService } from '../../services/auth.service';
 
 import { Observable } from 'rxjs';
-import {User} from '../../models/user.model';
-import {MatDivider} from '@angular/material/divider';
-import {NavComponent} from './nav/nav.component';
-import {HeroComponent} from './hero/hero.component';
-import {EventFilterComponent} from './event-filter/event-filter.component';
-import {EventInfoComponent} from './event-info/event-info.component';
-import {BlogCardsComponent} from './blog-cards/blog-cards.component';
-import {WebInfoComponent} from './web-info/web-info.component';
-import {FooterComponent} from './footer/footer.component';
+import { User } from '../../models/user.model';
+import { HeroComponent } from './hero/hero.component';
+import { EventFilterComponent } from './event-filter/event-filter.component';
+import { EventInfoComponent } from './event-info/event-info.component';
+import { BlogCardsComponent } from './blog-cards/blog-cards.component';
+import { WebInfoComponent } from './web-info/web-info.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModule, HeroComponent, EventFilterComponent, EventInfoComponent, BlogCardsComponent, WebInfoComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush, // ADDED: OnPush for performance
+  imports: [
+    CommonModule,
+    RouterModule,
+    // REMOVED: MaterialModule
+    HeroComponent,
+    EventFilterComponent,
+    EventInfoComponent,
+    BlogCardsComponent,
+    WebInfoComponent
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -34,6 +41,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // Component yüklendiğinde gerekli işlemler
+    // OPTIMIZATION: Mark component as loaded for potential tracking
+    if (typeof window !== 'undefined') {
+      performance.mark('home-component-loaded');
+    }
   }
 
   logout(): void {

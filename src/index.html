@@ -1,19 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="utf-8">
-  <title>Return</title>
+  <title>Return to Self</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Mobil optimizasyon için kritik viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Preconnect - Font yüklemesini hızlandırır -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Critical resources preload -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style">
+
+  <!-- Font loading - optimize edilmiş -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Critical CSS - Loading state -->
+  <style>
+    /* INLINE CRITICAL CSS - LCP için */
+    .app-container{position:relative;width:100%;min-height:100vh;overflow-x:hidden}
+    .background-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;will-change:transform}
+    .gif-container{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;overflow:hidden}
+    .background-gif{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0}
+    .background-gif.loaded{opacity:1}
+    .overlay{position:absolute;top:0;left:0;width:100%;height:100%}
+    .content-container{position:relative;z-index:1;width:100%;min-height:100vh}
+    .main-content{padding:1rem;min-height:calc(100vh - 80px);display:flex;flex-direction:column;align-items:center}
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;-webkit-backdrop-filter:blur(8px);position:sticky;top:0;z-index:1000}
+    .logo-text{font-size:1.5rem;font-weight:700}
+    @media (max-width:768px){
+      .main-content{padding:0.5rem}
+      .navbar{padding:0.75rem 1rem;backdrop-filter:none;-webkit-backdrop-filter:none}
+      .logo-text{font-size:1.25rem}
+      *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+    }
+  </style>
+
+
+
 </head>
 <body class="mat-typography">
 <app-root></app-root>
-<noscript>Please enable JavaScript to continue using this application.</noscript>
+
+<!-- Loading indicator - Angular yüklenene kadar görünür -->
+<div class="app-loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Yükleniyor...</div>
+</div>
+
+<noscript>Bu uygulamayı kullanmak için JavaScript'i etkinleştirin.</noscript>
 </body>
 </html>

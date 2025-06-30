@@ -1,0 +1,212 @@
+<!-- src/app/components/register/register.component.html -->
+<div class="register-container">
+  <div class="register-wrapper">
+
+    <!-- Logo/Brand Section -->
+    <div class="brand-section">
+      <mat-icon class="brand-icon">article</mat-icon>
+      <h1 class="brand-title">{{ 'AUTH.BRAND.APP_NAME' | translate }}</h1>
+      <p class="brand-subtitle">{{ 'AUTH.REGISTER.SUBTITLE' | translate }}</p>
+    </div>
+
+    <!-- Register Form -->
+    <mat-card class="register-card">
+      <mat-card-header class="card-header">
+        <mat-card-title>{{ 'AUTH.REGISTER.TITLE' | translate }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ 'AUTH.REGISTER.HAVE_ACCOUNT' | translate }}
+          <a routerLink="/login" class="login-link">{{ 'AUTH.REGISTER.LOGIN_LINK' | translate }}</a>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+
+          <!-- Username Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'AUTH.FIELDS.USERNAME' | translate }} *</mat-label>
+            <input
+              matInput
+              formControlName="username"
+              [placeholder]="'AUTH.FIELDS.USERNAME_PLACEHOLDER' | translate"
+              autocomplete="username"
+            >
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-hint>{{ 'AUTH.REGISTER.PASSWORD_HINTS.USERNAME_FORMAT' | translate }}</mat-hint>
+            <mat-error *ngIf="hasFieldError('username')">
+              {{ getFieldError('username') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Email Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'AUTH.FIELDS.EMAIL' | translate }} *</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              [placeholder]="'AUTH.FIELDS.EMAIL_PLACEHOLDER' | translate"
+              autocomplete="email"
+            >
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-error *ngIf="hasFieldError('email')">
+              {{ getFieldError('email') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Name Fields Row -->
+          <div class="name-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>{{ 'AUTH.FIELDS.FIRST_NAME' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="firstName"
+                [placeholder]="'AUTH.FIELDS.FIRST_NAME_PLACEHOLDER' | translate"
+                autocomplete="given-name"
+              >
+              <mat-error *ngIf="hasFieldError('firstName')">
+                {{ getFieldError('firstName') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>{{ 'AUTH.FIELDS.LAST_NAME' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="lastName"
+                [placeholder]="'AUTH.FIELDS.LAST_NAME_PLACEHOLDER' | translate"
+                autocomplete="family-name"
+              >
+              <mat-error *ngIf="hasFieldError('lastName')">
+                {{ getFieldError('lastName') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Password Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'AUTH.FIELDS.PASSWORD' | translate }} *</mat-label>
+            <input
+              matInput
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              [placeholder]="'AUTH.FIELDS.PASSWORD_PLACEHOLDER' | translate"
+              autocomplete="new-password"
+            >
+            <mat-icon matPrefix>lock</mat-icon>
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="('AUTH.FIELDS.PASSWORD_TOGGLE' | translate) + ' ' + (hidePassword ? ('AUTH.ACTIONS.SHOW' | translate) : ('AUTH.ACTIONS.HIDE' | translate))"
+            >
+              <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+
+            <!-- Password Strength Indicator -->
+            <mat-hint *ngIf="registerForm.get('password')?.value">
+              {{ 'AUTH.REGISTER.PASSWORD_STRENGTH' | translate }}
+              <span [class]="'strength-' + getPasswordStrength()">
+                {{ getPasswordStrengthText() }}
+              </span>
+            </mat-hint>
+
+            <mat-error *ngIf="hasFieldError('password')">
+              {{ getFieldError('password') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Confirm Password Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'AUTH.FIELDS.PASSWORD_CONFIRM' | translate }} *</mat-label>
+            <input
+              matInput
+              [type]="hideConfirmPassword ? 'password' : 'text'"
+              formControlName="confirmPassword"
+              [placeholder]="'AUTH.FIELDS.PASSWORD_CONFIRM_PLACEHOLDER' | translate"
+              autocomplete="new-password"
+            >
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="toggleConfirmPasswordVisibility()"
+              [attr.aria-label]="('AUTH.FIELDS.PASSWORD_TOGGLE' | translate) + ' ' + (hideConfirmPassword ? ('AUTH.ACTIONS.SHOW' | translate) : ('AUTH.ACTIONS.HIDE' | translate))"
+            >
+              <mat-icon>{{ hideConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="hasFieldError('confirmPassword')">
+              {{ getFieldError('confirmPassword') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Terms and Conditions -->
+          <div class="terms-section">
+            <mat-checkbox formControlName="acceptTerms" color="primary" class="terms-checkbox">
+              <span class="terms-text">
+                <a href="#" class="terms-link">{{ 'AUTH.REGISTER.TERMS_LINK' | translate }}</a> {{ 'AUTH.COMMON.AND' | translate }}
+                <a href="#" class="terms-link">{{ 'AUTH.REGISTER.PRIVACY_LINK' | translate }}</a> {{ 'AUTH.REGISTER.TERMS_ACCEPT_SUFFIX' | translate }}
+              </span>
+            </mat-checkbox>
+            <mat-error *ngIf="hasFieldError('acceptTerms')" class="terms-error">
+              {{ getFieldError('acceptTerms') }}
+            </mat-error>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="submit-button full-width"
+            [disabled]="isLoading"
+          >
+            <mat-spinner
+              *ngIf="isLoading"
+              diameter="20"
+              class="button-spinner"
+            ></mat-spinner>
+            <span *ngIf="!isLoading">
+              <mat-icon>person_add</mat-icon>
+              {{ 'AUTH.REGISTER.SUBMIT' | translate }}
+            </span>
+            <span *ngIf="isLoading">{{ 'AUTH.REGISTER.SUBMITTING' | translate }}</span>
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Alternative Actions -->
+    <div class="alternative-actions">
+      <mat-divider class="divider">
+        <span class="divider-text">{{ 'AUTH.COMMON.OR' | translate }}</span>
+      </mat-divider>
+
+      <div class="social-register">
+        <p class="social-text">{{ 'AUTH.SOCIAL.REGISTER_TEXT' | translate }}</p>
+        <div class="social-buttons">
+          <button mat-stroked-button class="social-button google-button">
+            <mat-icon>account_circle</mat-icon>
+            {{ 'AUTH.SOCIAL.GOOGLE_LOGIN' | translate }}
+          </button>
+          <button mat-stroked-button class="social-button github-button">
+            <mat-icon>code</mat-icon>
+            {{ 'AUTH.SOCIAL.GITHUB_LOGIN' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Home -->
+    <div class="back-to-home">
+      <button mat-button routerLink="/home" class="home-button">
+        <mat-icon>home</mat-icon>
+        {{ 'AUTH.NAVIGATION.BACK_TO_HOME' | translate }}
+      </button>
+    </div>
+
+  </div>
+</div>

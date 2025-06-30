@@ -1,0 +1,42 @@
+<nav class="navbar">
+  <div class="logo-container">
+    <a routerLink="/">
+      <div class="logo">
+        <img src="/logo-Photoroom.jpg" alt="DreamCanvas Logo" class="logo-image">
+        <div class="logo-text-container">
+          <span class="logo-text">{{ 'NAV.LOGO.TITLE' | translate }}</span>
+          <span class="logo-slogan">{{ 'NAV.LOGO.SLOGAN' | translate }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Dil Seçici Eklendi -->
+  <div class="language-selector-nav">
+    <app-language-selector></app-language-selector>
+  </div>
+
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <div class="nav-container">
+    <ul class="nav-links">
+      <li><a routerLink="/home" routerLinkActive="active">{{ 'NAV.MENU.HOME' | translate }}</a></li>
+      <li><a routerLink="/events" routerLinkActive="active">{{ 'NAV.MENU.EVENTS' | translate }}</a></li>
+      <li><a routerLink="/blogs" routerLinkActive="active">{{ 'NAV.MENU.BLOG' | translate }}</a></li>
+      <li><a routerLink="/profile" routerLinkActive="active">{{ 'NAV.MENU.PROFILE' | translate }}</a></li>
+    </ul>
+
+    <div class="nav-auth" *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="btn-login" routerLinkActive="active">{{ 'NAV.AUTH.LOGIN' | translate }}</a>
+      <a routerLink="/register" class="btn-register" routerLinkActive="active">{{ 'NAV.AUTH.REGISTER' | translate }}</a>
+    </div>
+    <div class="nav-auth" *ngIf="isLoggedIn">
+      <a (click)="logOut()" class="btn-login" routerLinkActive="active">{{ 'NAV.AUTH.LOGOUT' | translate }}</a>
+    </div>
+  </div>
+</nav>

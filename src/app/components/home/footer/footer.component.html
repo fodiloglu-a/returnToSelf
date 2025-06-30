@@ -1,0 +1,79 @@
+<footer class="footer-container">
+  <div class="footer-content">
+
+    <!-- Footer Main Content -->
+    <div class="footer-main">
+
+      <!-- Brand Section -->
+      <div class="footer-section brand-section">
+        <h3 class="footer-brand">{{ 'FOOTER.BRAND.TITLE' | translate }}</h3>
+        <p class="brand-description">
+          {{ 'FOOTER.BRAND.DESCRIPTION' | translate }}
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" [attr.aria-label]="'FOOTER.SOCIAL.INSTAGRAM' | translate">📷</a>
+          <a href="#" class="social-link" [attr.aria-label]="'FOOTER.SOCIAL.FACEBOOK' | translate">📘</a>
+          <a href="#" class="social-link" [attr.aria-label]="'FOOTER.SOCIAL.TWITTER' | translate">🐦</a>
+          <a href="#" class="social-link" [attr.aria-label]="'FOOTER.SOCIAL.LINKEDIN' | translate">💼</a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h4 class="section-title">{{ 'FOOTER.QUICK_LINKS.TITLE' | translate }}</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">{{ 'FOOTER.QUICK_LINKS.HOME' | translate }}</a></li>
+          <li><a href="#" class="footer-link">{{ 'FOOTER.QUICK_LINKS.EVENTS' | translate }}</a></li>
+          <li><a href="#" class="footer-link">{{ 'FOOTER.QUICK_LINKS.BLOG' | translate }}</a></li>
+          <li><a href="#" class="footer-link">{{ 'FOOTER.QUICK_LINKS.ABOUT' | translate }}</a></li>
+          <li><a href="#" class="footer-link">{{ 'FOOTER.QUICK_LINKS.CONTACT' | translate }}</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="newsletter">
+        <h5 class="newsletter-title">{{ 'FOOTER.NEWSLETTER.TITLE' | translate }}</h5>
+        <p class="newsletter-text">{{ 'FOOTER.NEWSLETTER.DESCRIPTION' | translate }}</p>
+        <div class="newsletter-form">
+          <input type="email" [placeholder]="'FOOTER.NEWSLETTER.EMAIL_PLACEHOLDER' | translate" class="newsletter-input">
+          <button type="submit" class="newsletter-btn">{{ 'FOOTER.NEWSLETTER.SUBSCRIBE' | translate }}</button>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-section">
+        <h4 class="section-title">{{ 'FOOTER.CONTACT.TITLE' | translate }}</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📧</span>
+            <span class="contact-text">info-kadinlaraoezel.com</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">+90 (212) 555 0123</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <span class="contact-text">{{ 'FOOTER.CONTACT.ADDRESS' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <span>{{ 'FOOTER.COPYRIGHT' | translate }}</span>
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" class="bottom-link">{{ 'FOOTER.LEGAL.PRIVACY' | translate }}</a>
+          <a href="#" class="bottom-link">{{ 'FOOTER.LEGAL.TERMS' | translate }}</a>
+          <a href="#" class="bottom-link">{{ 'FOOTER.LEGAL.COOKIES' | translate }}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>

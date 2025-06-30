@@ -1,0 +1,384 @@
+<!-- Loading State -->
+@if (isLoading) {
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>{{ 'BLOG_DETAIL.LOADING' | translate }}</p>
+  </div>
+}
+<br>
+<br>
+<br>
+<!-- Blog Content -->
+@if (!isLoading && blog) {
+  <div style="border-radius: 20px" class="blog-detail-container">
+    <br>
+    <br>
+    <!-- Navigation -->
+    <nav class="blog-navigation">
+      <button class="back-button" (click)="goBack()">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+        <span>{{ 'BLOG_DETAIL.NAVIGATION.ALL_POSTS' | translate }}</span>
+      </button>
+
+      <!-- Author Actions -->
+      @if (isAuthor()) {
+        <div class="author-actions">
+          <button class="action-btn edit-btn" (click)="onEditBlog()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            </svg>
+            <span>{{ 'BLOG_DETAIL.ACTIONS.EDIT' | translate }}</span>
+          </button>
+          <button class="action-btn delete-btn" (click)="onDeleteBlog()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+            <span>{{ 'BLOG_DETAIL.ACTIONS.DELETE' | translate }}</span>
+          </button>
+        </div>
+      }
+    </nav>
+    <br>
+    <br>
+    <!-- Blog Header -->
+    <header class="blog-header">
+      <!-- Category and Reading Time -->
+      <div class="blog-meta-top">
+        @if (blog.tags && getTagsArray(blog.slug).length > 0) {
+          <span class="category-badge">
+            {{ getTagsArray(blog.slug)[0] }}
+          </span>
+        }
+        <div class="reading-info">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span>{{ readingTime }} {{ 'BLOG_DETAIL.META.READING_TIME' | translate }}</span>
+        </div>
+      </div>
+
+      <!-- Blog Title -->
+      <h1 class="blog-title">{{ blog.title }}</h1>
+
+      <!-- Blog Excerpt -->
+      @if (blog.excerpt) {
+        <p class="blog-excerpt">{{ blog.excerpt }}</p>
+      }
+
+      <!-- Author Info and Stats -->
+      <div class="author-section">
+        <div class="author-info">
+          <div class="author-avatar">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <div class="author-details">
+            <h3 class="author-name">{{ blog.authorUsername || ('BLOG_DETAIL.AUTHOR.ANONYMOUS' | translate) }}</h3>
+            <div class="publish-info">
+              <span class="publish-date">{{ formatDate(blog.createdAt) }}</span>
+              @if (blog.updatedAt && blog.updatedAt !== blog.createdAt) {
+                <span class="updated-date">• {{ 'BLOG_DETAIL.META.UPDATED' | translate }} {{ formatDate(blog.updatedAt) }}</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Blog Stats -->
+        <div class="blog-stats">
+          <div class="stat-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span>{{ blog.likesCount || 0 }}</span>
+          </div>
+          <div class="stat-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M21.99 4c0-1.1-.89-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+            <span>{{ blog.commentCount || 0 }}</span>
+          </div>
+          <div class="stat-item">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+            <span>{{ getBlogViewCount() }}</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <br>
+    <br>
+    <!-- Featured Image -->
+    <div class="featured-image">
+      <img src="/gif.gif" [alt]="blog.title" />
+    </div>
+    <br>
+    <br>
+    <!-- Action Buttons -->
+    <div class="action-bar">
+      <div class="interaction-buttons">
+        <button
+          class="action-btn like-btn"
+          [class.active]="blog.isLiked"
+          (click)="onToggleLike()"
+          [title]="isAuthenticated ? (blog.isLiked ? ('BLOG_DETAIL.ACTIONS.UNLIKE' | translate) : ('BLOG_DETAIL.ACTIONS.LIKE' | translate)) : ('BLOG_DETAIL.AUTH.LOGIN_TO_LIKE' | translate)">
+          @if (blog.isLiked) {
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          } @else {
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          }
+          <span>{{ blog.isLiked ? ('BLOG_DETAIL.ACTIONS.LIKED' | translate) : ('BLOG_DETAIL.ACTIONS.LIKE' | translate) }}</span>
+          <span class="count">({{ blog.likesCount || 0 }})</span>
+        </button>
+
+        <button class="action-btn comment-btn" (click)="toggleCommentForm()">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21.99 4c0-1.1-.89-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+          </svg>
+          <span>{{ 'BLOG_DETAIL.ACTIONS.COMMENT' | translate }}</span>
+        </button>
+
+        <button
+          class="action-btn bookmark-btn"
+          (click)="onToggleFavorite()"
+          [title]="isAuthenticated ? ('BLOG_DETAIL.ACTIONS.BOOKMARK' | translate) : ('BLOG_DETAIL.AUTH.LOGIN_TO_BOOKMARK' | translate)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>{{ 'BLOG_DETAIL.ACTIONS.SAVE' | translate }}</span>
+        </button>
+      </div>
+
+      <!-- Share Dropdown -->
+
+    </div>
+    <br>
+    <br>
+    <!-- Tags -->
+    @if (blog.tags && getTagsArray(blog.tags).length > 0) {
+      <div class="tags-section">
+        <h4 class="tags-title">{{ 'BLOG_DETAIL.TAGS.TITLE' | translate }}</h4>
+        <div class="tags-list">
+          @for (tag of getTagsArray(blog.tags); track tag) {
+            <span class="tag-item">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+              </svg>
+              {{ tag }}
+            </span>
+          }
+        </div>
+      </div>
+    }
+    <br>
+    <br>
+    <!-- Blog Content -->
+    <article class="blog-content">
+      <div class="content-text" [innerHTML]="formatContent(blog.content)"></div>
+    </article>
+    <br>
+    <br>
+    <!-- Comments Section -->
+    <section class="comments-section">
+      <div class="comments-header">
+        <h3>
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21.99 4c0-1.1-.89-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/>
+          </svg>
+          {{ 'BLOG_DETAIL.COMMENTS.TITLE' | translate }} ({{ comments.length }})
+        </h3>
+      </div>
+
+      <!-- Comment Form -->
+      @if (showCommentForm) {
+        <div class="comment-form-container">
+          <div class="comment-form">
+            <div class="form-header">
+              <div class="user-avatar">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+              <h4>
+                @if (isAuthenticated) {
+                  {{ 'BLOG_DETAIL.COMMENTS.ADD_COMMENT' | translate }}
+                } @else {
+                  {{ 'BLOG_DETAIL.COMMENTS.ADD_COMMENT_LOGIN_REQUIRED' | translate }}
+                }
+              </h4>
+              <button class="close-btn" (click)="showCommentForm = false">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+              </button>
+            </div>
+
+            <form (ngSubmit)="onSubmitComment()" #commentForm="ngForm">
+              <div class="form-group">
+                <textarea
+                  [(ngModel)]="newComment.content"
+                  name="content"
+                  [placeholder]="'BLOG_DETAIL.COMMENTS.PLACEHOLDER' | translate"
+                  rows="4"
+                  required
+                  maxlength="1000"
+                  #contentInput="ngModel">
+                </textarea>
+                <div class="char-count">
+                  {{ newComment.content.length }}/1000
+                </div>
+              </div>
+
+              <!-- Login Warning -->
+              @if (!isAuthenticated && newComment.content.length > 0) {
+                <div class="auth-warning">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                  <p>{{ 'BLOG_DETAIL.COMMENTS.LOGIN_WARNING' | translate }}</p>
+                </div>
+              }
+
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="showCommentForm = false">
+                  {{ 'BLOG_DETAIL.COMMENTS.CANCEL' | translate }}
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!commentForm.form.valid || isSubmittingComment">
+                  @if (isSubmittingComment) {
+                    <div class="spinner"></div>
+                  }
+                  @if (isAuthenticated) {
+                    {{ isSubmittingComment ? ('BLOG_DETAIL.COMMENTS.SUBMITTING' | translate) : ('BLOG_DETAIL.COMMENTS.SUBMIT' | translate) }}
+                  } @else {
+                    {{ 'BLOG_DETAIL.COMMENTS.LOGIN_AND_SUBMIT' | translate }}
+                  }
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      }
+
+      <!-- Comments Loading -->
+      @if (isCommentsLoading) {
+        <div class="comments-loading">
+          <div class="loading-spinner small"></div>
+          <p>{{ 'BLOG_DETAIL.COMMENTS.LOADING' | translate }}</p>
+        </div>
+      }
+
+      <!-- Comments List -->
+      @if (!isCommentsLoading) {
+        <div class="comments-list">
+          @for (comment of comments; track trackByCommentId($index, comment)) {
+            <div class="comment-item">
+              <div class="comment-avatar">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+
+              <div class="comment-content">
+                <div class="comment-header">
+                  <h5 class="comment-author">{{ comment.username || ('BLOG_DETAIL.COMMENTS.ANONYMOUS_USER' | translate) }}</h5>
+                  <span class="comment-date">{{ formatDetailedDate(comment.createdAt) }}</span>
+
+                  @if (isCommentOwner(comment)) {
+                    <button
+                      class="delete-comment-btn"
+                      (click)="onDeleteComment(comment.id)"
+                      [title]="'BLOG_DETAIL.COMMENTS.DELETE_COMMENT' | translate">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                      </svg>
+                    </button>
+                  }
+                </div>
+
+                <div class="comment-text">
+                  {{ comment.content }}
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <div class="no-comments">
+              <svg width="64" height="64" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21.99 4c0-1.1-.89-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+              </svg>
+              <h4>{{ 'BLOG_DETAIL.COMMENTS.NO_COMMENTS_TITLE' | translate }}</h4>
+              <p>{{ 'BLOG_DETAIL.COMMENTS.NO_COMMENTS_DESCRIPTION' | translate }}</p>
+              <button class="btn btn-primary" (click)="toggleCommentForm()">
+                @if (isAuthenticated) {
+                  {{ 'BLOG_DETAIL.COMMENTS.FIRST_COMMENT' | translate }}
+                } @else {
+                  {{ 'BLOG_DETAIL.COMMENTS.LOGIN_AND_COMMENT' | translate }}
+                }
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </section>
+    <br>
+    <br>
+    <!-- Related Blogs -->
+    @if (relatedBlogs.length > 0) {
+      <section class="related-blogs">
+        <h3 class="section-title">{{ 'BLOG_DETAIL.RELATED.TITLE' | translate }}</h3>
+        <div class="related-blogs-grid">
+          @for (relatedBlog of relatedBlogs; track trackByBlogId($index, relatedBlog)) {
+            <article class="related-blog-card" (click)="navigateToRelatedBlog(relatedBlog.id!)">
+              @if (getRelatedBlogImageUrl(relatedBlog)) {
+                <div class="related-blog-image">
+                  <img [src]="getRelatedBlogImageUrl(relatedBlog)" [alt]="relatedBlog.title" />
+                </div>
+              }
+              <div class="related-blog-content">
+                <h4 class="related-blog-title">{{ relatedBlog.title }}</h4>
+                <p class="related-blog-excerpt">{{ relatedBlog.excerpt }}</p>
+                <div class="related-blog-meta">
+                  <span class="author">{{ relatedBlog.authorUsername }}</span>
+                  <span class="date">{{ formatDate(relatedBlog.createdAt) }}</span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+  </div>
+}
+<br>
+<br>
+<br>
+<!-- Error State -->
+@if (!isLoading && !blog) {
+  <div class="error-container">
+    <div class="error-content">
+      <svg width="80" height="80" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+      </svg>
+      <h2>{{ 'BLOG_DETAIL.ERROR.NOT_FOUND_TITLE' | translate }}</h2>
+      <p>{{ 'BLOG_DETAIL.ERROR.NOT_FOUND_DESCRIPTION' | translate }}</p>
+      <button class="btn btn-primary" (click)="goBack()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+        {{ 'BLOG_DETAIL.ERROR.GO_BACK' | translate }}
+      </button>
+    </div>
+  </div>
+}

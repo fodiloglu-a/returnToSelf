@@ -1,0 +1,214 @@
+/* src/app/components/home/home.component.css */
+
+.home-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Navigation Bar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.welcome-text {
+  margin-right: 16px;
+  font-size: 0.95rem;
+}
+
+.user-menu-btn {
+  margin-left: 8px;
+}
+
+.nav-btn {
+  margin-left: 8px;
+}
+
+/* Main Content */
+.main-content {
+  padding: 24px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Welcome Section */
+.welcome-section {
+  margin-bottom: 32px;
+}
+
+.welcome-card {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.welcome-card mat-card-title {
+  font-size: 2rem;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.welcome-card mat-card-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.welcome-card mat-card-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.welcome-card mat-card-actions {
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.welcome-card mat-card-actions button {
+  margin: 0 8px;
+}
+
+/* Quick Actions */
+.quick-actions {
+  margin-bottom: 32px;
+}
+
+.quick-actions h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+  font-weight: 500;
+}
+
+.action-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.action-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.action-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+}
+
+.action-avatar.create-blog {
+  background-color: #4caf50;
+}
+
+.action-avatar.my-blogs {
+  background-color: #ff9800;
+}
+
+.action-avatar.browse-blogs {
+  background-color: #2196f3;
+}
+
+.action-avatar.profile {
+  background-color: #9c27b0;
+}
+
+/* Latest Blogs */
+.latest-blogs {
+  margin-bottom: 32px;
+}
+
+.latest-blogs h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+  font-weight: 500;
+}
+
+.blog-preview-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 16px;
+}
+
+.blog-preview-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.blog-preview-card mat-card-title {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.blog-preview-card mat-card-subtitle {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.blog-preview-card mat-card-content p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.blog-preview-card mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .welcome-card mat-card-title {
+    font-size: 1.5rem;
+  }
+
+  .action-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-preview-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-btn {
+    margin-left: 4px;
+  }
+
+  .welcome-text {
+    display: none;
+  }
+}

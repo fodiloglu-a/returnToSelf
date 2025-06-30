@@ -1,0 +1,330 @@
+/* src/app/components/register/register.component.css */
+
+.register-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.register-wrapper {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Brand Section */
+.brand-section {
+  text-align: center;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.brand-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.brand-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Register Card */
+.register-card {
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border-radius: 16px;
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.card-header mat-card-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.card-header mat-card-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.login-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Form Styles */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.name-row {
+  display: flex;
+  gap: 12px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+/* Password Strength Indicator */
+.strength-weak {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.strength-medium {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.strength-strong {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+/* Terms Section */
+.terms-section {
+  margin: 8px 0;
+}
+
+.terms-checkbox {
+  margin-bottom: 8px;
+}
+
+.terms-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.terms-link {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+.terms-error {
+  color: #f44336;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Submit Button */
+.submit-button {
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 16px;
+  position: relative;
+}
+
+.submit-button mat-icon {
+  margin-right: 8px;
+}
+
+.button-spinner {
+  margin-right: 8px;
+}
+
+/* Alternative Actions */
+.alternative-actions {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.divider {
+  position: relative;
+  margin: 24px 0;
+}
+
+.divider-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 0 16px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.social-register {
+  text-align: center;
+}
+
+.social-text {
+  color: white;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+
+.social-button {
+  background: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 24px;
+}
+
+.google-button:hover {
+  background: #f5f5f5;
+}
+
+.github-button:hover {
+  background: #f5f5f5;
+}
+
+.social-button mat-icon {
+  margin-right: 8px;
+}
+
+/* Back to Home */
+.back-to-home {
+  margin-top: 24px;
+}
+
+.home-button {
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.home-button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Error States */
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 0, 0, 0.04);
+}
+
+/* Custom Snackbar Styles */
+:host ::ng-deep .success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+:host ::ng-deep .error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+/* Loading State */
+.submit-button:disabled {
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .register-container {
+    padding: 12px;
+  }
+
+  .register-card {
+    padding: 20px;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .name-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .half-width {
+    width: 100%;
+  }
+
+  .terms-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-wrapper {
+    max-width: 100%;
+  }
+
+  .social-buttons {
+    flex-direction: column;
+  }
+
+  .social-button {
+    width: 100%;
+  }
+}
+
+/* Animation */
+.register-card {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form field customizations */
+.mat-mdc-form-field {
+  margin-bottom: 8px;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-hint-wrapper {
+  padding-top: 4px;
+}
+
+/* Checkbox alignment */
+.terms-checkbox .mdc-form-field {
+  align-items: flex-start;
+}

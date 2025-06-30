@@ -1,0 +1,775 @@
+.events-container {
+  width: 100%;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* YENİ: Geliştirilmiş buton stilleri - Mevcut CSS'e ekleyin */
+
+/* Orijinal .event-actions stil değişikliği - zaten varsa güncelleyin */
+.event-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* YENİ: Daha Fazla Bilgi butonu */
+.btn-info {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* YENİ: İlgili Blog butonu */
+.btn-blog {
+  flex: 1;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-blog:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+/* YENİ: Buton icon stilleri */
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* Mevcut mobile responsive kısmına ekleme */
+@media (max-width: 768px) {
+  .event-actions {
+    flex-direction: column;
+  }
+
+  .btn-info, .btn-blog {
+    width: 100%;
+  }
+}
+/* YENİ BADGE STİLLERİ - Mevcut CSS'e ekleyin */
+
+/* Enhanced badge container */
+.event-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badges-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.badges-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+/* YENİ: Özel badge türleri */
+.audience-badge {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.gender-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.certified-badge {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.detox-badge {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* YENİ: Terapötik metodlar bölümü */
+.therapeutic-methods {
+  margin-bottom: 1rem;
+}
+
+.therapeutic-methods h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.method-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.method-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* YENİ: Hedef problemler bölümü */
+.target-problems {
+  margin-bottom: 1rem;
+}
+
+.target-problems h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.problem-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.problem-tag {
+  background: #fef5e7;
+  color: #744210;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid #f6e05e;
+}
+
+/* YENİ: Özel özellikler bölümü */
+.special-features {
+  margin-bottom: 1rem;
+}
+
+.special-features h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #48bb78;
+  font-weight: 500;
+}
+
+.feature-icon {
+  font-size: 0.9rem;
+}
+
+/* YENİ: Beklenen sonuçlar bölümü */
+.expected-outcomes {
+  margin-bottom: 1rem;
+}
+
+.outcome-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.outcome-tag {
+  background: #e6fffa;
+  color: #234e52;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid #81e6d9;
+}
+
+.more-outcomes {
+  background: #f7fafc;
+  color: #4a5568;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  font-style: italic;
+}
+
+/* YENİ: Geliştirilmiş buton stilleri - mevcut olanları değiştirin */
+.event-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-info {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-blog {
+  flex: 1;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-blog:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* YENİ: Responsive iyileştirmeleri */
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .events-container {
+    padding: 1rem 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .event-content {
+    padding: 1.5rem;
+  }
+
+  .event-title {
+    font-size: 1.2rem;
+  }
+
+  .event-image {
+    height: 200px;
+  }
+
+  .event-actions {
+    flex-direction: column;
+  }
+
+  .btn-info, .btn-blog {
+    width: 100%;
+  }
+
+  /* YENİ: Mobile'da badge düzenlemesi */
+  .event-badges {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badges-right {
+    align-items: flex-start;
+  }
+
+  /* YENİ: Mobile'da özellik listesi */
+  .feature-list {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .method-tags, .problem-tags, .outcome-tags {
+    justify-content: flex-start;
+  }
+}
+
+/* YENİ: Özel animasyonlar */
+.event-card .therapeutic-methods,
+.event-card .target-problems,
+.event-card .special-features,
+.event-card .expected-outcomes {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.event-card .therapeutic-methods {
+  animation-delay: 0.1s;
+}
+
+.event-card .target-problems {
+  animation-delay: 0.2s;
+}
+
+.event-card .special-features {
+  animation-delay: 0.3s;
+}
+
+.event-card .expected-outcomes {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* YENİ: Hover efektleri için iyileştirmeler */
+.event-card:hover .method-tag {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover .problem-tag {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover .outcome-tag {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* YENİ: Loading ve error states */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid #feb2b2;
+}
+
+/* YENİ: Filter section stilleri (isteğe bağlı) */
+.filter-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.filter-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.filter-checkbox {
+  width: 16px;
+  height: 16px;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  width: 100%;
+}
+
+.event-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.event-image {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.category-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.event-price {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.price-text {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.event-content {
+  padding: 1.5rem;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.event-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.level-badge {
+  background: #e2e8f0;
+  color: #4a5568;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.event-description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.event-details {
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.detail-icon {
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.detail-text {
+  color: #555;
+  font-weight: 500;
+}
+
+.event-capacity {
+  margin-bottom: 1rem;
+}
+
+.capacity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.available-spots {
+  font-size: 0.8rem;
+  color: #48bb78;
+  font-weight: 600;
+}
+
+.available-spots.few-spots {
+  color: #ed8936;
+}
+
+.capacity-bar {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.capacity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+  transition: width 0.3s ease;
+}
+
+.event-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.25rem;
+}
+
+.tag {
+  background: #f7fafc;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
+.event-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-register {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-register:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-register:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.btn-details {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-details:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .events-container {
+    padding: 1rem 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .event-content {
+    padding: 1.5rem;
+  }
+
+  .event-title {
+    font-size: 1.2rem;
+  }
+
+  .event-image {
+    height: 200px;
+  }
+
+  .event-description {
+    font-size: 0.95rem;
+  }
+
+  .event-actions {
+    flex-direction: column;
+  }
+
+  .btn-register, .btn-details {
+    width: 100%;
+  }
+}

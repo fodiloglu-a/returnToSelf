@@ -1,0 +1,65 @@
+<div class="blogs-container">
+  <div class="blogs-grid">
+    <article class="blog-card" *ngFor="let blog of blogs">
+      <!-- Blog Image -->
+      <div class="blog-image">
+        <img src="{{blog.imageUrl}}" [alt]="blog.title" />
+        <div class="blog-overlay">
+          <div class="read-time">
+            <span>{{ calculateReadTime(blog.content) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Content -->
+      <div class="blog-content">
+        <!-- Author & Date -->
+        <div class="blog-meta">
+          <div class="author-info">
+            <span class="author-icon">👩‍💼</span>
+            <span class="author-name">{{ blog.authorUsername }}</span>
+          </div>
+          <span class="blog-date">{{ formatDate(blog.createdAt!) }}</span>
+        </div>
+
+        <!-- Title -->
+        <h3 class="blog-title">{{ blog.title }}</h3>
+
+        <!-- Excerpt -->
+        <p class="blog-excerpt">{{ blog.excerpt }}</p>
+
+        <!-- Tags -->
+        <div class="blog-tags">
+          @for (tag of getTagsArray(blog.tags); track tag) {
+            <span class="tag">
+              #{{ tag }}
+            </span>
+          }
+        </div>
+
+        <!-- Stats & Actions -->
+        <div class="blog-footer">
+          <div class="blog-stats">
+            <div class="stat-item">
+              <button
+                class="like-btn"
+                [class.liked]="blog.isLiked"
+                (click)="toggleLike(blog)">
+                <span class="like-icon">{{ blog.isLiked ? '❤️' : '🤍' }}</span>
+                <span class="like-count">{{ blog.likesCount }}</span>
+              </button>
+            </div>
+            <div class="stat-item">
+              <span class="comment-icon">💬</span>
+              <span class="comment-count">{{ blog.commentCount }}</span>
+            </div>
+          </div>
+
+          <div class="blog-actions">
+            <button (click)="navigateToBlock(blog.id)" class="btn-read-more">{{ 'BLOG_CARDS.ACTIONS.READ_MORE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

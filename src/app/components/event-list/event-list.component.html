@@ -1,0 +1,294 @@
+<!-- Event List Container -->
+<div class="event-list-container">
+  <br>
+  <br>
+  <div class="container">
+
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-background"></div>
+
+      <!-- Navigation -->
+      <div class="navigation">
+        <button class="nav-btn" (click)="goBack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+          {{ 'EVENT_LIST.NAVIGATION.HOME' | translate }}
+        </button>
+
+        <div class="nav-actions">
+          <button class="icon-btn refresh-btn" (click)="refreshEvents()" [title]="'EVENT_LIST.NAVIGATION.REFRESH' | translate">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Header Content -->
+      <div class="header-content">
+        <h1 class="page-title">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zM5 8h14V6H5v2z"/>
+          </svg>
+          {{ 'EVENT_LIST.HEADER.TITLE' | translate }}
+        </h1>
+        <p class="page-subtitle">{{ 'EVENT_LIST.HEADER.SUBTITLE' | translate }}</p>
+
+        <!-- Statistics Summary -->
+        <div class="stats-summary">
+          <div class="stat-item">
+            <span class="stat-number">{{ totalEvents }}</span>
+            <span class="stat-label">{{ 'EVENT_LIST.STATS.TOTAL_EVENTS' | translate }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ availableSpots }}</span>
+            <span class="stat-label">{{ 'EVENT_LIST.STATS.AVAILABLE_SPOTS' | translate }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ freeEvents }}</span>
+            <span class="stat-label">{{ 'EVENT_LIST.STATS.FREE_EVENTS' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-section">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h3>{{ 'EVENT_LIST.LOADING.TITLE' | translate }}</h3>
+        <p>{{ 'EVENT_LIST.LOADING.SUBTITLE' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="empty-state">
+      <div class="empty-content">
+        <svg class="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <h3>{{ 'EVENT_LIST.ERROR.TITLE' | translate }}</h3>
+        <p>{{ error }}</p>
+        <button class="btn btn-primary" (click)="refreshEvents()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+          {{ 'EVENT_LIST.ERROR.RETRY' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="!isLoading && !error" class="main-content">
+
+      <!-- Upcoming Events Section -->
+      <div *ngIf="upcomingEvents.length > 0" class="events-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+            </svg>
+            {{ 'EVENT_LIST.SECTIONS.UPCOMING_EVENTS' | translate }}
+          </h2>
+          <span class="section-count">{{ upcomingEvents.length }} {{ 'EVENT_LIST.SECTIONS.EVENTS_COUNT' | translate }}</span>
+        </div>
+
+        <div class="event-list">
+          <div class="event-card"
+               *ngFor="let event of upcomingEvents; trackBy: trackByEventId"
+               (click)="navigateToEventDetail(event.id)">
+
+            <!-- Event Image -->
+            <div class="event-image">
+              <img [src]="event.imageUrl" [alt]="event.title" />
+
+              <!-- Status Badges -->
+              <div class="event-badges">
+                <span class="category-badge">{{ getCategoryText(event.category) }}</span>
+                <span class="status-badge"
+                      [class.urgent]="isAlmostFull(event)"
+                      [class.full]="isFull(event)">
+                  {{ isFull(event) ? ('EVENT_LIST.STATUS.FULL' | translate) : isAlmostFull(event) ? ('EVENT_LIST.STATUS.LAST_SPOTS' | translate) : ('EVENT_LIST.STATUS.AVAILABLE' | translate) }}
+                </span>
+              </div>
+
+              <!-- Special Features -->
+              <div class="feature-badges" *ngIf="event.includesDigitalDetox || event.certifiedMethods">
+                <span *ngIf="event.includesDigitalDetox" class="feature-badge">{{ 'EVENT_LIST.FEATURES.DIGITAL_DETOX' | translate }}</span>
+                <span *ngIf="event.certifiedMethods" class="feature-badge">{{ 'EVENT_LIST.FEATURES.CERTIFIED' | translate }}</span>
+              </div>
+
+              <!-- Price Tag -->
+              <div class="price-tag">
+                <span class="price-text">{{ getEventPriceDisplay(event) }}</span>
+              </div>
+            </div>
+
+            <!-- Event Content -->
+            <div class="event-content">
+
+              <!-- Event Header -->
+              <div class="event-header">
+                <div class="event-meta">
+                  <span class="audience-text">{{ getTargetAudienceText(event.targetAudience) }}</span>
+                  <span class="level-text">{{ getLevelText(event.level) }}</span>
+                </div>
+
+                <div class="countdown" *ngIf="isUpcoming(event)">
+                  <span class="countdown-number">{{ getDaysUntilEvent(event) }}</span>
+                  <span class="countdown-text">{{ 'EVENT_LIST.TIME.DAYS_LEFT' | translate }}</span>
+                </div>
+              </div>
+
+              <!-- Event Title -->
+              <h3 class="event-title">{{ event.title }}</h3>
+
+              <!-- Event Description -->
+              <p class="event-excerpt">{{ event.shortDescription }}</p>
+
+              <!-- Key Features -->
+              <div class="key-features" *ngIf="getKeyFeatures(event).length > 0">
+                <span class="feature-pill" *ngFor="let feature of getKeyFeatures(event)">
+                  {{ feature }}
+                </span>
+              </div>
+
+              <!-- Event Details -->
+              <div class="event-details">
+                <div class="detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                  </svg>
+                  <span>{{ formatDate(event.date) }}</span>
+                </div>
+                <div class="detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                  </svg>
+                  <span>{{ formatTime(event.time) }}</span>
+                </div>
+                <div class="detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <span>{{ event.location }}</span>
+                </div>
+              </div>
+
+              <!-- Capacity Bar -->
+              <div class="capacity-section">
+                <div class="capacity-info">
+                  <span class="available-text" [class.few-spots]="isAlmostFull(event)">
+                    {{ getAvailableSpots(event) }} {{ 'EVENT_LIST.STATUS.SPOTS_LEFT' | translate }}
+                  </span>
+                  <span class="capacity-percentage">
+                    {{ getCapacityPercentage(event) | number:'1.0-0' }}% {{ 'EVENT_LIST.STATUS.FULL_PERCENT' | translate }}
+                  </span>
+                </div>
+                <div class="capacity-bar">
+                  <div class="capacity-fill" [style.width.%]="getCapacityPercentage(event)"></div>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <div class="event-actions">
+                <button class="read-more-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/>
+                  </svg>
+                  {{ 'EVENT_LIST.ACTIONS.VIEW_DETAILS' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Events Section -->
+      <div *ngIf="pastEvents.length > 0" class="events-section past-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+            </svg>
+            {{ 'EVENT_LIST.SECTIONS.PAST_EVENTS' | translate }}
+          </h2>
+          <span class="section-count">{{ pastEvents.length }} {{ 'EVENT_LIST.SECTIONS.EVENTS_COUNT' | translate }}</span>
+        </div>
+
+        <div class="event-list past-events">
+          <div class="event-card past-event"
+               *ngFor="let event of pastEvents; trackBy: trackByEventId"
+               (click)="navigateToEventDetail(event.id)">
+
+            <!-- Event Image -->
+            <div class="event-image">
+              <img [src]="event.imageUrl" [alt]="event.title" />
+
+              <!-- Past Event Overlay -->
+              <div class="past-overlay">
+                <span class="past-badge">{{ 'EVENT_LIST.STATUS.COMPLETED' | translate }}</span>
+              </div>
+
+              <!-- Price Tag -->
+              <div class="price-tag">
+                <span class="price-text">{{ getEventPriceDisplay(event) }}</span>
+              </div>
+            </div>
+
+            <!-- Event Content -->
+            <div class="event-content">
+              <div class="event-header">
+                <span class="category-text">{{ getCategoryText(event.category) }}</span>
+              </div>
+
+              <h3 class="event-title">{{ event.title }}</h3>
+              <p class="event-excerpt">{{ event.shortDescription }}</p>
+
+              <div class="event-details">
+                <div class="detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                  </svg>
+                  <span>{{ formatDate(event.date) }}</span>
+                </div>
+                <div class="detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                  </svg>
+                  <span>{{ event.registeredCount }}/{{ event.capacity }} {{ 'EVENT_LIST.STATUS.PARTICIPANTS' | translate }}</span>
+                </div>
+              </div>
+
+              <div class="event-actions">
+                <button class="read-more-btn secondary">
+                  {{ 'EVENT_LIST.ACTIONS.VIEW_DETAILS' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="events.length === 0" class="empty-state">
+        <div class="empty-content">
+          <svg class="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+          </svg>
+          <h3>{{ 'EVENT_LIST.EMPTY.TITLE' | translate }}</h3>
+          <p>{{ 'EVENT_LIST.EMPTY.DESCRIPTION' | translate }}</p>
+          <button class="btn btn-primary" (click)="refreshEvents()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+            {{ 'EVENT_LIST.ACTIONS.REFRESH' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

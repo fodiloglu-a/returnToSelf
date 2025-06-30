@@ -1,0 +1,243 @@
+/* Ana Uygulama Konteyneri */
+.app-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* Yatay kaydırmayı engelle */
+}
+
+/* Arka Plan Sarmalayıcı */
+.background-wrapper {
+  position: fixed; /* Sayfayı kaydırırken arka planın sabit kalması için */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* İçeriğin arkasında olmasını sağlar */
+  overflow: hidden;
+}
+
+/* GIF Konteyneri */
+.gif-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* GIF Arka Plan Stili - Responsive */
+.background-gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Responsive için kritik özellik */
+  object-position: center center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+/* GIF Yüklendiğinde */
+.background-gif.loaded {
+  opacity: 1;
+}
+
+/* Yedek Arka Plan */
+.fallback-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #4b6cb7, #182848); /* Gradyan arka plan */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Yedek Arka Plan Görünür Olduğunda */
+.fallback-background.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Overlay - Yarı saydam karartma katmanı */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam karartma */
+}
+
+/* İçerik Konteyneri */
+.content-container {
+  position: relative;
+  z-index: 1; /* Arka plandan daha üstte olması için */
+  width: 100%;
+  min-height: 100vh;
+}
+.main-content {
+  padding: var(--spacing-lg);
+  min-height: calc(100vh - 80px); /* Navbar'ın yaklaşık yüksekliğini çıkararak */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+  /* Mobil cihazlarda GIF için özel ayarlar */
+  .background-gif {
+    object-position: center center;
+  }
+}
+
+/* Yatay ekran görünümü için özel ayarlar */
+@media (orientation: landscape) and (max-height: 500px) {
+  .app-container {
+    height: auto;
+  }
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  /* Arka planı şeffaf yapıyoruz */
+  background-color: rgba(255, 255, 255, 0.15); /* Yarı şeffaf beyaz */
+  backdrop-filter: blur(8px); /* Cam efekti için blur */
+  -webkit-backdrop-filter: blur(8px); /* Safari için */
+  color: var(--text-light); /* Metin rengini açık renk yapıyoruz */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Daha hafif gölge */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+  /* Kenar vurgusu ekleyebiliriz */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.logo-text {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-light); /* Logonun rengini beyaz yapıyoruz */
+  transition: var(--transition-normal);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Metne gölge ekleyebiliriz */
+}
+
+.nav-links a {
+  color: var(--text-light); /* Link rengini beyaz yapıyoruz */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Şeffaf hover efekti */
+  color: var(--text-light);
+}
+
+.nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.25); /* Şeffaf aktif efekti */
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+.btn-login, .btn-register {
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-normal);
+}
+
+.btn-login {
+  color: var(--text-light); /* Buton metin rengini beyaz yapıyoruz */
+  background-color: rgba(255, 255, 255, 0.2); /* Şeffaf arka plan */
+  border: 1px solid var(--text-light);
+}
+
+.btn-login:hover {
+  box-shadow: var(--shadow-light);
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.3); /* Hover durumunda daha az şeffaf */
+}
+
+.btn-login.active {
+  background-color: rgba(255, 255, 255, 0.35); /* Aktif durumda daha az şeffaf */
+}
+
+.btn-register {
+  color: var(--text-dark); /* Koyu metin rengi */
+  background-color: rgba(255, 255, 255, 0.8); /* Daha opak beyaz */
+  border: none;
+}
+
+.btn-register:hover {
+  background-color: rgba(255, 255, 255, 0.9); /* Hover durumunda daha az şeffaf */
+  box-shadow: var(--shadow-light);
+  transform: translateY(-2px);
+}
+
+.btn-register.active {
+  background-color: rgba(255, 255, 255, 1); /* Aktif durumda tam opak */
+}
+
+.menu-icon span {
+  height: 3px;
+  width: 25px;
+  background-color: var(--text-light); /* Menü ikonunu beyaz yapıyoruz */
+  margin: 3px 0;
+  border-radius: var(--radius-xs);
+  transition: var(--transition-normal);
+}
+
+/* Mobil Görünüm */
+@media (max-width: 768px) {
+  .navbar {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .menu-icon {
+    display: flex;
+    z-index: 2;
+  }
+
+  .nav-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 80%;
+    max-width: 300px;
+    background-color: rgba(0, 0, 0, 0.7); /* Mobil menü için koyu şeffaf arka plan */
+    backdrop-filter: blur(10px); /* Daha güçlü blur efekti */
+    -webkit-backdrop-filter: blur(10px); /* Safari için */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-normal);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-heavy);
+    border-left: 1px solid rgba(255, 255, 255, 0.1); /* Sol kenar çizgisi */
+  }
+
+  .menu-toggle:checked ~ .menu-icon span {
+    background-color: var(--text-light); /* Menü açıkken ikon rengini beyaz yapıyoruz */
+  }
+}

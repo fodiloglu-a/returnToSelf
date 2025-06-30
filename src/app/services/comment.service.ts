@@ -9,8 +9,8 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CommentService {
- private readonly API_URL = 'http://localhost:8080/api/comments';
-  // private readonly API_URL = 'https://returntoyourself.onrender.com/api/comments';
+// private readonly API_URL = 'http://localhost:8080/api/comments';
+   private readonly API_URL = 'https://returntoyourself.onrender.com/api/comments';
 
   // Yorumlar için reactive state (blog bazında)
   private commentsSubject = new BehaviorSubject<{ [blogId: number]: CommentModel[] }>({});

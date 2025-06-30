@@ -39,8 +39,8 @@ export interface PageResponse<T> {
   providedIn: 'root'
 })
 export class EventService {
-  // private readonly API_URL = 'https://returntoyourself.onrender.com/api/events';
-  private readonly API_URL = 'http://localhost:8080/api/events';
+   private readonly API_URL = 'https://returntoyourself.onrender.com/api/events';
+  // private readonly API_URL = 'http://localhost:8080/api/events';
 
   // State management for events
   private eventsSubject = new BehaviorSubject<EventModel[]>([]);

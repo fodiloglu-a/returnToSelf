@@ -9,8 +9,8 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BlogService {
-  //private readonly API_URL = 'https://returntoyourself.onrender.com/api/blogs';
-  private readonly API_URL = 'http://localhost:8080/api/blogs';
+  private readonly API_URL = 'https://returntoyourself.onrender.com/api/blogs';
+  //private readonly API_URL = 'http://localhost:8080/api/blogs';
 
   // Blog listesi için reactive state
   private blogsSubject = new BehaviorSubject<Blog[]>([]);

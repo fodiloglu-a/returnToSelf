@@ -2,7 +2,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-// REMOVED: MaterialModule - Ağır import kaldırıldı
 import { AuthService } from '../../services/auth.service';
 
 import { Observable } from 'rxjs';
@@ -16,11 +15,10 @@ import { WebInfoComponent } from './web-info/web-info.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush, // ADDED: OnPush for performance
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     RouterModule,
-    // REMOVED: MaterialModule
     HeroComponent,
     EventFilterComponent,
     EventInfoComponent,
@@ -41,7 +39,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // Component yüklendiğinde gerekli işlemler
-    // OPTIMIZATION: Mark component as loaded for potential tracking
     if (typeof window !== 'undefined') {
       performance.mark('home-component-loaded');
     }

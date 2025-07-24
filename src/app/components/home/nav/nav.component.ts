@@ -22,9 +22,11 @@ import {LanguageSelectorComponent} from '../../language-selector/language-select
 export class NavComponent {
   isMenuOpen = false;
   isLoggedIn = false;
+  adminUser: boolean=false;
 
   constructor(private authService: AuthService,private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.adminUser= this.authService.getCurrentUser()?.username=='admin';
   }
 
   toggleMenu() {

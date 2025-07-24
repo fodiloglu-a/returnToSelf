@@ -64,7 +64,7 @@ export const appConfig: ApplicationConfig = {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
         },
-        defaultLanguage: 'tr',
+        defaultLanguage: 'uk',
         useDefaultLang: true,
         isolate: false,
         extend: true // Enable extending translations

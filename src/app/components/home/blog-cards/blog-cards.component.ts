@@ -1,81 +1,87 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule, DatePipe} from '@angular/common';
-import {Blog} from '../../../models/blog.model';
-import {BehaviorSubject, Subject, takeUntil} from 'rxjs';
-import {BlogService} from '../../../services/blog.service';
-import {Router} from '@angular/router';
-import {CommentService} from '../../../services/comment.service';
-import {AuthService} from '../../../services/auth.service';
-import {TranslatePipe} from '@ngx-translate/core';
+// src/app/components/home/blog-cards/blog-cards.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common'; // DatePipe eklendi
+import { Blog } from '../../../models/blog.model';
+import { BehaviorSubject, Subject, takeUntil, Observable } from 'rxjs'; // Observable eklendi
+import { BlogService } from '../../../services/blog.service';
+import { Router } from '@angular/router';
+import { CommentService } from '../../../services/comment.service';
+import { AuthService } from '../../../services/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-blog-cards',
-  imports: [CommonModule, TranslatePipe],
+  standalone: true,
+  imports: [CommonModule, TranslatePipe, DatePipe], // DatePipe import edildi
   templateUrl: './blog-cards.component.html',
   styleUrl: './blog-cards.component.css'
 })
-export class BlogCardsComponent implements OnInit{
-  blogs: Blog[] = [
-
-  ];
+export class BlogCardsComponent implements OnInit, OnDestroy {
+  // blogs: Blog[] = []; // Bu satırı artık kullanmıyoruz.
+  blogs$: Observable<Blog[]>; // Data artık Observable olarak gelecek
 
   loading$ = new BehaviorSubject<boolean>(false);
-  // Private properties
   private destroy$ = new Subject<void>();
+
   constructor(
     private blogService: BlogService,
-  private router: Router,
-  private datePipe: DatePipe,
+    private router: Router,
+    private datePipe: DatePipe, // DatePipe inject edildi
     private commentService: CommentService,
     private authService: AuthService,
-) {
+  ) {
+    // BlogService'den gelen Observable'ı doğrudan blogs$'e atıyoruz
+    this.blogs$ = this.blogService.blogs$;
   }
 
   ngOnInit(): void {
     this.loadBlogs();
-
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   // Blogları yükle
   loadBlogs(): void {
-    this.loading$.next(true);
-
+    this.loading$.next(true); // Yükleme durumunu başlat
     this.blogService.getAllBlogs()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (blogs) => {
-          this.blogs = blogs;
-          this.loading$.next(false);
+          // this.blogs = blogs; // BehaviorSubject zaten blogs$i güncellediği için bu satıra gerek yok
+          this.loading$.next(false); // Yükleme durumunu bitir
         },
         error: (error) => {
           console.error('Blog yükleme hatası:', error);
-          this.loading$.next(false);
+          this.loading$.next(false); // Hata durumunda da yüklemeyi bitir
         }
       });
   }
 
   // Blog resim URL'lerini dinamik olarak oluştur
-  getBlogImageUrl(blogId: number): string {
-    return ``;
+  // Blog modelinizde `imageUrl` özelliği olduğu için, direkt onu kullanmak daha doğru olacaktır.
+  // Eğer imageUrl boşsa varsayılan bir görsel döndürebilirsiniz.
+  getBlogImageUrl(blog: Blog): string { // Parametre Blog tipi olarak değiştirildi
+    return blog.imageUrl || '/assets/default-blog.jpg'; // Varsayılan görsel yolu
   }
 
   getTagsArray(tags: string | string[] | undefined): string[] {
-    // Eğer tags undefined veya null ise boş bir dizi döndür
     if (!tags) return [];
-
-    // Eğer tags zaten bir dizi ise, doğrudan döndür
     if (Array.isArray(tags)) return tags;
-
-    // Aksi takdirde, virgülle ayrılmış tags'leri bir diziye dönüştür
     return tags.split(',').map(tag => tag.trim());
   }
 
+  // formatDate metodu artık bu bileşende doğrudan kullanılmadığı için sadeleştirilebilir
+  // veya HTML'de DatePipe ile direkt kullanılabilir.
+  // HTML'de DatePipe kullanmak daha temiz olacaktır.
+  // Eğer bu metodu başka bir yerde kullanmanız gerekiyorsa içeriğini koruyun.
   formatDate(date: any): string {
-    return  '' ;
+    return this.datePipe.transform(date, 'mediumDate') || ''; // DatePipe kullanarak biçimlendir
   }
 
-
-  // Okuma süresi hesapla (ortalama kelime sayısına göre)
   calculateReadTime(content: string): string {
     const wordsPerMinute = 200;
     const wordCount = content.split(' ').length;
@@ -83,44 +89,45 @@ export class BlogCardsComponent implements OnInit{
     return `${minutes} dk okuma`;
   }
 
-  // Like/Unlike toggle
   toggleLike(blog: Blog): void {
-    blog.isLiked = !blog.isLiked;
-    console.log(this.authService.getCurrentUser())
-    if (this.authService.getCurrentUser()?.username){
-      //SECILEN DEGER TRUE FALSE ONA GORE IF EKLEDIM
-      if (blog.isLiked) {
-        this.commentService.addLike(blog.id??0).subscribe(
-          rquser => {
-            blog.likesCount = (blog.likesCount || 0) + 1;
-            console.log(rquser);
-          }
-        )
-      }
-      else {
-        blog.likesCount = Math.max((blog.likesCount || 0) - 1, 0);
-        blog.isLiked = false;
-        this.commentService.deleteLike(blog.id??0)
-      }
-    }
-
-
-    else if (!this.authService.getCurrentUser()?.username) {
-      alert('For Like you must login')
+    // Mevcut kodunuz zaten beğenme/beğenmeme mantığını düzgün yönetiyor.
+    // Sadece blogService.toggleLike çağrısının da bir observable döndüğünü ve abone olunması gerektiğini unutmayın.
+    if (!this.authService.isAuthenticated()) {
+      alert('Beğenmek için giriş yapmalısınız');
       this.router.navigate(['/login']);
+      return;
     }
-     else {
-      if (this.authService.getCurrentUser()?.username){
-        this.commentService.deleteLike(blog.id??0)
-      }else {
-        alert('For Like you must login')
-        this.router.navigate(['/login']);
-      }
 
-    }
+    // `isLiked` durumunu UI'da hemen göster
+    blog.isLiked = !blog.isLiked;
+    blog.likesCount = blog.isLiked ? (blog.likesCount || 0) + 1 : Math.max((blog.likesCount || 0) - 1, 0);
+
+    // Backend çağrısı
+    this.blogService.toggleLike(blog.id!) // id'nin varolduğundan eminseniz ! kullanın
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          // Başarılı olduğunda bir şey yapmaya gerek yok, UI zaten güncellendi
+          console.log('Beğeni durumu başarıyla güncellendi');
+        },
+        error: (error) => {
+          console.error('Beğeni durumu değiştirilirken hata:', error);
+          // Hata durumunda UI'ı eski haline döndürmek isteyebilirsiniz
+          blog.isLiked = !blog.isLiked;
+          blog.likesCount = blog.isLiked ? (blog.likesCount || 0) + 1 : Math.max((blog.likesCount || 0) - 1, 0);
+          alert('Beğeni durumu güncellenirken bir hata oluştu.');
+        }
+      });
   }
 
   navigateToBlock(id: number | undefined) {
-    this.router.navigate(['/blogs', id]);
+    if (id) {
+      this.router.navigate(['/blogs', id]);
+    }
+  }
+
+  // ngFor optimizasyonu için trackBy fonksiyonu
+  trackByBlogId(index: number, blog: Blog): number {
+    return blog.id || index;
   }
 }

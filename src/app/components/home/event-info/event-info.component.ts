@@ -1,6 +1,7 @@
+// src/app/components/home/event-info/event-info.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
+import {Subject, takeUntil, Observable, combineLatest, map, BehaviorSubject} from 'rxjs'; // Observable, combineLatest, map eklendi
 import {
   EventCategory,
   EventLevel,
@@ -14,10 +15,11 @@ import {
 } from '../../../models/event.model';
 import { EventService } from '../../../services/event.service';
 import { Router } from '@angular/router';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-info',
+  standalone: true,
   imports: [CommonModule, TranslatePipe],
   templateUrl: './event-info.component.html',
   styleUrl: './event-info.component.css'
@@ -25,7 +27,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class EventInfoComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  events: EventModel[] = [];
+  // events: EventModel[] = []; // Bu satırı artık kullanmıyoruz.
+  events$: Observable<EventModel[]>; // Filtrlenmiş events Observable'ı
   isLoading = false;
   error: string | null = null;
 
@@ -39,15 +42,82 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   showDigitalDetoxOnly = false;
   showWithIndividualSessions = false;
 
+  // Filtre durumlarını reaktif hale getirmek için BehaviorSubjectler
+  private filterCategorySubject = new BehaviorSubject<EventCategory | null>(null);
+  private filterTargetAudienceSubject = new BehaviorSubject<TargetAudience | null>(null);
+  private filterTherapeuticMethodSubject = new BehaviorSubject<TherapeuticMethod | null>(null);
+  private filterUpcomingSubject = new BehaviorSubject<boolean>(true);
+  private filterAvailableSubject = new BehaviorSubject<boolean>(true);
+  private filterCertifiedSubject = new BehaviorSubject<boolean>(false);
+  private filterDigitalDetoxSubject = new BehaviorSubject<boolean>(false);
+  private filterIndividualSessionsSubject = new BehaviorSubject<boolean>(false);
+
+
   constructor(
     private eventService: EventService,
     private router: Router
-  ) {}
+  ) {
+    // combineLatest kullanarak tüm filtre Observable'larını ve servis data Observable'ını birleştiriyoruz
+    this.events$ = combineLatest([
+      this.eventService.events$, // Servisten gelen tüm olaylar
+      this.filterCategorySubject,
+      this.filterTargetAudienceSubject,
+      this.filterTherapeuticMethodSubject,
+      this.filterUpcomingSubject,
+      this.filterAvailableSubject,
+      this.filterCertifiedSubject,
+      this.filterDigitalDetoxSubject,
+      this.filterIndividualSessionsSubject
+    ]).pipe(
+      map(([events, category, audience, method, upcoming, available, certified, digitalDetox, individualSessions]) => {
+        let filteredEvents = events || []; // events null olabilir
+
+        // Filter by upcoming/past
+        if (upcoming) {
+          filteredEvents = filteredEvents.filter(event => this.eventService.isUpcoming(event));
+        } else {
+          filteredEvents = filteredEvents.filter(event => this.eventService.isPast(event));
+        }
+
+        // Apply other filters (client-side)
+        if (category) {
+          filteredEvents = filteredEvents.filter(event => event.category === category);
+        }
+        if (audience) {
+          filteredEvents = filteredEvents.filter(event => event.targetAudience === audience);
+        }
+        if (method) {
+          filteredEvents = filteredEvents.filter(event =>
+            event.therapeuticMethods?.includes(method)
+          );
+        }
+        if (available) {
+          filteredEvents = filteredEvents.filter(event => this.eventService.getAvailableSpots(event) > 0);
+        }
+        if (certified) {
+          filteredEvents = filteredEvents.filter(event => event.certifiedMethods);
+        }
+        if (digitalDetox) {
+          filteredEvents = filteredEvents.filter(event => event.includesDigitalDetox);
+        }
+        if (individualSessions) {
+          filteredEvents = filteredEvents.filter(event => event.individualSessionIncluded);
+        }
+
+        return filteredEvents;
+      })
+    );
+  }
 
   ngOnInit(): void {
-    this.loadEvents();
+    // Sayfa yüklendiğinde tüm etkinlikleri bir kez yükle
+    this.eventService.getAllEvents().pipe(takeUntil(this.destroy$)).subscribe({
+      error: (error) => {
+        this.handleError(error);
+      }
+    });
 
-    // Subscribe to loading state
+    // Servisin loading state'ine abone olun
     this.eventService.loading$
       .pipe(takeUntil(this.destroy$))
       .subscribe(loading => {
@@ -61,145 +131,90 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load events based on current filters
-   */
-  private loadEvents(): void {
-    this.error = null;
-
-    const source$ = this.showOnlyUpcoming
-      ? this.eventService.getUpcomingEvents()
-      : this.eventService.getAllEvents();
-
-    source$.pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (events) => {
-          this.events = this.applyClientSideFilters(events);
-        },
-        error: (error) => {
-          this.handleError(error);
-        }
-      });
-  }
-
-  /**
    * Navigate to related blog post
    */
   goToRelatedBlog(event: EventModel): void {
-
-    this.router.navigate(['/blogs', event.blogId]);
+    if (event.blogId) { // blogId'nin mevcut olduğundan emin olun
+      this.router.navigate(['/blogs', event.blogId]);
+    } else {
+      console.warn('Bu etkinlikle ilişkili blog ID bulunamadı.');
+      // Kullanıcıya bir bildirim gösterebilirsiniz
+    }
   }
 
   /**
-   * Generate blog slug from event
+   * Filter methods now update BehaviorSubjects
    */
-  private generateBlogSlug(event: EventModel): string {
-    return event.title
-      .toLowerCase()
-      .replace(/[çğıöşü]/g, (char) => {
-        const charMap: { [key: string]: string } = {
-          'ç': 'c', 'ğ': 'g', 'ı': 'i',
-          'ö': 'o', 'ş': 's', 'ü': 'u'
-        };
-        return charMap[char] || char;
-      })
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
-
-  /**
-   * Enhanced client-side filters
-   */
-  private applyClientSideFilters(events: EventModel[]): EventModel[] {
-    let filteredEvents = [...events];
-
-    // Existing filters
-    if (this.selectedCategory) {
-      filteredEvents = filteredEvents.filter(event => event.category === this.selectedCategory);
-    }
-
-    if (this.showOnlyAvailable) {
-      filteredEvents = filteredEvents.filter(event => this.getAvailableSpots(event) > 0);
-    }
-
-    // NEW: Enhanced filters
-    if (this.selectedTargetAudience) {
-      filteredEvents = filteredEvents.filter(event => event.targetAudience === this.selectedTargetAudience);
-    }
-
-    if (this.selectedTherapeuticMethod) {
-      filteredEvents = filteredEvents.filter(event =>
-        event.therapeuticMethods?.includes(this.selectedTherapeuticMethod!)
-      );
-    }
-
-    if (this.showOnlyCertified) {
-      filteredEvents = filteredEvents.filter(event => event.certifiedMethods);
-    }
-
-    if (this.showDigitalDetoxOnly) {
-      filteredEvents = filteredEvents.filter(event => event.includesDigitalDetox);
-    }
-
-    if (this.showWithIndividualSessions) {
-      filteredEvents = filteredEvents.filter(event => event.individualSessionIncluded);
-    }
-
-    return filteredEvents;
-  }
-
-  // Enhanced filter methods
   filterByCategory(category: EventCategory | null): void {
-    this.selectedCategory = category;
-    this.loadEvents();
+    this.filterCategorySubject.next(category);
   }
 
   filterByTargetAudience(audience: TargetAudience | null): void {
-    this.selectedTargetAudience = audience;
-    this.loadEvents();
+    this.filterTargetAudienceSubject.next(audience);
   }
 
   filterByTherapeuticMethod(method: TherapeuticMethod | null): void {
-    this.selectedTherapeuticMethod = method;
-    this.loadEvents();
+    this.filterTherapeuticMethodSubject.next(method);
   }
 
   toggleUpcomingFilter(): void {
     this.showOnlyUpcoming = !this.showOnlyUpcoming;
-    this.loadEvents();
+    this.filterUpcomingSubject.next(this.showOnlyUpcoming);
   }
 
   toggleAvailabilityFilter(): void {
     this.showOnlyAvailable = !this.showOnlyAvailable;
-    this.loadEvents();
+    this.filterAvailableSubject.next(this.showOnlyAvailable);
   }
 
   toggleCertifiedFilter(): void {
     this.showOnlyCertified = !this.showOnlyCertified;
-    this.loadEvents();
+    this.filterCertifiedSubject.next(this.showOnlyCertified);
   }
 
   toggleDigitalDetoxFilter(): void {
     this.showDigitalDetoxOnly = !this.showDigitalDetoxOnly;
-    this.loadEvents();
+    this.filterDigitalDetoxSubject.next(this.showDigitalDetoxOnly);
   }
 
   toggleIndividualSessionsFilter(): void {
     this.showWithIndividualSessions = !this.showWithIndividualSessions;
-    this.loadEvents();
+    this.filterIndividualSessionsSubject.next(this.showWithIndividualSessions);
   }
 
   refreshEvents(): void {
-    this.loadEvents();
+    // Filtreleri sıfırlayıp tüm etkinlikleri yeniden yükleyebiliriz
+    this.selectedCategory = null;
+    this.selectedTargetAudience = null;
+    this.selectedTherapeuticMethod = null;
+    this.showOnlyUpcoming = true;
+    this.showOnlyAvailable = true;
+    this.showOnlyCertified = false;
+    this.showDigitalDetoxOnly = false;
+    this.showWithIndividualSessions = false;
+
+    this.filterCategorySubject.next(null);
+    this.filterTargetAudienceSubject.next(null);
+    this.filterTherapeuticMethodSubject.next(null);
+    this.filterUpcomingSubject.next(true);
+    this.filterAvailableSubject.next(true);
+    this.filterCertifiedSubject.next(false);
+    this.filterDigitalDetoxSubject.next(false);
+    this.filterIndividualSessionsSubject.next(false);
+
+    this.eventService.getAllEvents().pipe(takeUntil(this.destroy$)).subscribe({
+      error: (error) => {
+        this.handleError(error);
+      }
+    });
   }
 
   viewEventDetails(eventId: number): void {
     this.router.navigate(['/events', eventId]);
   }
 
-  // NEW: Enhanced display methods
-
   /**
-   * Get target audience display text
+   * Display helper methods (already existing, ensuring they use event parameter)
    */
   getTargetAudienceText(audience: TargetAudience): string {
     const audienceMap = {
@@ -215,9 +230,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return audienceMap[audience] || audience;
   }
 
-  /**
-   * Get therapeutic method display text
-   */
   getTherapeuticMethodText(method: TherapeuticMethod): string {
     const methodMap = {
       [TherapeuticMethod.PSYCHODRAMA]: 'Psikodrama',
@@ -236,9 +248,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return methodMap[method] || method;
   }
 
-  /**
-   * Get participation style display text
-   */
   getParticipationStyleText(style: ParticipationStyle): string {
     const styleMap = {
       [ParticipationStyle.ACTIVE_REQUIRED]: 'Aktif Katılım Gerekli',
@@ -250,9 +259,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return styleMap[style] || style;
   }
 
-  /**
-   * Get target problem display text
-   */
   getTargetProblemText(problem: TargetProblem): string {
     const problemMap = {
       [TargetProblem.BURNOUT]: 'Tükenmişlik',
@@ -273,9 +279,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return problemMap[problem] || problem;
   }
 
-  /**
-   * Get expected outcome display text
-   */
   getExpectedOutcomeText(outcome: ExpectedOutcome): string {
     const outcomeMap = {
       [ExpectedOutcome.SELF_AWARENESS]: 'Öz Farkındalık',
@@ -294,9 +297,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return outcomeMap[outcome] || outcome;
   }
 
-  /**
-   * Get age range display
-   */
   getAgeRangeText(event: EventModel): string {
     if (event.minAge && event.maxAge) {
       return `${event.minAge}-${event.maxAge} yaş`;
@@ -308,9 +308,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return 'Tüm yaşlar';
   }
 
-  /**
-   * Get gender specific text
-   */
   getGenderSpecificText(gender?: GenderType): string {
     if (!gender || gender === GenderType.ALL_GENDERS) {
       return '';
@@ -324,9 +321,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return genderMap[gender] || '';
   }
 
-  /**
-   * Check if event has special features
-   */
   hasSpecialFeatures(event: EventModel): boolean {
     return event.allowsObserverMode ||
       event.includesDigitalDetox ||
@@ -335,11 +329,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       event.participationStyle === ParticipationStyle.SELF_PACED;
   }
 
-  // Enhanced existing methods
-
-  /**
-   * Enhanced category text with new categories
-   */
   getCategoryText(category: EventCategory): string {
     const categoryMap = {
       [EventCategory.WORKSHOP]: 'Atölye',
@@ -358,9 +347,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return categoryMap[category] || category;
   }
 
-  /**
-   * Enhanced level text with new levels
-   */
   getLevelText(level: EventLevel): string {
     const levelMap = {
       [EventLevel.BEGINNER]: 'Başlangıç',
@@ -375,7 +361,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return levelMap[level] || level;
   }
 
-  // Existing utility methods
   formatDate(date: Date | string): string {
     const eventDate = typeof date === 'string' ? new Date(date) : date;
     return eventDate.toLocaleDateString('tr-TR', {
@@ -409,6 +394,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   getCapacityPercentage(event: EventModel): number {
+    if (!event || event.capacity === 0) return 0; // Sıfır bölme hatasını önle
     return (event.registeredCount / event.capacity) * 100;
   }
 
@@ -419,7 +405,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   private handleError(error: any): void {
     console.error('Event loading error:', error);
     this.error = error.message || 'Etkinlikler yüklenirken bir hata oluştu.';
-    this.events = [];
+    // this.events = []; // Artık events$ Observable'ı yönettiği için bu satıra gerek yok
   }
 
   get availableCategories(): EventCategory[] {
@@ -439,37 +425,20 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   handleCategoryChange(value: string): void {
-    if (value === '') {
-      this.filterByCategory(null);
-      return;
-    }
-    this.filterByCategory(value as EventCategory);
+    this.filterByCategory(value === '' ? null : value as EventCategory);
   }
 
   handleTargetAudienceChange(value: string): void {
-    if (value === '') {
-      this.filterByTargetAudience(null);
-      return;
-    }
-    this.filterByTargetAudience(value as TargetAudience);
+    this.filterByTargetAudience(value === '' ? null : value as TargetAudience);
   }
 
   handleTherapeuticMethodChange(value: string): void {
-    if (value === '') {
-      this.filterByTherapeuticMethod(null);
-      return;
-    }
-    this.filterByTherapeuticMethod(value as TherapeuticMethod);
+    this.filterByTherapeuticMethod(value === '' ? null : value as TherapeuticMethod);
   }
-  // EventInfoComponent'e eklenecek metod
 
-  /**
-   * Get key features for minimal card display (max 3)
-   */
   getKeyFeatures(event: EventModel): string[] {
     const features: string[] = [];
 
-    // En önemli özellikleri öncelik sırasına göre ekle
     if (event.targetAudience === TargetAudience.WOMEN_ONLY) {
       features.push('Kadınlara Özel');
     } else if (event.targetAudience === TargetAudience.MEN_ONLY) {
@@ -495,7 +464,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       features.push('Konaklama Dahil');
     }
 
-    // Maksimum 3 özellik döndür
     return features.slice(0, 3);
   }
 }

@@ -1,17 +1,14 @@
 <div class="events-container">
   <div class="events-grid">
-    <div class="event-card" *ngFor="let event of events; trackBy: trackByEventId">
+    <div class="event-card" *ngFor="let event of events$ | async; trackBy: trackByEventId">
 
-      <!-- Event Image -->
       <div class="event-image">
         <img [src]="event.imageUrl" [alt]="event.title" />
 
-        <!-- Minimal Badges - Sadece en önemliler -->
         <div class="event-badges">
           <div class="badges-left">
             <span class="category-badge">{{ getCategoryText(event.category) }}</span>
 
-            <!-- Sadece özel durumlar için badge'ler -->
             <span class="category-badge" *ngIf="event.includesDigitalDetox">{{ 'EVENT_CARDS.FEATURES.DIGITAL_DETOX' | translate }}</span>
             <span class="category-badge" *ngIf="event.certifiedMethods">{{ 'EVENT_CARDS.FEATURES.CERTIFIED' | translate }}</span>
           </div>
@@ -22,19 +19,15 @@
         </div>
       </div>
 
-      <!-- Event Content - Minimal -->
       <div class="event-content">
 
-        <!-- Header -->
         <div class="event-header">
           <h3 class="event-title">{{ event.title }}</h3>
           <span class="category-badge">{{ getLevelText(event.level) }}</span>
         </div>
 
-        <!-- Short Description -->
         <p class="event-description">{{ event.shortDescription }}</p>
 
-        <!-- Essential Details Only -->
         <div class="event-essentials">
           <div class="essential-item">
             <span class="icon">📅</span>
@@ -50,14 +43,12 @@
           </div>
         </div>
 
-        <!-- Key Features - Maksimum 3 tane -->
         <div class="key-features" *ngIf="getKeyFeatures(event).length > 0">
           <span class="feature-pill" *ngFor="let feature of getKeyFeatures(event)">
             {{ feature }}
           </span>
         </div>
 
-        <!-- Capacity Bar -->
         <div class="capacity-section">
           <div class="capacity-info">
             <span class="available-text">{{ getAvailableSpots(event) }} {{ 'EVENT_CARDS.STATUS.SPOTS_LEFT' | translate }}</span>
@@ -69,7 +60,6 @@
         </div>
 
         <br>
-        <!-- Güncellenmiş butonlar -->
         <div class="event-actions">
           <button class="btn-info" (click)="viewEventDetails(event.id)">
             <span class="btn-icon">📖</span>

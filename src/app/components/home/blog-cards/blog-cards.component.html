@@ -1,9 +1,8 @@
 <div class="blogs-container">
   <div class="blogs-grid">
-    <article class="blog-card" *ngFor="let blog of blogs">
-      <!-- Blog Image -->
+    <article class="blog-card" *ngFor="let blog of blogs$ | async; trackBy: trackByBlogId">
       <div class="blog-image">
-        <img src="{{blog.imageUrl}}" [alt]="blog.title" />
+        <img [src]="getBlogImageUrl(blog)" [alt]="blog.title" />
         <div class="blog-overlay">
           <div class="read-time">
             <span>{{ calculateReadTime(blog.content) }}</span>
@@ -11,24 +10,19 @@
         </div>
       </div>
 
-      <!-- Blog Content -->
       <div class="blog-content">
-        <!-- Author & Date -->
         <div class="blog-meta">
           <div class="author-info">
             <span class="author-icon">👩‍💼</span>
             <span class="author-name">{{ blog.authorUsername }}</span>
           </div>
-          <span class="blog-date">{{ formatDate(blog.createdAt!) }}</span>
+          <span class="blog-date">{{ blog.createdAt | date: 'mediumDate' }}</span>
         </div>
 
-        <!-- Title -->
         <h3 class="blog-title">{{ blog.title }}</h3>
 
-        <!-- Excerpt -->
         <p class="blog-excerpt">{{ blog.excerpt }}</p>
 
-        <!-- Tags -->
         <div class="blog-tags">
           @for (tag of getTagsArray(blog.tags); track tag) {
             <span class="tag">
@@ -37,7 +31,6 @@
           }
         </div>
 
-        <!-- Stats & Actions -->
         <div class="blog-footer">
           <div class="blog-stats">
             <div class="stat-item">

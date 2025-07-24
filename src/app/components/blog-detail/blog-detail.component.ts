@@ -352,25 +352,25 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     // Code blocks
     formattedContent = formattedContent.replace(
       /```([\s\S]*?)```/g,
-      '<pre class="code-block"><code>$1</code></pre>'
+      '<pre style="color: white" class="code-block"><code>$1</code></pre>'
     );
 
     // Inline code
     formattedContent = formattedContent.replace(
       /`([^`]+)`/g,
-      '<code class="inline-code">$1</code>'
+      '<code style="color: white" class="inline-code">$1</code>'
     );
 
     // Bold text
     formattedContent = formattedContent.replace(
       /\*\*(.*?)\*\*/g,
-      '<strong class="font-bold">$1</strong>'
+      '<strong style="color: white" class="font-bold">$1</strong>'
     );
 
     // Italic text
     formattedContent = formattedContent.replace(
       /\*(.*?)\*/g,
-      '<em class="italic">$1</em>'
+      '<em  style="color: white" class="italic">$1</em>'
     );
 
     // Links

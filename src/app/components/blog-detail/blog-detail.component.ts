@@ -1,19 +1,26 @@
+// src/app/components/blog-detail/blog-detail.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, Observable } from 'rxjs';
 import { Blog } from '../../models/blog.model';
 import { CommentModel, CommentRequest } from '../../models/comment.model';
 import { BlogService } from '../../services/blog.service';
 import { CommentService } from '../../services/comment.service';
 import { AuthService } from '../../services/auth.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslatePipe,
+    MatSnackBarModule
+  ],
   templateUrl: './blog-detail.component.html',
   styleUrls: ['./blog-detail.component.css']
 })
@@ -48,7 +55,9 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     public router: Router,
     private blogService: BlogService,
     private commentService: CommentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private datePipe: DatePipe,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -75,9 +84,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   }
 
   private loadBlogDetail(): void {
-    const blogId = Number(this.route.snapshot.paramMap.get('id'));
+    // URL'den blog ID'sini güvenli bir şekilde al
+    const blogIdParam = this.route.snapshot.paramMap.get('id');
+    const blogId = blogIdParam ? Number(blogIdParam) : NaN;
 
-    if (!blogId) {
+    if (isNaN(blogId) || blogId <= 0) {
+      console.warn('Geçersiz blog ID:', blogIdParam);
       this.router.navigate(['/blogs']);
       return;
     }
@@ -88,16 +100,18 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (blog) => {
-          console.log(blog)
           this.blog = blog;
           this.calculateReadingTime();
           this.isLoading = false;
           this.loadComments(blogId);
-
         },
         error: (error) => {
           console.error('Blog yüklenirken hata:', error);
           this.isLoading = false;
+          this.snackBar.open('Blog yüklenirken bir hata oluştu veya blog bulunamadı.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
           this.router.navigate(['/blogs']);
         }
       });
@@ -116,16 +130,18 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error('Yorumlar yüklenirken hata:', error);
           this.isCommentsLoading = false;
+          this.snackBar.open('Yorumlar yüklenirken bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
   }
 
-
-
   private calculateReadingTime(): void {
     if (this.blog?.content) {
       const wordsPerMinute = 200;
-      const wordCount = this.blog.content.split(/\s+/).length;
+      const wordCount = this.blog.content.split(/\s+/).filter(word => word.length > 0).length;
       this.readingTime = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
     }
   }
@@ -133,13 +149,16 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   // Yorum ekleme - Sadece giriş yapmış kullanıcılar için
   onSubmitComment(): void {
     if (!this.isAuthenticated) {
-      // Yorumu sakla ve giriş sayfasına yönlendir
       this.pendingComment = this.newComment.content;
-      this.redirectToLogin();
+      this.redirectToLogin('comment');
       return;
     }
 
     if (!this.newComment.content.trim() || !this.blog?.id) {
+      this.snackBar.open('Yorum içeriği boş olamaz.', 'Kapat', {
+        duration: 3000,
+        panelClass: ['warning-snackbar']
+      });
       return;
     }
 
@@ -157,22 +176,29 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           if (this.blog) {
             this.blog.commentCount = (this.blog.commentCount || 0) + 1;
           }
+          this.snackBar.open('Yorumunuz başarıyla eklendi!', 'Kapat', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
         },
         error: (error) => {
           console.error('Yorum eklenirken hata:', error);
           this.isSubmittingComment = false;
+          this.snackBar.open('Yorum eklenirken bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
   }
 
   // Giriş sayfasına yönlendirme
-  private redirectToLogin(): void {
-    // Return URL olarak current page'i sakla
+  private redirectToLogin(action?: string): void {
     const returnUrl = this.router.url;
-    this.router.navigate(['/login'], {
+    this.router.navigate(['/auth/login'], {
       queryParams: {
         returnUrl: returnUrl,
-        action: 'comment' // Yorum yapmak için giriş yapıldığını belirt
+        action: action
       }
     });
   }
@@ -183,46 +209,43 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
     if (confirm('Bu yorumu silmek istediğinizden emin misiniz?')) {
       this.commentService.deleteComment(commentId, this.blog.id)
-      location.reload();
+      location.reload()
     }
   }
 
-  // Blog beğenme
+  // Blog beğenme/beğenmekten vazgeçme
   onToggleLike(): void {
     if (!this.isAuthenticated) {
-      this.redirectToLogin();
+      this.redirectToLogin('like');
       return;
-    }else{
-      if (this.blog?.isLiked) {
-        this.blog.isLiked = false;
-        this.blog.likesCount = Math.max((this.blog.likesCount || 0) - 1, 0);
-        this.commentService.deleteLike(this.blog.id??0)
-      }else if (this.blog?.isLiked == false) {
-        this.blog.isLiked = true;
-        this.blog.likesCount = (this.blog.likesCount || 0) + 1;
-        this.commentService.addLike(this.blog.id??0).subscribe(
-          requser => {
-            console.log(requser);
-          }
-        )
-      }
     }
 
     if (!this.blog?.id) return;
+
+    // UI'ı hemen güncelle (optimistic update)
+    const initialIsLiked = this.blog.isLiked;
+    const initialLikesCount = this.blog.likesCount || 0;
+
+    this.blog.isLiked = !initialIsLiked;
+    this.blog.likesCount = this.blog.isLiked ? initialLikesCount + 1 : Math.max(0, initialLikesCount - 1);
 
     this.blogService.toggleLike(this.blog.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          if (this.blog) {
-            this.blog.isLiked = !this.blog.isLiked;
-            this.blog.likesCount = this.blog.isLiked
-              ? (this.blog.likesCount || 0) + 1
-              : Math.max((this.blog.likesCount || 0) - 1, 0);
-          }
+          console.log('Beğeni durumu başarıyla güncellendi.');
         },
         error: (error) => {
           console.error('Beğeni durumu değiştirilirken hata:', error);
+          // Hata durumunda UI'ı eski haline döndür (rollback)
+          if (this.blog) {
+            this.blog.isLiked = initialIsLiked;
+            this.blog.likesCount = initialLikesCount;
+          }
+          this.snackBar.open('Beğeni durumu güncellenirken bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
   }
@@ -230,7 +253,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   // Yorum formunu göster/gizle
   toggleCommentForm(): void {
     this.showCommentForm = !this.showCommentForm;
-    // Eğer pending comment varsa, onu form'a yerleştir
     if (this.pendingComment && this.isAuthenticated) {
       this.newComment.content = this.pendingComment;
       this.pendingComment = '';
@@ -240,7 +262,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   // Blog favorilere ekle/çıkar
   onToggleFavorite(): void {
     if (!this.isAuthenticated) {
-      this.redirectToLogin();
+      this.redirectToLogin('favorite');
       return;
     }
 
@@ -251,9 +273,17 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           console.log('Favori durumu güncellendi');
+          this.snackBar.open('Favori durumu başarıyla güncellendi.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
         },
         error: (error) => {
           console.error('Favori durumu değiştirilirken hata:', error);
+          this.snackBar.open('Favori durumu güncellenirken bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
   }
@@ -261,12 +291,17 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   // Blog düzenleme (sadece author için)
   onEditBlog(): void {
     if (!this.isAuthenticated) {
-      this.redirectToLogin();
+      this.redirectToLogin('edit_blog');
       return;
     }
 
-    if (this.blog?.id) {
+    if (this.blog?.id && this.isAuthor()) {
       this.router.navigate(['/blogs/edit', this.blog.id]);
+    } else if (this.blog?.id && !this.isAuthor()) {
+      this.snackBar.open('Bu blogu düzenleme yetkiniz yok.', 'Kapat', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
     }
   }
 
@@ -279,65 +314,58 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
+            this.snackBar.open('Blog başarıyla silindi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['success-snackbar']
+            });
             this.router.navigate(['/blogs']);
           },
           error: (error) => {
             console.error('Blog silinirken hata:', error);
+            this.snackBar.open('Blog silinirken bir hata oluştu.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['error-snackbar']
+            });
           }
         });
     }
   }
 
   // Helper methods
-  getBlogImageUrl(): string | undefined {
-    return (this.blog as any)?.imageUrl;
+  getBlogImageUrl(): string {
+    return this.blog?.imageUrl || '/assets/default-blog.jpg';
   }
 
   getBlogViewCount(): number {
-    return (this.blog as any)?.viewCount || 0;
+    return this.blog?.viewCount || 0;
   }
 
-  getRelatedBlogImageUrl(blog: Blog): string | undefined {
-    return (blog as any)?.imageUrl;
+  getRelatedBlogImageUrl(blog: Blog): string {
+    return blog.imageUrl || '/assets/default-blog.jpg';
   }
 
-  formatDate(date: Date | undefined): string {
+  formatDate(date: Date | string | undefined): string {
     if (!date) return '';
-    return new Date(date).toLocaleDateString('tr-TR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    return this.datePipe.transform(date, 'longDate', 'tr-TR') || '';
   }
 
-  formatDetailedDate(date: Date | undefined): string {
+  formatDetailedDate(date: Date | string | undefined): string {
     if (!date) return '';
-    return new Date(date).toLocaleDateString('tr-TR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return this.datePipe.transform(date, 'medium', 'tr-TR') || '';
   }
 
   getTagsArray(tags: string | string[] | undefined): string[] {
-    // Eğer tags undefined veya null ise boş dizi döndür
     if (!tags) return [];
-
-    // Eğer tags zaten bir dizi ise, doğrudan o diziyi döndür
     if (Array.isArray(tags)) return tags;
-
-    // Eğer tags bir string ise, virgülle ayrılmış parçalara böl
-    return tags.split(',').map(tag => tag.trim());
+    return tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
   }
 
   isAuthor(): boolean {
-    return this.blog?.authorUsername === this.currentUser;
+    return this.isAuthenticated && this.blog?.authorUsername === this.authService.getCurrentUser()?.username;
   }
 
   isCommentOwner(comment: CommentModel): boolean {
-    return comment.username === this.currentUser;
+    return this.isAuthenticated && comment.username === this.authService.getCurrentUser()?.username;
   }
 
   goBack(): void {
@@ -350,27 +378,31 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     let formattedContent = content;
 
     // Code blocks
+    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /```([\s\S]*?)```/g,
-      '<pre style="color: white" class="code-block"><code>$1</code></pre>'
+      '<pre class="code-block"><code>$1</code></pre>'
     );
 
     // Inline code
+    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /`([^`]+)`/g,
-      '<code style="color: white" class="inline-code">$1</code>'
+      '<code class="inline-code">$1</code>'
     );
 
     // Bold text
+    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /\*\*(.*?)\*\*/g,
-      '<strong style="color: white" class="font-bold">$1</strong>'
+      '<strong class="font-bold">$1</strong>'
     );
 
     // Italic text
+    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /\*(.*?)\*/g,
-      '<em  style="color: white" class="italic">$1</em>'
+      '<em class="italic">$1</em>'
     );
 
     // Links
@@ -390,14 +422,14 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     if (this.blog) {
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(`${this.blog.title} - ${this.blog.excerpt}`);
-      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
     }
   }
 
   shareOnFacebook(): void {
     if (this.blog) {
       const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
     }
   }
 
@@ -405,7 +437,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     if (this.blog) {
       const url = encodeURIComponent(window.location.href);
       const title = encodeURIComponent(this.blog.title);
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank');
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank', 'width=600,height=400');
     }
   }
 
@@ -418,19 +450,28 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
   copyUrl(): void {
     navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('URL kopyalandı!');
+      this.snackBar.open('URL panoya kopyalandı!', 'Kapat', {
+        duration: 3000,
+        panelClass: ['success-snackbar']
+      });
+    }).catch(err => {
+      console.error('URL kopyalanırken hata:', err);
+      this.snackBar.open('URL kopyalanırken bir hata oluştu.', 'Kapat', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
     });
   }
 
   navigateToRelatedBlog(blogId: number): void {
-    this.router.navigate(['/blog', blogId]);
+    this.router.navigate(['/blogs', blogId]);
   }
 
-  trackByCommentId(index: number, comment: CommentModel): number {
-    return comment.id || index;
+  trackByCommentId(index: number, comment: CommentModel): number | undefined {
+    return comment.id;
   }
 
-  trackByBlogId(index: number, blog: Blog): number {
-    return blog.id || index;
+  trackByBlogId(index: number, blog: Blog): number | undefined {
+    return blog.id;
   }
 }

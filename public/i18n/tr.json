@@ -1,8 +1,8 @@
 {
   "NAV": {
     "LOGO": {
-      "TITLE": "Return To Self",
-      "SLOGAN": "İç Huzura Geri Dönüş Yolculuğu"
+      "TITLE": "Yana Pekun",
+      "SLOGAN": "Logo Sloganı Burada"
     },
     "MENU": {
       "HOME": "Ana Sayfa",
@@ -459,8 +459,10 @@
     }
   },
   "PLATFORM_INFO": {
-    "TITLE": "Kadınlara Özel Platform",
-    "SLOGAN": "Güçlü kadınlar için güçlü içerikler - Kendinizi keşfedin, gelişin ve güçlenin"
+    "TITLE": "Zihin ve Ruh Köprüleri",
+
+    "SLOGAN": "Psikolojiden günlük yaşama uzanan yazılar ve keşifler"
+
   }
 }
 

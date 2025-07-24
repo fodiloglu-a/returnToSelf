@@ -20,14 +20,14 @@ export class TranslationService {
       this.initializeLanguage();
     } else {
       // Server-side'da varsayılan dili ayarla
-      this.translateService.setDefaultLang('tr');
-      this.translateService.use('tr');
+      this.translateService.setDefaultLang('uk');
+      this.translateService.use('uk');
     }
   }
 
   private initializeLanguage(): void {
     // LocalStorage'dan dil tercihini al veya varsayılan olarak Türkçe kullan
-    const savedLanguage = this.getSavedLanguage() || 'tr';
+    const savedLanguage = this.getSavedLanguage() || 'uk';
     this.setLanguage(savedLanguage);
   }
 

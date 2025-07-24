@@ -67,7 +67,7 @@ import { TranslationService } from '../../services/translation.service';
   `]
 })
 export class LanguageSelectorComponent implements OnInit {
-  currentLanguage: string = 'tr';
+  currentLanguage: string = 'uk';
 
   constructor(
     private translationService: TranslationService,

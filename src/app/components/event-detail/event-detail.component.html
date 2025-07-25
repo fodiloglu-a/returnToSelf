@@ -66,7 +66,7 @@
             <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
             <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
           </svg>
-          {{ event.duration }}
+          <span>{{ event.duration }}</span>
         </span>
       </div>
     </div>
@@ -201,7 +201,7 @@
           <span class="detail-icon">👥</span>
           <span class="detail-text">{{ getTargetAudienceText() }}</span>
         </div>
-        <div class="detail-item" *ngIf="getAgeRangeText() !== 'Tüm yaşlar'">
+        <div class="detail-item" *ngIf="getAgeRangeText() !== (translateService.instant('COMMON.ALL_AGES'))">
           <span class="detail-icon">🎂</span>
           <span class="detail-text">{{ getAgeRangeText() }}</span>
         </div>
@@ -315,8 +315,8 @@
   <!-- Event Description -->
   <div class="event-content">
     <h3 class="content-title">{{ 'EVENT_DETAIL.SECTIONS.ABOUT_EVENT' | translate }}</h3>
-    <div   class="content-text" [class.expanded]="showFullDescription">
-      <p style="color: #A2D2FF">{{ event.description }}</p>
+    <div class="content-text" [class.expanded]="showFullDescription">
+      <p>{{ event.description }}</p>
     </div>
     <button *ngIf="event.description.length > 300"
             class="toggle-description-btn"
@@ -342,12 +342,12 @@
         {{ 'EVENT_DETAIL.SECTIONS.PREREQUISITES' | translate }}
       </h4>
       <ul class="prerequisites-list">
-        <li style="color: wheat" *ngFor="let prerequisite of event.prerequisites">{{ prerequisite }}</li>
+        <li *ngFor="let prerequisite of event.prerequisites">{{ prerequisite }}</li>
       </ul>
     </div>
 
     <!-- Tags -->
-    <div class="info-section" *ngIf="event.tags && event.tags.length > 0">
+     <div class="info-section" *ngIf="event.tags && event.tags.length > 0">
       <h4 class="info-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>

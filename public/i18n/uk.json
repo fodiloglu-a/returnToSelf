@@ -1,4 +1,197 @@
 {
+  "EVENT_CATEGORY": {
+    "RETREAT": "Ретрит",
+    "WORKSHOP": "Майстер-клас",
+    "SEMINAR": "Семінар",
+    "THERAPY": "Терапія",
+    "MINDFULNESS": "Усвідомленість",
+    "WOMENS_RETREAT": "Жіночий ретрит",
+    "MENS_RETREAT": "Чоловічий ретрит",
+    "COUPLES_RETREAT": "Ретрит для пар",
+    "DIGITAL_DETOX": "Цифровий детокс",
+    "THERAPEUTIC_INTENSIVE": "Терапевтичний інтенсив",
+    "PSYCHODRAMA_WORKSHOP": "Психодрама-майстерня",
+    "FAMILY_CONSTELLATION": "Сімейна розстановка"
+  },
+  "EVENT_LEVEL": {
+    "BEGINNER": "Початківець",
+    "INTERMEDIATE": "Середній",
+    "ADVANCED": "Просунутий",
+    "ALL_LEVELS": "Всі рівні",
+    "NO_EXPERIENCE_NEEDED": "Досвід не потрібен",
+    "SOME_THERAPY_EXPERIENCE": "Невеликий досвід терапії",
+    "ADVANCED_PRACTITIONERS": "Досвідчені практики",
+    "PROFESSIONALS_ONLY": "Тільки для професіоналів"
+  },
+  "TARGET_AUDIENCE": {
+    "WOMEN_ONLY": "Тільки для жінок",
+    "MEN_ONLY": "Тільки для чоловіків",
+    "MIXED_GENDER": "Змішана група",
+    "COUPLES": "Для пар",
+    "FAMILIES": "Для сімей",
+    "PROFESSIONALS": "Для професіоналів",
+    "STUDENTS": "Для студентів",
+    "SENIORS": "Для літніх людей"
+  },
+  "THERAPEUTIC_METHOD": {
+    "PSYCHODRAMA": "Психодрама",
+    "SYSTEMIC_FAMILY_THERAPY": "Системно-сімейна терапія",
+    "METAPHORICAL_CARDS": "Метафоричні картки",
+    "SYMBOL_DRAMA": "Символдрама",
+    "BODY_AWARENESS": "Усвідомлення тіла",
+    "GESTALT_THERAPY": "Гештальт-терапія",
+    "CBT": "КПТ",
+    "MINDFULNESS": "Усвідомленість",
+    "MEDITATION": "Медитація",
+    "ART_THERAPY": "Арт-терапія",
+    "MUSIC_THERAPY": "Музична терапія",
+    "DANCE_THERAPY": "Танцювальна терапія"
+  },
+  "PARTICIPATION_STYLE": {
+    "ACTIVE_REQUIRED": "Потрібна активна участь",
+    "FLEXIBLE_PARTICIPATION": "Гнучка участь",
+    "OBSERVER_FRIENDLY": "Дозволено спостерігати",
+    "SELF_PACED": "У власному темпі",
+    "GROUP_INTERACTIVE": "Групова інтерактивна"
+  },
+  "ACCOMMODATION_TYPE": {
+    "SINGLE_ROOM": "Одномісний номер",
+    "DOUBLE_ROOM": "Двомісний номер",
+    "TRIPLE_ROOM": "Тримісний номер",
+    "SHARED_DORMITORY": "Спільна кімната",
+    "LUXURY_SUITE": "Люкс"
+  },
+  "SPECIAL_PACKAGE": {
+    "BASIC_EXPERIENCE": "Базовий досвід",
+    "PERSONAL_SUPPORT": "Персональна підтримка",
+    "PREMIUM_SPACE": "Преміум простір",
+    "DIGITAL_DETOX": "Цифровий детокс",
+    "THERAPEUTIC_INTENSIVE": "Терапевтичний інтенсив"
+  },
+  "ETHICAL_STANDARD": {
+    "CONFIDENTIALITY": "Конфіденційність",
+    "INFORMED_CONSENT": "Інформована згода",
+    "PROFESSIONAL_BOUNDARIES": "Професійні межі",
+    "NON_JUDGMENT": "Без осуду",
+    "CULTURAL_SENSITIVITY": "Культурна чутливість",
+    "TRAUMA_INFORMED": "Травмоінформований підхід"
+  },
+  "TARGET_PROBLEM": {
+    "BURNOUT": "Вигорання",
+    "ANXIETY": "Тривога",
+    "DEPRESSION": "Депресія",
+    "RELATIONSHIP_ISSUES": "Проблеми у стосунках",
+    "IDENTITY_CRISIS": "Криза ідентичності",
+    "WORK_LIFE_BALANCE": "Баланс робота-життя",
+    "SELF_ESTEEM": "Самооцінка",
+    "GRIEF_LOSS": "Горе та втрата",
+    "TRAUMA": "Травма",
+    "ADDICTION": "Залежність",
+    "FAMILY_DYNAMICS": "Сімейна динаміка",
+    "LIFE_TRANSITIONS": "Життєві переходи",
+    "INNER_VOICE_LOSS": "Втрата внутрішнього голосу",
+    "SYSTEM_FATIGUE": "Системна втома"
+  },
+  "EXPECTED_OUTCOME": {
+    "SELF_AWARENESS": "Самоусвідомлення",
+    "EMOTIONAL_REGULATION": "Емоційна регуляція",
+    "STRESS_REDUCTION": "Зниження стресу",
+    "INNER_PEACE": "Внутрішній спокій",
+    "CLARITY": "Ясність",
+    "PERSONAL_GROWTH": "Особистісний ріст",
+    "HEALING": "Зцілення",
+    "CONNECTION": "Зв'язок",
+    "EMPOWERMENT": "Розширення можливостей",
+    "RENEWED_ENERGY": "Відновлення енергії",
+    "LIFE_DIRECTION": "Життєвий напрямок",
+    "AUTHENTICITY": "Автентичність"
+  },
+  "GENDER_TYPE": {
+    "FEMALE": "Жіночий",
+    "MALE": "Чоловічий",
+    "NON_BINARY": "Небінарний",
+    "ALL_GENDERS": "Всі статі"
+  },
+  "EVENT_CARDS": {
+    "FEATURES": {
+      "DIGITAL_DETOX": "Цифровий Детокс",
+      "CERTIFIED": "Сертифіковано"
+    },
+    "STATUS": {
+      "SPOTS_LEFT": "місць залишилось",
+      "FULL": "заповнено"
+    },
+    "ACTIONS": {
+      "MORE_INFO": "Детальніше",
+      "RELATED_BLOG": "Пов'язаний блог"
+    }
+  },
+  "BLOG_DETAIL": {
+    "META": {
+      "READING_TIME": "хв читання",
+      "UPDATED": "Оновлено"
+    },
+    "AUTHOR": {
+      "ANONYMOUS": "Анонімний автор"
+    },
+    "ACTIONS": {
+      "EDIT": "Редагувати",
+      "DELETE": "Видалити",
+      "UNLIKE": "Не подобається",
+      "LIKE": "Подобається",
+      "LIKED": "Сподобалось",
+      "COMMENT": "Коментувати",
+      "SAVE": "Зберегти",
+      "BOOKMARK": "Додати до закладок",
+      "SHARE": "Поділитися",
+      "COPY_LINK": "Копіювати посилання"
+    },
+    "AUTH": {
+      "LOGIN_TO_LIKE": "Увійдіть, щоб вподобати",
+      "LOGIN_TO_BOOKMARK": "Увійдіть, щоб додати в закладки"
+    },
+    "TAGS": {
+      "TITLE": "Теги"
+    },
+    "COMMENTS": {
+      "TITLE": "Коментарі",
+      "ADD_COMMENT": "Додати коментар",
+      "ADD_COMMENT_LOGIN_REQUIRED": "Додати Коментар - Потрібен Вхід",
+      "PLACEHOLDER": "Напишіть свій коментар...",
+      "LOGIN_WARNING": "Увійдіть, щоб опублікувати коментар.",
+      "CANCEL": "Скасувати",
+      "SUBMIT": "Надіслати",
+      "SUBMITTING": "Надсилання...",
+      "LOGIN_AND_SUBMIT": "Увійти та надіслати",
+      "LOADING": "Завантаження коментарів...",
+      "ANONYMOUS_USER": "Анонімний користувач",
+      "DELETE_COMMENT": "Видалити коментар",
+      "NO_COMMENTS_TITLE": "Коментарів поки немає",
+      "NO_COMMENTS_DESCRIPTION": "Будьте першим, хто залишить коментар!",
+      "FIRST_COMMENT": "Будьте першим, хто коментує",
+      "LOGIN_AND_COMMENT": "Увійти та коментувати"
+    },
+    "RELATED": {
+      "TITLE": "Пов'язані блоги"
+    },
+    "ERROR": {
+      "NOT_FOUND_TITLE": "Блог не знайдено",
+      "NOT_FOUND_DESCRIPTION": "На жаль, запитуваний блог не існує або був видалений.",
+      "GO_BACK": "Повернутися назад"
+    },
+    "NAVIGATION": {
+      "ALL_POSTS": "Усі публікації"
+    },
+    "LOADING": "Завантаження блогу..."
+  },
+  "COMMON": {
+    "AGE": "років",
+    "AGE_UNDER": "років",
+    "ALL_AGES": "Всі віки",
+    "FREE": "Безкоштовно",
+    "ACCOMMODATION_INCLUDED": "Проживання включено",
+    "EVENT_LOAD_ERROR": "Сталася помилка під час завантаження подій."
+  },
   "NAV": {
     "LOGO": {
       "TITLE": "Яна ПЕКУН",
@@ -25,64 +218,6 @@
     "SAVE": "Зберегти",
     "CANCEL": "Скасувати",
     "DELETE": "Видалити"
-  },
-  "BLOG_DETAIL": {
-    "LOADING": "Завантаження блогу...",
-    "NAVIGATION": {
-      "ALL_POSTS": "Всі Статті"
-    },
-    "ACTIONS": {
-      "EDIT": "Редагувати",
-      "DELETE": "Видалити",
-      "LIKE": "Подобається",
-      "LIKED": "Сподобалось",
-      "UNLIKE": "Прибрати вподобання",
-      "COMMENT": "Коментувати",
-      "SAVE": "Зберегти",
-      "BOOKMARK": "Додати до закладок",
-      "SHARE": "Поділитися",
-      "COPY_LINK": "Копіювати посилання"
-    },
-    "META": {
-      "READING_TIME": "хв читання",
-      "UPDATED": "Оновлено"
-    },
-    "AUTHOR": {
-      "ANONYMOUS": "Анонімний Автор"
-    },
-    "AUTH": {
-      "LOGIN_TO_LIKE": "Увійдіть, щоб вподобати",
-      "LOGIN_TO_BOOKMARK": "Увійдіть, щоб додати до закладок"
-    },
-    "TAGS": {
-      "TITLE": "Теги"
-    },
-    "COMMENTS": {
-      "TITLE": "Коментарі",
-      "ADD_COMMENT": "Додати Коментар",
-      "ADD_COMMENT_LOGIN_REQUIRED": "Додати Коментар - Потрібен Вхід",
-      "PLACEHOLDER": "Поділіться своїми думками...",
-      "LOGIN_WARNING": "Щоб надіслати коментар, вам потрібно увійти в систему.",
-      "CANCEL": "Скасувати",
-      "SUBMIT": "Відправити Коментар",
-      "SUBMITTING": "Відправляємо...",
-      "LOGIN_AND_SUBMIT": "Увійти та Відправити",
-      "LOADING": "Завантаження коментарів...",
-      "ANONYMOUS_USER": "Анонімний Користувач",
-      "DELETE_COMMENT": "Видалити коментар",
-      "NO_COMMENTS_TITLE": "Поки що немає коментарів",
-      "NO_COMMENTS_DESCRIPTION": "Станьте першим, хто прокоментує цю статтю!",
-      "FIRST_COMMENT": "Написати Перший Коментар",
-      "LOGIN_AND_COMMENT": "Увійти та Коментувати"
-    },
-    "RELATED": {
-      "TITLE": "Схожі Статті"
-    },
-    "ERROR": {
-      "NOT_FOUND_TITLE": "Стаття Блогу Не Знайдена",
-      "NOT_FOUND_DESCRIPTION": "Стаття, яку ви шукаєте, не існує або була видалена.",
-      "GO_BACK": "Повернутися на Головну"
-    }
   },
   "BLOG_LIST": {
     "NAVIGATION": {
@@ -464,4 +599,4 @@
 
     "SLOGAN": "Статті та відкриття від психології до повсякденного життя"
   }
-    }
+}

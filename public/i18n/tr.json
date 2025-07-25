@@ -1,30 +1,130 @@
 {
-  "NAV": {
-    "LOGO": {
-      "TITLE": "Yana Pekun",
-      "SLOGAN": "Logo Sloganı Burada"
+  "EVENT_CATEGORY": {
+    "RETREAT": "İnziva",
+    "WORKSHOP": "Atölye",
+    "SEMINAR": "Seminer",
+    "THERAPY": "Terapi",
+    "MINDFULNESS": "Farkındalık",
+    "WOMENS_RETREAT": "Kadın İnzivası",
+    "MENS_RETREAT": "Erkek İnzivası",
+    "COUPLES_RETREAT": "Çift İnzivası",
+    "DIGITAL_DETOX": "Dijital Detoks",
+    "THERAPEUTIC_INTENSIVE": "Terapötik Yoğunlaştırılmış Program",
+    "PSYCHODRAMA_WORKSHOP": "Psikodrama Atölyesi",
+    "FAMILY_CONSTELLATION": "Aile Dizimi"
+  },
+  "EVENT_LEVEL": {
+    "BEGINNER": "Başlangıç",
+    "INTERMEDIATE": "Orta",
+    "ADVANCED": "İleri",
+    "ALL_LEVELS": "Tüm Seviyeler",
+    "NO_EXPERIENCE_NEEDED": "Deneyim Gerekmez",
+    "SOME_THERAPY_EXPERIENCE": "Biraz Terapi Deneyimi",
+    "ADVANCED_PRACTITIONERS": "İleri Seviye Uygulayıcılar",
+    "PROFESSIONALS_ONLY": "Sadece Profesyoneller"
+  },
+  "TARGET_AUDIENCE": {
+    "WOMEN_ONLY": "Sadece Kadınlar",
+    "MEN_ONLY": "Sadece Erkekler",
+    "MIXED_GENDER": "Karma Grup",
+    "COUPLES": "Çiftler",
+    "FAMILIES": "Aileler",
+    "PROFESSIONALS": "Profesyoneller",
+    "STUDENTS": "Öğrenciler",
+    "SENIORS": "Yaşlılar"
+  },
+  "THERAPEUTIC_METHOD": {
+    "PSYCHODRAMA": "Psikodrama",
+    "SYSTEMIC_FAMILY_THERAPY": "Sistemik Aile Terapisi",
+    "METAPHORICAL_CARDS": "Metaforik Kartlar",
+    "SYMBOL_DRAMA": "Sembol Drama",
+    "BODY_AWARENESS": "Beden Farkındalığı",
+    "GESTALT_THERAPY": "Gestalt Terapi",
+    "CBT": "Bilişsel Davranışçı Terapi",
+    "MINDFULNESS": "Farkındalık",
+    "MEDITATION": "Meditasyon",
+    "ART_THERAPY": "Sanat Terapisi",
+    "MUSIC_THERAPY": "Müzik Terapisi",
+    "DANCE_THERAPY": "Dans Terapisi"
+  },
+  "PARTICIPATION_STYLE": {
+    "ACTIVE_REQUIRED": "Aktif Katılım Gerekli",
+    "FLEXIBLE_PARTICIPATION": "Esnek Katılım",
+    "OBSERVER_FRIENDLY": "Gözlemci Dostu",
+    "SELF_PACED": "Kendi Temponuzda",
+    "GROUP_INTERACTIVE": "Grup Etkileşimli"
+  },
+  "ACCOMMODATION_TYPE": {
+    "SINGLE_ROOM": "Tek Kişilik Oda",
+    "DOUBLE_ROOM": "Çift Kişilik Oda",
+    "TRIPLE_ROOM": "Üç Kişilik Oda",
+    "SHARED_DORMITORY": "Ortak Yurt Odası",
+    "LUXURY_SUITE": "Lüks Süit"
+  },
+  "SPECIAL_PACKAGE": {
+    "BASIC_EXPERIENCE": "Temel Deneyim",
+    "PERSONAL_SUPPORT": "Kişisel Destek",
+    "PREMIUM_SPACE": "Premium Alan",
+    "DIGITAL_DETOX": "Dijital Detoks",
+    "THERAPEUTIC_INTENSIVE": "Terapötik Yoğunlaştırılmış Program"
+  },
+  "ETHICAL_STANDARD": {
+    "CONFIDENTIALITY": "Gizlilik",
+    "INFORMED_CONSENT": "Bilgilendirilmiş Onam",
+    "PROFESSIONAL_BOUNDARIES": "Profesyonel Sınırlar",
+    "NON_JUDGMENT": "Yargılamama",
+    "CULTURAL_SENSITIVITY": "Kültürel Duyarlılık",
+    "TRAUMA_INFORMED": "Travma Odaklı Yaklaşım"
+  },
+  "TARGET_PROBLEM": {
+    "BURNOUT": "Tükenmişlik",
+    "ANXIETY": "Anksiyete",
+    "DEPRESSION": "Depresyon",
+    "RELATIONSHIP_ISSUES": "İlişki Sorunları",
+    "IDENTITY_CRISIS": "Kimlik Krizi",
+    "WORK_LIFE_BALANCE": "İş-Yaşam Dengesi",
+    "SELF_ESTEEM": "Özgüven",
+    "GRIEF_LOSS": "Yas ve Kayıp",
+    "TRAUMA": "Travma",
+    "ADDICTION": "Bağımlılık",
+    "FAMILY_DYNAMICS": "Aile Dinamikleri",
+    "LIFE_TRANSITIONS": "Yaşam Geçişleri",
+    "INNER_VOICE_LOSS": "İç Ses Kaybı",
+    "SYSTEM_FATIGUE": "Sistem Yorgunluğu"
+  },
+  "EXPECTED_OUTCOME": {
+    "SELF_AWARENESS": "Öz Farkındalık",
+    "EMOTIONAL_REGULATION": "Duygusal Düzenleme",
+    "STRESS_REDUCTION": "Stres Azaltma",
+    "INNER_PEACE": "İç Huzur",
+    "CLARITY": "Netlik",
+    "PERSONAL_GROWTH": "Kişisel Gelişim",
+    "HEALING": "İyileşme",
+    "CONNECTION": "Bağlantı",
+    "EMPOWERMENT": "Güçlenme",
+    "RENEWED_ENERGY": "Yenilenmiş Enerji",
+    "LIFE_DIRECTION": "Yaşam Yönü",
+    "AUTHENTICITY": "Özgünlük"
+  },
+  "GENDER_TYPE": {
+    "FEMALE": "Kadın",
+    "MALE": "Erkek",
+    "NON_BINARY": "Non-Binary",
+    "ALL_GENDERS": "Tüm Cinsiyetler"
+  },
+  "EVENT_CARDS": {
+    "FEATURES": {
+      "DIGITAL_DETOX": "Dijital Detoks",
+      "CERTIFIED": "Sertifikalı"
     },
-    "MENU": {
-      "HOME": "Ana Sayfa",
-      "EVENTS": "Etkinlikler",
-      "BLOG": "Blog",
-      "PROFILE": "Profil"
+    "STATUS": {
+      "SPOTS_LEFT": "yer kaldı",
+      "FULL": "dolu"
     },
-    "AUTH": {
-      "LOGIN": "Giriş",
-      "REGISTER": "Kayıt Ol",
-      "LOGOUT": "Çıkış"
+    "ACTIONS": {
+      "MORE_INFO": "Daha Fazla Bilgi",
+      "RELATED_BLOG": "İlgili Blog"
     }
-  },
-  "HOME": {
-    "TITLE": "Ana Sayfa",
-    "WELCOME_MESSAGE": "Hoş Geldiniz!",
-    "DESCRIPTION": "Bu dinamik dil değiştirme sistemi ile Türkçe ve Ukraynaca arasında kolayca geçiş yapabilirsiniz."
-  },
-  "BUTTONS": {
-    "SAVE": "Kaydet",
-    "CANCEL": "İptal",
-    "DELETE": "Sil"
   },
   "BLOG_DETAIL": {
     "LOADING": "Blog yükleniyor...",
@@ -463,6 +563,13 @@
 
     "SLOGAN": "Psikolojiden günlük yaşama uzanan yazılar ve keşifler"
 
+  },
+  "COMMON": {
+    "AGE": "yaş",
+    "AGE_UNDER": "yaş altı",
+    "ALL_AGES": "Tüm yaşlar",
+    "FREE": "Ücretsiz",
+    "ACCOMMODATION_INCLUDED": "Konaklama Dahil",
+    "EVENT_LOAD_ERROR": "Etkinlikler yüklenirken bir hata oluştu."
   }
 }
-

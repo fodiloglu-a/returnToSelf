@@ -1,6 +1,7 @@
+// src/app/components/event-list/event-list.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common'; // DatePipe eklendi
 import { Subject, takeUntil } from 'rxjs';
 import {
   EventModel,
@@ -11,14 +12,24 @@ import {
   TherapeuticMethod,
   ParticipationStyle,
   TargetProblem,
-  ExpectedOutcome
+  ExpectedOutcome,
+  AccommodationType, // Eklenen enum'lar
+  SpecialPackage,
+  EthicalStandard
 } from '../../models/event.model';
-import {EventService} from '../../services/event.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { EventService } from '../../services/event.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core'; // TranslateService eklendi
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // MatSnackBar ve MatSnackBarModule eklendi
 
 @Component({
   selector: 'app-event-list',
-  imports: [CommonModule, TranslatePipe],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslatePipe,
+     // DatePipe import edildi
+    MatSnackBarModule // MatSnackBarModule eklendi
+  ],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.css'
 })
@@ -38,7 +49,10 @@ export class EventListComponent implements OnInit, OnDestroy {
 
   constructor(
     private eventService: EventService,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService, // HTML'den erişim için public yapıldı
+    private datePipe: DatePipe, // DatePipe enjekte edildi
+    private snackBar: MatSnackBar // MatSnackBar enjekte edildi
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +66,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load all events
+   * Tüm etkinlikleri yükler.
    */
   private loadEvents(): void {
     this.isLoading = true;
@@ -67,14 +81,21 @@ export class EventListComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         },
         error: (error) => {
-          this.error = error.message || 'Etkinlikler yüklenirken bir hata oluştu.';
+          console.error('Etkinlikler yüklenirken hata:', error);
+          // Hata mesajı null olabileceği için varsayılan bir değer sağlandı
+          const errorMessage = error.message || this.translateService.instant('EVENT_LIST.ERROR.TITLE');
+          this.error = errorMessage; // error değişkenini de güncelle
           this.isLoading = false;
+          this.snackBar.open(errorMessage, this.translateService.instant('COMMON.CLOSE_BUTTON'), {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       });
   }
 
   /**
-   * Load statistics
+   * İstatistikleri yükler.
    */
   private loadStatistics(): void {
     this.eventService.getEventStats()
@@ -86,13 +107,13 @@ export class EventListComponent implements OnInit, OnDestroy {
           this.calculateAvailableSpots();
         },
         error: (error) => {
-          console.error('Statistics loading error:', error);
+          console.error('İstatistikler yüklenirken hata:', error);
         }
       });
   }
 
   /**
-   * Separate events into upcoming and past
+   * Etkinlikleri gelecek ve geçmiş olarak ayırır.
    */
   private separateEvents(): void {
     const today = new Date();
@@ -110,7 +131,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Calculate total available spots
+   * Toplam müsait yerleri hesaplar.
    */
   private calculateAvailableSpots(): void {
     this.availableSpots = this.upcomingEvents.reduce((total, event) => {
@@ -119,34 +140,31 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Navigation methods
+   * Navigasyon metotları
    */
   navigateToEventDetail(eventId: number): void {
     this.router.navigate(['/events', eventId]);
   }
 
   goBack(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/']); // Ana sayfaya dönmek için
   }
 
   /**
-   * Display helper methods
+   * Görüntüleme yardımcı metotları
    */
   formatDate(date: string): string {
     const eventDate = new Date(date);
-    return eventDate.toLocaleDateString('tr-TR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+    // DatePipe kullanarak biçimlendir, Ukraynaca (uk) locale kullan
+    return this.datePipe.transform(eventDate, 'longDate', undefined, 'uk') || '';
   }
 
   formatTime(time: string): string {
-    return time.substring(0, 5); // HH:MM format
+    return time.substring(0, 5); // HH:MM formatı
   }
 
   getEventPriceDisplay(event: EventModel): string {
-    return event.price === 0 ? 'Ücretsiz' : `₺${event.price}`;
+    return event.price === 0 ? this.translateService.instant('EVENT_LIST.PRICING.FREE') : `₺${event.price}`; // Çeviri kullanıldı
   }
 
   getAvailableSpots(event: EventModel): number {
@@ -154,6 +172,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   getCapacityPercentage(event: EventModel): number {
+    if (!event || event.capacity === 0) return 0;
     return (event.registeredCount / event.capacity) * 100;
   }
 
@@ -180,72 +199,38 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Enhanced display methods
+   * Geliştirilmiş görüntüleme metotları (TranslateService kullanıldı)
    */
   getCategoryText(category: EventCategory): string {
-    const categoryMap = {
-      [EventCategory.WORKSHOP]: 'Atölye',
-      [EventCategory.SEMINAR]: 'Seminer',
-      [EventCategory.RETREAT]: 'Retreat',
-      [EventCategory.THERAPY]: 'Terapi',
-      [EventCategory.MINDFULNESS]: 'Farkındalık',
-      [EventCategory.WOMENS_RETREAT]: 'Kadın Retreat\'i',
-      [EventCategory.MENS_RETREAT]: 'Erkek Retreat\'i',
-      [EventCategory.COUPLES_RETREAT]: 'Çift Retreat\'i',
-      [EventCategory.DIGITAL_DETOX]: 'Dijital Detoks',
-      [EventCategory.THERAPEUTIC_INTENSIVE]: 'Terapötik Yoğunlaştırma',
-      [EventCategory.PSYCHODRAMA_WORKSHOP]: 'Psikodrama Atölyesi',
-      [EventCategory.FAMILY_CONSTELLATION]: 'Aile Dizimi'
-    };
-    return categoryMap[category] || category;
+    return this.translateService.instant('EVENT_CATEGORY.' + category.toUpperCase());
   }
 
   getLevelText(level: EventLevel): string {
-    const levelMap = {
-      [EventLevel.BEGINNER]: 'Başlangıç',
-      [EventLevel.INTERMEDIATE]: 'Orta',
-      [EventLevel.ADVANCED]: 'İleri',
-      [EventLevel.ALL_LEVELS]: 'Tüm Seviyeler',
-      [EventLevel.NO_EXPERIENCE_NEEDED]: 'Deneyim Gerekmez',
-      [EventLevel.SOME_THERAPY_EXPERIENCE]: 'Biraz Terapi Deneyimi',
-      [EventLevel.ADVANCED_PRACTITIONERS]: 'İleri Seviye Uygulayıcılar',
-      [EventLevel.PROFESSIONALS_ONLY]: 'Sadece Profesyoneller'
-    };
-    return levelMap[level] || level;
+    return this.translateService.instant('EVENT_LEVEL.' + level.toUpperCase());
   }
 
   getTargetAudienceText(audience: TargetAudience): string {
-    const audienceMap = {
-      [TargetAudience.WOMEN_ONLY]: 'Kadınlara Özel',
-      [TargetAudience.MEN_ONLY]: 'Erkeklere Özel',
-      [TargetAudience.MIXED_GENDER]: 'Karma Grup',
-      [TargetAudience.COUPLES]: 'Çiftler',
-      [TargetAudience.FAMILIES]: 'Aileler',
-      [TargetAudience.PROFESSIONALS]: 'Profesyoneller',
-      [TargetAudience.STUDENTS]: 'Öğrenciler',
-      [TargetAudience.SENIORS]: 'Yaşlılar'
-    };
-    return audienceMap[audience] || audience;
+    return this.translateService.instant('TARGET_AUDIENCE.' + audience.toUpperCase());
   }
 
   getKeyFeatures(event: EventModel): string[] {
     const features: string[] = [];
 
-    // En önemli özellikleri öncelik sırasına göre ekle
+    // En önemli özellikleri öncelik sırasına göre ekle ve çevir
     if (event.targetAudience === TargetAudience.WOMEN_ONLY) {
-      features.push('Kadınlara Özel');
+      features.push(this.translateService.instant('TARGET_AUDIENCE.WOMEN_ONLY'));
     } else if (event.targetAudience === TargetAudience.MEN_ONLY) {
-      features.push('Erkeklere Özel');
+      features.push(this.translateService.instant('TARGET_AUDIENCE.MEN_ONLY'));
     } else if (event.targetAudience === TargetAudience.COUPLES) {
-      features.push('Çiftler İçin');
+      features.push(this.translateService.instant('TARGET_AUDIENCE.COUPLES'));
     }
 
     if (event.allowsObserverMode) {
-      features.push('Gözlemci Dostu');
+      features.push(this.translateService.instant('PARTICIPATION_STYLE.OBSERVER_FRIENDLY'));
     }
 
     if (event.individualSessionIncluded) {
-      features.push('Bireysel Oturum');
+      features.push(this.translateService.instant('SPECIAL_PACKAGE.PERSONAL_SUPPORT')); // veya daha spesifik bir anahtar
     }
 
     if (event.therapeuticMethods && event.therapeuticMethods.length > 0) {
@@ -254,7 +239,7 @@ export class EventListComponent implements OnInit, OnDestroy {
     }
 
     if (event.accommodationOptions && event.accommodationOptions.length > 0) {
-      features.push('Konaklama Dahil');
+      features.push(this.translateService.instant('COMMON.ACCOMMODATION_INCLUDED'));
     }
 
     // Maksimum 3 özellik döndür
@@ -262,32 +247,18 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   getTherapeuticMethodText(method: TherapeuticMethod): string {
-    const methodMap = {
-      [TherapeuticMethod.PSYCHODRAMA]: 'Psikodrama',
-      [TherapeuticMethod.SYSTEMIC_FAMILY_THERAPY]: 'Sistemik Aile Terapisi',
-      [TherapeuticMethod.METAPHORICAL_CARDS]: 'Metaforik Kartlar',
-      [TherapeuticMethod.SYMBOL_DRAMA]: 'Sembol Drama',
-      [TherapeuticMethod.BODY_AWARENESS]: 'Beden Farkındalığı',
-      [TherapeuticMethod.GESTALT_THERAPY]: 'Gestalt Terapi',
-      [TherapeuticMethod.CBT]: 'Bilişsel Davranışçı Terapi',
-      [TherapeuticMethod.MINDFULNESS]: 'Farkındalık',
-      [TherapeuticMethod.MEDITATION]: 'Meditasyon',
-      [TherapeuticMethod.ART_THERAPY]: 'Sanat Terapisi',
-      [TherapeuticMethod.MUSIC_THERAPY]: 'Müzik Terapisi',
-      [TherapeuticMethod.DANCE_THERAPY]: 'Dans Terapisi'
-    };
-    return methodMap[method] || method;
+    return this.translateService.instant('THERAPEUTIC_METHOD.' + method.toUpperCase());
   }
 
   /**
-   * Track by function for ngFor optimization
+   * ngFor optimizasyonu için trackBy fonksiyonu
    */
   trackByEventId(index: number, event: EventModel): number {
     return event.id;
   }
 
   /**
-   * Refresh events
+   * Etkinlikleri yeniler.
    */
   refreshEvents(): void {
     this.loadEvents();

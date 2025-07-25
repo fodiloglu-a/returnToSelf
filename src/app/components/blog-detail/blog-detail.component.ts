@@ -104,6 +104,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (blog) => {
           this.blog = blog;
+          console.log(this.blog);
           this.calculateReadingTime();
           this.isLoading = false;
           this.loadComments(blogId);
@@ -220,32 +221,39 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!this.blog?.id) return;
+    if (!this.blog?.id){
+      return;
+    }
 
     const initialIsLiked = this.blog.isLiked;
     const initialLikesCount = this.blog.likesCount || 0;
 
     this.blog.isLiked = !initialIsLiked;
     this.blog.likesCount = this.blog.isLiked ? initialLikesCount + 1 : Math.max(0, initialLikesCount - 1);
-
-    this.blogService.toggleLike(this.blog.id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          console.log('Beğeni durumu başarıyla güncellendi.');
-        },
-        error: (error) => {
-          console.error('Beğeni durumu değiştirilirken hata:', error);
-          if (this.blog) {
-            this.blog.isLiked = initialIsLiked;
-            this.blog.likesCount = initialLikesCount;
+    console.log(this.blog);
+    console.log(initialIsLiked)
+    if (!initialIsLiked) {
+      this.commentService.addLike(this.blog.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            console.log('Beğeni durumu başarıyla güncellendi.');
+          },
+          error: (error) => {
+            console.error('Beğeni durumu değiştirilirken hata:', error);
+            if (this.blog) {
+              this.blog.isLiked = initialIsLiked;
+              this.blog.likesCount = initialLikesCount;
+            }
+            this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.LIKE_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
+              duration: 3000,
+              panelClass: ['error-snackbar']
+            });
           }
-          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.LIKE_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
-            duration: 3000,
-            panelClass: ['error-snackbar']
-          });
-        }
-      });
+        });
+    }else {
+      this.commentService.deleteLike(this.blog.id)
+    }
   }
 
   toggleCommentForm(): void {

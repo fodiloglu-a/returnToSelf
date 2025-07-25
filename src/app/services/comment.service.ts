@@ -9,7 +9,7 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CommentService {
-// private readonly API_URL = 'http://localhost:8080/api/comments';
+  //    private readonly API_URL = 'http://localhost:8080/api/comments';
    private readonly API_URL = 'https://returntoyourself.onrender.com/api/comments';
 
   // Yorumlar için reactive state (blog bazında)
@@ -95,15 +95,20 @@ export class CommentService {
   }
 
   // Blog gönderisinden beğeni kaldır (yeni eklenen metod)
-  deleteLike(blogId: number): void {
-    this.http.delete(`${this.API_URL}/blog-like-delete/${blogId}`)
-      .subscribe({
-        next: () => {
+  deleteLike(blogId: number): Observable<void> { // Observable<void> döndür
+    return this.http.delete<void>(`${this.API_URL}/blog-like-delete/${blogId}`, { responseType: 'text' as 'json' }) // responseType: 'text' eklendi
+      .pipe(
+        tap(() => {
+          // Like durumunu güncelle
+          const currentLikeStatus = this.likeStatusSubject.value;
+          currentLikeStatus[blogId] = false;
+          this.likeStatusSubject.next({ ...currentLikeStatus });
           console.log(`Blog ID ${blogId} için beğeni başarıyla silindi`);
-        },
-        error: (error) => {
+        }),
+        catchError(error => {
           console.error(`Blog ID ${blogId} için beğeni silinirken hata oluştu:`, error);
-        }
-      });
+          throw error; // Hatayı yeniden fırlat
+        })
+      );
   }
 }

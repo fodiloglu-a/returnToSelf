@@ -634,5 +634,150 @@
     "FREE": "Ücretsiz",
     "ACCOMMODATION_INCLUDED": "Konaklama Dahil",
     "EVENT_LOAD_ERROR": "Etkinlikler yüklenirken bir hata oluştu."
+  },
+  "LEGAL": {
+    "NAVIGATION": {
+      "BACK": "Geri Dön"
+    },
+    "PRIVACY_POLICY": {
+      "TITLE": "Gizlilik Politikası",
+      "LAST_UPDATED": "Son Güncelleme: 25 Temmuz 2025",
+      "SECTION_1": {
+        "TITLE": "Giriş",
+        "PARAGRAPH_1": "Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde veya hizmetlerimizi kullandığınızda kişisel verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır. Gizliliğiniz bizim için çok önemlidir ve verilerinizi büyük bir özenle işleriz."
+      },
+      "SECTION_2": {
+        "TITLE": "Topladığımız Bilgiler",
+        "SUBSECTION_1": {
+          "TITLE": "Doğrudan Sağladığınız Bilgiler",
+          "PARAGRAPH_1": "Web sitemize kaydolduğunuzda, yorum yaptığınızda, bültenimize abone olduğunuzda veya bizimle iletişime geçtiğinizde bize doğrudan sağladığınız kişisel bilgileri toplarız. Bu bilgiler şunları içerebilir:",
+          "LIST_ITEM_1": "Adınız, soyadınız",
+          "LIST_ITEM_2": "E-posta adresiniz",
+          "LIST_ITEM_3": "Kullanıcı adınız ve şifreniz"
+        },
+        "SUBSECTION_2": {
+          "TITLE": "Otomatik Olarak Topladığımız Bilgiler",
+          "PARAGRAPH_1": "Web sitemizi ziyaret ettiğinizde, cihazınız ve kullanım alışkanlıklarınız hakkında belirli bilgileri otomatik olarak toplarız. Bu bilgiler şunları içerebilir:",
+          "LIST_ITEM_1": "IP adresiniz",
+          "LIST_ITEM_2": "Tarayıcı türü ve sürümü",
+          "LIST_ITEM_3": "Ziyaret ettiğiniz sayfalar ve ziyaret süreleri"
+        }
+      },
+      "SECTION_3": {
+        "TITLE": "Bilgilerinizi Nasıl Kullanırız?",
+        "PARAGRAPH_1": "Topladığımız bilgileri aşağıdaki amaçlar doğrultusunda kullanırız: Hizmetlerimizi sunmak ve sürdürmek, web sitemizi kişiselleştirmek ve geliştirmek, sorularınıza ve taleplerinize yanıt vermek, bültenler ve pazarlama iletişimi göndermek (izninizle), yasal yükümlülüklerimize uymak."
+      },
+      "SECTION_4": {
+        "TITLE": "Bilgilerin Paylaşılması",
+        "PARAGRAPH_1": "Kişisel verilerinizi izniniz olmadan üçüncü taraflarla satmaz, kiralamaz veya ticaretini yapmayız. Yasal yükümlülüklerimizi yerine getirmek veya haklarımızı korumak amacıyla verilerinizi paylaşabiliriz."
+      },
+      "SECTION_5": {
+        "TITLE": "Veri Güvenliği",
+        "PARAGRAPH_1": "Kişisel verilerinizin güvenliğini sağlamak için uygun teknik ve organizasyonel önlemleri alırız. Ancak, internet üzerinden hiçbir veri iletimi veya depolama yöntemi %100 güvenli değildir."
+      },
+      "SECTION_6": {
+        "TITLE": "Çerezler (Cookies)",
+        "PARAGRAPH_1": "Web sitemiz, deneyiminizi iyileştirmek için çerezleri kullanır. Çerezler, tarayıcınız tarafından cihazınızda depolanan küçük metin dosyalarıdır.",
+        "PARAGRAPH_2": "Çerezleri aşağıdaki amaçlarla kullanırız:",
+        "LIST_ITEM_1": "Web sitesi işlevselliğini sağlamak",
+        "LIST_ITEM_2": "Site kullanımını analiz etmek",
+        "LIST_ITEM_3": "Pazarlama ve reklam faaliyetlerini desteklemek"
+      },
+      "SECTION_7": {
+        "TITLE": "Haklarınız",
+        "PARAGRAPH_1": "Kişisel verilerinizle ilgili belirli haklara sahipsiniz. Bu haklar, verilerinize erişme, düzeltme, silme veya işlemeyi kısıtlama hakkını içerebilir.",
+        "PARAGRAPH_2": "Haklarınızı kullanmak veya gizlilik uygulamalarımız hakkında sorularınız varsa, lütfen bizimle iletişime geçin."
+      },
+      "SECTION_8": {
+        "TITLE": "Politika Değişiklikleri",
+        "PARAGRAPH_1": "Bu Gizlilik Politikası zaman zaman güncellenebilir. Herhangi bir değişiklik olduğunda, güncellenmiş politikayı bu sayfada yayınlayacağız ve 'Son Güncelleme' tarihini revize edeceğiz."
+      }
+    },
+    "TERMS_OF_SERVICE": {
+      "TITLE": "Kullanım Koşulları",
+      "LAST_UPDATED": "Son Güncelleme: 25 Temmuz 2025",
+      "SECTION_1": {
+        "TITLE": "Giriş",
+        "PARAGRAPH_1": "Bu Kullanım Koşulları ('Koşullar'), web sitemizi ve hizmetlerimizi kullanımınızı yönetir. Sitemizi kullanarak bu Koşulları kabul etmiş olursunuz. Lütfen dikkatlice okuyunuz."
+      },
+      "SECTION_2": {
+        "TITLE": "Hizmetlerin Kullanımı",
+        "PARAGRAPH_1": "Web sitemizi yalnızca yasal amaçlarla ve bu Koşullara uygun olarak kullanmayı kabul edersiniz. Yasa dışı veya yetkisiz herhangi bir amaçla kullanmayacağınızı taahhüt edersiniz."
+      },
+      "SECTION_3": {
+        "TITLE": "Kullanıcı Hesapları",
+        "PARAGRAPH_1": "Web sitemizin belirli özelliklerine erişmek için bir hesap oluşturmanız gerekebilir. Hesap bilgilerinizin gizliliğini korumaktan siz sorumlusunuz. Hesabınız altında gerçekleşen tüm faaliyetlerden siz sorumlusunuz.",
+        "LIST_ITEM_1": "Doğru ve güncel bilgi sağlamak",
+        "LIST_ITEM_2": "Şifrenizi güvende tutmak",
+        "LIST_ITEM_3": "Hesabınızın yetkisiz kullanımını derhal bize bildirmek"
+      },
+      "SECTION_4": {
+        "TITLE": "Fikri Mülkiyet",
+        "PARAGRAPH_1": "Web sitemizdeki tüm içerik, metin, grafik, logo, ikon, resim, ses klibi, dijital indirme, derleme ve yazılım, ilgili fikri mülkiyet yasalarıyla korunmaktadır. İçeriği bizim açık yazılı iznimiz olmadan kopyalayamaz, çoğaltamaz, yeniden yayınlayamaz, yükleyemez, postalayamaz, iletemez veya dağıtamazsınız.",
+        "PARAGRAPH_2": "Web sitemizde yayınladığınız içerik için bize dünya çapında, münhasır olmayan, telifsiz, devredilebilir ve alt lisans verilebilir bir lisans verirsiniz."
+      },
+      "SECTION_5": {
+        "TITLE": "Yasaklı Faaliyetler",
+        "PARAGRAPH_1": "Web sitemizi kullanırken aşağıdaki faaliyetlerde bulunmayacağınızı kabul edersiniz:",
+        "LIST_ITEM_1": "Yasa dışı, zararlı, tehdit edici, taciz edici, hakaret edici, iftira niteliğinde, müstehcen, nefret dolu veya ırksal, etnik veya başka bir şekilde sakıncalı içerik yayınlamak.",
+        "LIST_ITEM_2": "Virüs veya başka kötü amaçlı kodlar yüklemek veya iletmek.",
+        "LIST_ITEM_3": "Diğer kullanıcıların kişisel bilgilerini toplamak veya saklamak."
+      },
+      "SECTION_6": {
+        "TITLE": "Garanti Reddi",
+        "PARAGRAPH_1": "Web sitemiz 'olduğu gibi' ve 'mevcut olduğu gibi' esasına göre sağlanmaktadır. Web sitemizin kesintisiz, hatasız veya güvenli olacağına dair hiçbir garanti vermeyiz."
+      },
+      "SECTION_7": {
+        "TITLE": "Sorumluluğun Sınırlandırılması",
+        "PARAGRAPH_1": "Yürürlükteki yasaların izin verdiği en geniş ölçüde, web sitemizin kullanımından kaynaklanan dolaylı, arızi, özel, cezai veya sonuç olarak ortaya çıkan zararlardan sorumlu olmayacağız."
+      }
+    },
+    "COOKIE_POLICY": {
+      "TITLE": "Çerez Politikası",
+      "LAST_UPDATED": "Son Güncelleme: 25 Temmuz 2025",
+      "SECTION_1": {
+        "TITLE": "Giriş",
+        "PARAGRAPH_1": "Bu Çerez Politikası, web sitemizin çerezleri ve benzeri teknolojileri nasıl kullandığını açıklamaktadır. Sitemizi kullanarak çerezlerin kullanımını bu politikaya uygun olarak kabul etmiş olursunuz."
+      },
+      "SECTION_2": {
+        "TITLE": "Çerezler Nedir?",
+        "PARAGRAPH_1": "Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınız tarafından cihazınızda (bilgisayar, tablet, telefon vb.) depolanan küçük metin dosyalarıdır. Çerezler, web sitesinin sizi hatırlamasını, tercihlerinizi kaydetmesini ve size daha kişiselleştirilmiş bir deneyim sunmasını sağlar."
+      },
+      "SECTION_3": {
+        "TITLE": "Kullandığımız Çerez Türleri",
+        "PARAGRAPH_1": "Web sitemizde farklı türde çerezler kullanmaktayız:",
+        "LIST_ITEM_1": {
+          "BOLD": "Zorunlu Çerezler:",
+          "TEXT": "Web sitesinin temel işlevleri için gereklidir ve güvenlik, ağ yönetimi ve erişilebilirlik gibi özellikleri etkinleştirir."
+        },
+        "LIST_ITEM_2": {
+          "BOLD": "Performans ve Analiz Çerezleri:",
+          "TEXT": "Web sitesinin nasıl kullanıldığını anlamamıza yardımcı olur, hangi sayfaların popüler olduğunu gösterir ve site performansını artırmamızı sağlar."
+        },
+        "LIST_ITEM_3": {
+          "BOLD": "İşlevsellik Çerezleri:",
+          "TEXT": "Tercihlerinizi (dil seçimi gibi) hatırlar ve size daha kişiselleştirilmiş özellikler sunar."
+        },
+        "LIST_ITEM_4": {
+          "BOLD": "Hedefleme ve Reklam Çerezleri:",
+          "TEXT": "İlgi alanlarınıza daha uygun reklamlar göstermek için kullanılır ve reklam kampanyalarımızın etkinliğini ölçer."
+        }
+      },
+      "SECTION_4": {
+        "TITLE": "Çerezleri Nasıl Kontrol Edebilirsiniz?",
+        "PARAGRAPH_1": "Çerez tercihlerinizi yönetme ve çerezleri devre dışı bırakma veya silme hakkına sahipsiniz. Bunu genellikle tarayıcı ayarlarınız üzerinden yapabilirsiniz. Ancak, zorunlu çerezleri devre dışı bırakmak web sitemizin bazı bölümlerinin düzgün çalışmamasına neden olabilir.",
+        "LIST_ITEM_1": "Google Chrome için çerez ayarları",
+        "LIST_ITEM_2": "Mozilla Firefox için çerez ayarları",
+        "LIST_ITEM_3": "Apple Safari için çerez ayarları"
+      },
+      "SECTION_5": {
+        "TITLE": "Üçüncü Taraf Çerezleri",
+        "PARAGRAPH_1": "Web sitemizde üçüncü taraf hizmet sağlayıcıları (örneğin Google Analytics, sosyal medya eklentileri) tarafından yerleştirilen çerezler de bulunabilir. Bu çerezler, ilgili üçüncü tarafların kendi gizlilik politikalarına tabidir."
+      },
+      "SECTION_6": {
+        "TITLE": "Politika Değişiklikleri",
+        "PARAGRAPH_1": "Bu Çerez Politikası zaman zaman güncellenebilir. Herhangi bir değişiklik olduğunda, güncellenmiş politikayı bu sayfada yayınlayacağız."
+      }
+    }
   }
 }

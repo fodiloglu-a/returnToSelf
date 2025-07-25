@@ -30,7 +30,20 @@ export class BlogListComponent implements OnInit, OnDestroy {
   // UI States
   showCreateBlogHint = false;
   selectedCategories: string[] = [];
-  availableCategories = ['Teknoloji', 'Yazılım', 'Tasarım', 'İş Dünyası', 'Kişisel', 'Eğitim', 'Sağlık', 'Spor'];
+  availableCategories = [
+    "Ретрит",
+    "Майстер-клас",
+    "Семінар",
+    "Терапія",
+    "Усвідомленість",
+    "Жіночий ретрит",
+    "Чоловічий ретрит",
+    "Ретрит для пар",
+    "Цифровий детокс",
+    "Терапевтичний інтенсив",
+    "Психодрама-майстерня",
+    "Сімейна розстановка"
+  ];
   viewMode: 'grid' | 'list' = 'grid';
 
   // Pagination

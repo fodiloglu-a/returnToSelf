@@ -1,5 +1,5 @@
 // src/app/components/blog-detail/blog-detail.component.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core'; // ViewChild, ElementRef eklendi
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { CommentModel, CommentRequest } from '../../models/comment.model';
 import { BlogService } from '../../services/blog.service';
 import { CommentService } from '../../services/comment.service';
 import { AuthService } from '../../services/auth.service';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core'; // TranslateService eklendi
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,6 +26,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class BlogDetailComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
+
+  // Yorumlar bölümüne erişmek için ViewChild
+  @ViewChild('commentsSection') commentsSection!: ElementRef;
 
   blog: Blog | null = null;
   comments: CommentModel[] = [];
@@ -57,7 +60,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     private commentService: CommentService,
     private authService: AuthService,
     private datePipe: DatePipe,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translateService: TranslateService // TranslateService enjekte edildi
   ) {}
 
   ngOnInit(): void {
@@ -84,7 +88,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   }
 
   private loadBlogDetail(): void {
-    // URL'den blog ID'sini güvenli bir şekilde al
     const blogIdParam = this.route.snapshot.paramMap.get('id');
     const blogId = blogIdParam ? Number(blogIdParam) : NaN;
 
@@ -108,7 +111,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error('Blog yüklenirken hata:', error);
           this.isLoading = false;
-          this.snackBar.open('Blog yüklenirken bir hata oluştu veya blog bulunamadı.', 'Kapat', {
+          const errorMessage = error.message || this.translateService.instant('BLOG_DETAIL.ERROR.NOT_FOUND_TITLE');
+          this.snackBar.open(errorMessage, this.translateService.instant('COMMON.CLOSE_BUTTON'), {
             duration: 3000,
             panelClass: ['error-snackbar']
           });
@@ -130,7 +134,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error('Yorumlar yüklenirken hata:', error);
           this.isCommentsLoading = false;
-          this.snackBar.open('Yorumlar yüklenirken bir hata oluştu.', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.COMMENTS.LOADING_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
             duration: 3000,
             panelClass: ['error-snackbar']
           });
@@ -146,7 +150,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Yorum ekleme - Sadece giriş yapmış kullanıcılar için
   onSubmitComment(): void {
     if (!this.isAuthenticated) {
       this.pendingComment = this.newComment.content;
@@ -155,7 +158,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     if (!this.newComment.content.trim() || !this.blog?.id) {
-      this.snackBar.open('Yorum içeriği boş olamaz.', 'Kapat', {
+      this.snackBar.open(this.translateService.instant('BLOG_DETAIL.COMMENTS.EMPTY_COMMENT_WARNING'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
         duration: 3000,
         panelClass: ['warning-snackbar']
       });
@@ -176,7 +179,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           if (this.blog) {
             this.blog.commentCount = (this.blog.commentCount || 0) + 1;
           }
-          this.snackBar.open('Yorumunuz başarıyla eklendi!', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.COMMENTS.SUBMIT_SUCCESS'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
             duration: 3000,
             panelClass: ['success-snackbar']
           });
@@ -184,7 +187,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error('Yorum eklenirken hata:', error);
           this.isSubmittingComment = false;
-          this.snackBar.open('Yorum eklenirken bir hata oluştu.', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.COMMENTS.SUBMIT_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
             duration: 3000,
             panelClass: ['error-snackbar']
           });
@@ -192,7 +195,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Giriş sayfasına yönlendirme
   private redirectToLogin(action?: string): void {
     const returnUrl = this.router.url;
     this.router.navigate(['/auth/login'], {
@@ -203,17 +205,15 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Yorum silme
   onDeleteComment(commentId: number | undefined): void {
     if (!commentId || !this.blog?.id) return;
 
-    if (confirm('Bu yorumu silmek istediğinizden emin misiniz?')) {
+    if (confirm(this.translateService.instant('BLOG_DETAIL.COMMENTS.DELETE_CONFIRM'))) { // Çeviri kullanıldı
       this.commentService.deleteComment(commentId, this.blog.id)
-      location.reload()
+     location.reload()
     }
   }
 
-  // Blog beğenme/beğenmekten vazgeçme
   onToggleLike(): void {
     if (!this.isAuthenticated) {
       this.redirectToLogin('like');
@@ -222,7 +222,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
     if (!this.blog?.id) return;
 
-    // UI'ı hemen güncelle (optimistic update)
     const initialIsLiked = this.blog.isLiked;
     const initialLikesCount = this.blog.likesCount || 0;
 
@@ -237,12 +236,11 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('Beğeni durumu değiştirilirken hata:', error);
-          // Hata durumunda UI'ı eski haline döndür (rollback)
           if (this.blog) {
             this.blog.isLiked = initialIsLiked;
             this.blog.likesCount = initialLikesCount;
           }
-          this.snackBar.open('Beğeni durumu güncellenirken bir hata oluştu.', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.LIKE_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
             duration: 3000,
             panelClass: ['error-snackbar']
           });
@@ -250,7 +248,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Yorum formunu göster/gizle
   toggleCommentForm(): void {
     this.showCommentForm = !this.showCommentForm;
     if (this.pendingComment && this.isAuthenticated) {
@@ -259,7 +256,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Blog favorilere ekle/çıkar
   onToggleFavorite(): void {
     if (!this.isAuthenticated) {
       this.redirectToLogin('favorite');
@@ -273,14 +269,14 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           console.log('Favori durumu güncellendi');
-          this.snackBar.open('Favori durumu başarıyla güncellendi.', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.SAVE_SUCCESS'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
             duration: 3000,
             panelClass: ['success-snackbar']
           });
         },
         error: (error) => {
           console.error('Favori durumu değiştirilirken hata:', error);
-          this.snackBar.open('Favori durumu güncellenirken bir hata oluştu.', 'Kapat', {
+          this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.SAVE_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
             duration: 3000,
             panelClass: ['error-snackbar']
           });
@@ -288,7 +284,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Blog düzenleme (sadece author için)
   onEditBlog(): void {
     if (!this.isAuthenticated) {
       this.redirectToLogin('edit_blog');
@@ -298,23 +293,22 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     if (this.blog?.id && this.isAuthor()) {
       this.router.navigate(['/blogs/edit', this.blog.id]);
     } else if (this.blog?.id && !this.isAuthor()) {
-      this.snackBar.open('Bu blogu düzenleme yetkiniz yok.', 'Kapat', {
+      this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.EDIT_PERMISSION_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
         duration: 3000,
         panelClass: ['error-snackbar']
       });
     }
   }
 
-  // Blog silme (sadece author için)
   onDeleteBlog(): void {
     if (!this.blog?.id) return;
 
-    if (confirm('Bu blog yazısını silmek istediğinizden emin misiniz?')) {
+    if (confirm(this.translateService.instant('BLOG_DETAIL.ACTIONS.DELETE_CONFIRM'))) { // Çeviri kullanıldı
       this.blogService.deleteBlog(this.blog.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-            this.snackBar.open('Blog başarıyla silindi.', 'Kapat', {
+            this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.DELETE_SUCCESS'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
               duration: 3000,
               panelClass: ['success-snackbar']
             });
@@ -322,12 +316,20 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
           },
           error: (error) => {
             console.error('Blog silinirken hata:', error);
-            this.snackBar.open('Blog silinirken bir hata oluştu.', 'Kapat', {
+            this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.DELETE_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), { // Çeviri kullanıldı
               duration: 3000,
               panelClass: ['error-snackbar']
             });
           }
         });
+    }
+  }
+
+  // Yeni eklenen metot: Yorumlar bölümüne kaydır
+  scrollToComments(): void {
+    if (this.commentsSection) {
+      this.commentsSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.toggleCommentForm();
     }
   }
 
@@ -346,12 +348,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
   formatDate(date: Date | string | undefined): string {
     if (!date) return '';
-    return this.datePipe.transform(date, 'longDate', 'tr-TR') || '';
+    return this.datePipe.transform(date, 'longDate', undefined, 'uk') || '';
   }
 
   formatDetailedDate(date: Date | string | undefined): string {
     if (!date) return '';
-    return this.datePipe.transform(date, 'medium', 'tr-TR') || '';
+    return this.datePipe.transform(date, 'medium', undefined, 'uk') || ''; // Ukraynaca locale kullanıldı
   }
 
   getTagsArray(tags: string | string[] | undefined): string[] {
@@ -378,28 +380,24 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     let formattedContent = content;
 
     // Code blocks
-    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /```([\s\S]*?)```/g,
       '<pre class="code-block"><code>$1</code></pre>'
     );
 
     // Inline code
-    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /`([^`]+)`/g,
       '<code class="inline-code">$1</code>'
     );
 
     // Bold text
-    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /\*\*(.*?)\*\*/g,
       '<strong class="font-bold">$1</strong>'
     );
 
     // Italic text
-    // style="color: white" kaldırıldı, CSS'ten yönetilecek
     formattedContent = formattedContent.replace(
       /\*(.*?)\*/g,
       '<em class="italic">$1</em>'
@@ -417,7 +415,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     return formattedContent;
   }
 
-  // Sosyal medya paylaşımları
   shareOnTwitter(): void {
     if (this.blog) {
       const url = encodeURIComponent(window.location.href);
@@ -450,13 +447,13 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
   copyUrl(): void {
     navigator.clipboard.writeText(window.location.href).then(() => {
-      this.snackBar.open('URL panoya kopyalandı!', 'Kapat', {
+      this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.COPY_LINK_SUCCESS'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
         duration: 3000,
         panelClass: ['success-snackbar']
       });
     }).catch(err => {
       console.error('URL kopyalanırken hata:', err);
-      this.snackBar.open('URL kopyalanırken bir hata oluştu.', 'Kapat', {
+      this.snackBar.open(this.translateService.instant('BLOG_DETAIL.ACTIONS.COPY_LINK_ERROR'), this.translateService.instant('COMMON.CLOSE_BUTTON'), {
         duration: 3000,
         panelClass: ['error-snackbar']
       });

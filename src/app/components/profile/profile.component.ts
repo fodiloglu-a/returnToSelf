@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.currentUser$ = this.authService.currentUser$;
-
+    console.log(this.currentUser$);
     // Profile Form
     this.profileForm = this.formBuilder.group({
       username: [{ value: '', disabled: true }],

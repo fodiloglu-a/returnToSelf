@@ -200,7 +200,10 @@
                   [placeholder]="'PROFILE.SETTINGS.PERSONAL_INFO.BIO_PLACEHOLDER' | translate"
                   rows="4"
                   [readonly]="!isEditingProfile"
-                ></textarea>
+                >
+
+                </textarea>
+
               </div>
               @if (hasFieldError(profileForm, 'bio')) {
                 <small class="form-error">{{ getFieldError(profileForm, 'bio') }}</small>
@@ -368,7 +371,7 @@
         </div>
 
         <!-- Danger Zone -->
-        <div class="settings-card danger-zone">
+        <!-- <div class="settings-card danger-zone">
           <div class="card-header">
             <h3>
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -401,7 +404,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div>-->
       </section>
     </div>
   </main>

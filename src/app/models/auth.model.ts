@@ -21,4 +21,5 @@ export interface AuthResponse {
   lastName?: string;
   createdAt?: Date;
   likedBlogIds?: number[];
+  bio?: string;
 }

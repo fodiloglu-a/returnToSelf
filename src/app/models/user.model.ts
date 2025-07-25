@@ -7,4 +7,5 @@ export interface User {
   role?: string;
   createdAt?: Date;
   likedBlogIds?: number[];
+  bio?: string;
 }

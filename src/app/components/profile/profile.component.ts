@@ -164,6 +164,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileForm.get('firstName')?.disable();
         this.profileForm.get('lastName')?.disable();
         this.profileForm.get('bio')?.disable();
+        this.authService.updateUser(this.currentUser).subscribe(
+          data => {
+            if (data) {
+              console.log(data);
+              this.populateProfileForm(data);
+            }
+          }
+        );
 
         this.showNotification('Profil bilgileriniz güncellendi!', 'success');
       }, 1000);
@@ -360,11 +368,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getRoleColor(): string {
     switch (this.currentUser?.role?.toLowerCase()) {
-      case 'admin':
+      case 'ADMIN':
         return '#dc3545';
-      case 'moderator':
+      case 'u':
         return '#fd7e14';
-      case 'user':
+      case 'USER':
       default:
         return '#0d6efd';
     }

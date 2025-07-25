@@ -16,8 +16,8 @@ import {User} from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-    private readonly API_URL = 'http://localhost:8080/api/auth';
-  // private readonly API_URL = 'https://returntoyourself.onrender.com/api/auth';
+  //   private readonly API_URL = 'http://localhost:8080/api/auth';
+   private readonly API_URL = 'https://returntoyourself.onrender.com/api/auth';
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'current_user';
 
@@ -44,6 +44,9 @@ export class AuthService {
       .pipe(
         tap(response => this.handleAuthResponse(response))
       );
+  }
+  updateUser(currentUser: User) {
+    return this.http.put<AuthResponse>(`${this.API_URL}/user-update`, currentUser)
   }
 
   // Giriş yapma
@@ -118,7 +121,9 @@ export class AuthService {
         lastName:response.lastName,
         createdAt:response.createdAt,
         likedBlogIds:response.likedBlogIds,
+        bio:response.bio,
       };
+      console.log('USER', user);
 
       localStorage.setItem(this.USER_KEY, JSON.stringify(user));
       this.currentUserSubject.next(user);
@@ -167,4 +172,7 @@ export class AuthService {
   isUser(): boolean {
     return this.hasRole('USER');
   }
+
+
+
 }

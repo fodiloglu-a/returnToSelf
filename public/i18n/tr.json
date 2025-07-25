@@ -416,26 +416,26 @@
   },
   "FOOTER": {
     "BRAND": {
-      "TITLE": "Kadınlara Özel Platform",
-      "DESCRIPTION": "Güçlü kadınlar için güçlü içerikler. Kendinizi keşfedin, gelişin ve güçlenin. Psikolojik destek, kişisel gelişim ve kadın dayanışması bir arada."
+      "TITLE": "Yana Pekun Blog",
+      "DESCRIPTION": "Psikoloji, kişisel gelişim ve yaşam üzerine derin düşünceler. İç yolculuğunuzda size eşlik eden yazılar ve keşifler."
     },
     "QUICK_LINKS": {
       "TITLE": "Hızlı Bağlantılar",
       "HOME": "Ana Sayfa",
       "EVENTS": "Etkinlikler",
-      "BLOG": "Blog",
-      "ABOUT": "Hakkımızda",
+      "BLOG": "Blog Yazıları",
+      "ABOUT": "Hakkımda",
       "CONTACT": "İletişim"
     },
     "NEWSLETTER": {
       "TITLE": "Bülten",
-      "DESCRIPTION": "Yeni etkinlik ve içeriklerden haberdar olun",
+      "DESCRIPTION": "Yeni yazılar ve düşüncelerden haberdar olun",
       "EMAIL_PLACEHOLDER": "E-posta adresiniz",
       "SUBSCRIBE": "Abone Ol"
     },
     "CONTACT": {
       "TITLE": "İletişim",
-      "ADDRESS": "İstanbul, Türkiye"
+      "ADDRESS": "Kiev, Ukrayna"
     },
     "SOCIAL": {
       "INSTAGRAM": "Instagram",
@@ -443,10 +443,10 @@
       "TWITTER": "Twitter",
       "LINKEDIN": "LinkedIn"
     },
-    "COPYRIGHT": "© 2025 Kadınlara Özel Platform. Tüm hakları saklıdır.",
+    "COPYRIGHT": "© 2025 Yana Pekun Blog. Tüm hakları saklıdır.",
     "LEGAL": {
       "PRIVACY": "Gizlilik Politikası",
-      "TERMS": "Kullanım Şartları",
+      "TERMS": "Kullanım Koşulları",
       "COOKIES": "Çerez Politikası"
     }
   },

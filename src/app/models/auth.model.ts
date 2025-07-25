@@ -17,4 +17,8 @@ export interface AuthResponse {
   username: string;
   email: string;
   role: string;
+  firstName?: string;
+  lastName?: string;
+  createdAt?: Date;
+  likedBlogIds?: number[];
 }

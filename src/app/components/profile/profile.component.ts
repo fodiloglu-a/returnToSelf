@@ -58,7 +58,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       lastName: ['', [Validators.maxLength(50)]],
       bio: ['', [Validators.maxLength(500)]]
     });
-
+    this.userStats.commentCount=this.currentUser?.likedBlogIds?.length || 0;
+    this.userStats.joinDaysAgo=this.currentUser?.createdAt?.getDay() || 0;
     // Password Form
     this.passwordForm = this.formBuilder.group({
       currentPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -95,9 +96,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // Bu normalde backend'den gelecek
     // Şimdilik mock data
     this.userStats = {
-      blogCount: 12,
-      commentCount: 45,
-      likesReceived: 78,
+      blogCount: 0,
+      commentCount: this.currentUser?.likedBlogIds?.length || 0,
+      likesReceived: this.currentUser?.likedBlogIds?.length || 0,
       joinDaysAgo: 0
     };
   }

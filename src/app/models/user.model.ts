@@ -6,4 +6,5 @@ export interface User {
   lastName?: string;
   role?: string;
   createdAt?: Date;
+  likedBlogIds?: number[];
 }

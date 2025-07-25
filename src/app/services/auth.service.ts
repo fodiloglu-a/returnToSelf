@@ -113,7 +113,11 @@ export class AuthService {
       const user: User = {
         username: response.username,
         email: response.email,
-        role: response.role
+        role: response.role,
+        firstName:response.firstName,
+        lastName:response.lastName,
+        createdAt:response.createdAt,
+        likedBlogIds:response.likedBlogIds,
       };
 
       localStorage.setItem(this.USER_KEY, JSON.stringify(user));

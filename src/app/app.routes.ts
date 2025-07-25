@@ -41,6 +41,12 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
+  // Yeni About Component - lazy loading
+  {
+    path: 'about',
+    loadComponent: () => import('./components/about/about.component').then(c => c.AboutComponent)
+  },
+
   // Legacy routes - redirect to new structure
   { path: 'login', redirectTo: 'auth/login' },
   { path: 'register', redirectTo: 'auth/register' },

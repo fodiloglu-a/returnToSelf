@@ -1,4 +1,66 @@
 {
+  "ABOUT": {
+    "NAVIGATION": {
+      "HOME": "Ana Sayfa",
+      "BLOGS": "Blog Yazıları",
+      "EVENTS": "Etkinlikler"
+    },
+    "HEADER": {
+      "NAME": "Yana Pekun",
+      "TITLE": "Psikoloji & Kişisel Gelişim Uzmanı"
+    },
+    "BIOGRAPHY": {
+      "TITLE": "Hakkımda",
+      "SUMMARY": "Merhaba! Ben Yana Pekun. <span class=\"highlight\">Psikoloji alanında uzmanlaşmış</span> bir profesyonel olarak, insanların içsel yolculuklarında rehberlik etmeyi ve <span class=\"highlight\">kişisel gelişim süreçlerini</span> desteklemeyi misyon edinmiş biriyim. Bu blog aracılığıyla yaşamın gizli kapılarını aralayan düşünceler ve deneyimleri sizlerle paylaşıyorum."
+    },
+    "HIGHLIGHTS": {
+      "PSYCHOLOGY": "Psikoloji Uzmanı",
+      "DEVELOPMENT": "Kişisel Gelişim",
+      "BLOGGING": "İçerik Üretimi"
+    },
+    "SOCIAL": {
+      "TITLE": "Sosyal Medya",
+      "INSTAGRAM": {
+        "TITLE": "Instagram",
+        "DESCRIPTION": "Günlük motivasyon ve kısa ipuçları"
+      },
+      "TELEGRAM": {
+        "TITLE": "Telegram",
+        "DESCRIPTION": "Özel içerikler ve duyurular"
+      },
+      "YOUTUBE": {
+        "TITLE": "YouTube",
+        "DESCRIPTION": "Video içerikler ve canlı yayınlar"
+      }
+    },
+    "EVENTS": {
+      "TITLE": "Hizmetlerim",
+      "SUBTITLE": "Sunduğum profesyonel hizmetler ve etkinlikler",
+      "GROUP_THERAPY": {
+        "TITLE": "Grup Terapi Atölyeleri",
+        "SIMPLE_DESC": "Benzer deneyimler yaşayan bireylerle grup terapisi seansları",
+        "DURATION": "90 Dakika",
+        "SIZE": "6-8 Kişi"
+      },
+      "WORKSHOPS": {
+        "TITLE": "Kişisel Gelişim Atölyeleri",
+        "SIMPLE_DESC": "Stres yönetimi, öz güven ve ilişki becerileri üzerine pratik atölyeler",
+        "DURATION": "3 Saat",
+        "MATERIALS": "Materyal Dahil"
+      },
+      "SEMINARS": {
+        "TITLE": "Online Seminerler",
+        "SIMPLE_DESC": "Psikoloji ve kişisel gelişim konularında canlı online seminerler",
+        "DURATION": "75 Dakika",
+        "INTERACTIVE": "Soru-Cevap"
+      }
+    },
+    "CTA": {
+      "TITLE": "Benimle İletişime Geçin",
+      "SUBTITLE": "Sorularınız için veya etkinlik bilgileri için bana ulaşabilirsiniz",
+      "BUTTON": "İletişime Geç"
+    }
+  },
   "EVENT_CATEGORY": {
     "RETREAT": "İnziva",
     "WORKSHOP": "Atölye",
@@ -126,6 +188,7 @@
       "RELATED_BLOG": "İlgili Blog"
     }
   },
+
   "BLOG_DETAIL": {
     "LOADING": "Blog yükleniyor...",
     "NAVIGATION": {

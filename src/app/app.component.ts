@@ -20,9 +20,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // PERFORMANCE OPTIMIZATION: Farklı cihazlar için farklı kaynaklar
   gifSources = {
-    mobile: '/video.gif', // Statik WebP mobil için
-    tablet: '/video.gif', // Statik WebP tablet için
-    desktop: '/video.gif' // Sadece desktop'ta GIF
+    mobile: '/gif.gif', // Statik WebP mobil için
+    tablet: '/gif.gif', // Statik WebP tablet için
+    desktop: '/gif.gif' // Sadece desktop'ta GIF
   };
 
   // PERFORMANCE STATE

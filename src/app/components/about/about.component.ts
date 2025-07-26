@@ -132,28 +132,28 @@ export class AboutComponent implements OnInit, OnDestroy {
    * Navigate to home page using navigation service
    */
   navigateToHome(): void {
-
+    this.router.navigate(['/home']);
   }
 
   /**
    * Navigate to blogs page using navigation service
    */
   navigateToBlogs(): void {
-
+    this.router.navigate(['/blogs']);
   }
 
   /**
    * Navigate to events page using navigation service
    */
   navigateToEvents(): void {
-
+    this.router.navigate(['/events']);
   }
 
   /**
    * Navigate to contact page using navigation service
    */
   navigateToContact(): void {
-
+    this.router.navigate(['/events']);
   }
 
   /**

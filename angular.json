@@ -21,9 +21,12 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/manifest.webmanifest",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
@@ -46,12 +49,15 @@
                   "maximumError": "50kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "serviceWorker": false
             }
           },
           "defaultConfiguration": "production"
@@ -80,9 +86,11 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
+              "src/favicon.ico",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
